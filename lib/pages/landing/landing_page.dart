@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/home/home_page.dart';
+import 'package:takeout/pages/auth/login_page.dart';
+import 'package:takeout/utils/colors.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -13,21 +14,21 @@ class _LandingPageState extends State<LandingPage> {
   int _currentPage = 0;
 
   final List<String> _titles = [
-    "Welcome to MyApp",
-    "Stay Organized",
-    "Fast & Secure",
+    "We serve incomparable delicacies",
+    "We serve incomparable delicacies",
+    "We serve incomparable delicacies",
   ];
 
   final List<String> _descriptions = [
-    "Get started by logging in or creating an account.",
-    "Easily manage your tasks and keep things in check.",
-    "Your data is encrypted and always protected.",
+    "All the best restaurants with their top menu waiting for you, they cant’t wait for your order!!",
+    "All the best restaurants with their top menu waiting for you, they cant’t wait for your order!!",
+    "All the best restaurants with their top menu waiting for you, they cant’t wait for your order!!",
   ];
 
   void _toHomePage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 
@@ -51,14 +52,23 @@ class _LandingPageState extends State<LandingPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(_titles.length, (index) {
         bool isActive = index == _currentPage;
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          margin: const EdgeInsets.symmetric(horizontal: 6),
-          height: 10,
-          width: isActive ? 24 : 10,
-          decoration: BoxDecoration(
-            color: isActive ? Colors.white : Colors.white54,
-            borderRadius: BorderRadius.circular(5),
+        return GestureDetector(
+          onTap: () {
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            margin: const EdgeInsets.symmetric(horizontal: 6),
+            height: 6,
+            width: 28,
+            decoration: BoxDecoration(
+              color: isActive ? AppColors.white : Colors.white54,
+              borderRadius: BorderRadius.circular(5),
+            ),
           ),
         );
       }),
@@ -79,7 +89,7 @@ class _LandingPageState extends State<LandingPage> {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/images/landing_bg.png',
+              'assets/images/landing_bg.webp',
               fit: BoxFit.cover,
             ),
           ),
@@ -91,14 +101,14 @@ class _LandingPageState extends State<LandingPage> {
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 120,
+                    height: 165,
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: _titles.length,
@@ -111,9 +121,10 @@ class _LandingPageState extends State<LandingPage> {
                           children: [
                             Text(
                               _titles[index],
+                              textAlign: TextAlign.center,
                               style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
+                                color: AppColors.white,
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -121,7 +132,7 @@ class _LandingPageState extends State<LandingPage> {
                             Text(
                               _descriptions[index],
                               style: const TextStyle(
-                                color: Colors.white70,
+                                color: AppColors.white,
                                 fontSize: 16,
                               ),
                               textAlign: TextAlign.center,
@@ -147,24 +158,26 @@ class _LandingPageState extends State<LandingPage> {
                         onPressed: _skip,
                         child: const Text(
                           "Skip",
-                          style: TextStyle(color: Colors.white70),
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                      ElevatedButton(
+                      TextButton.icon(
                         onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 28,
-                            vertical: 12,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                        icon: Icon(
+                          Icons.arrow_forward,
+                          size: 20,
+                          color: AppColors.white,
                         ),
-                        child: Text(
-                          _currentPage == _titles.length - 1 ? "Done" : "Next",
+                        iconAlignment: IconAlignment.end,
+                        label: Text(
+                          "Next",
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ],
