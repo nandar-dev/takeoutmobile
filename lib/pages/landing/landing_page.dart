@@ -79,7 +79,7 @@ class _LandingPageState extends State<LandingPage> {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/images/landing_bg.jpg',
+              'assets/images/landing_bg.png',
               fit: BoxFit.cover,
             ),
           ),
