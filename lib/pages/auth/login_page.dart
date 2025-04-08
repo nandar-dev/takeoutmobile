@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/forgotpass_page.dart';
 import 'package:takeout/pages/auth/signup_page.dart';
 import 'package:takeout/pages/home/home_page.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/customtextfield_widget.dart';
 import 'package:flutter/gestures.dart';
@@ -121,7 +121,7 @@ class LoginPage extends StatelessWidget {
                             child: RichText(
                               text: TextSpan(
                                 text: "Don't have an account? ",
-                                style: const TextStyle(color: AppColors.black),
+                                style: const TextStyle(color: AppColors.neutral100),
                                 children: [
                                   TextSpan(
                                     text: 'Register',
@@ -168,7 +168,7 @@ class LoginPage extends StatelessWidget {
 
   void _showForgotPasswordSheet(BuildContext context) {
     showModalBottomSheet<void>(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.neutral10,
       context: context,
       builder: (BuildContext context) {
         return Padding(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/auth/otp_page.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_wdget.dart';
 import 'package:takeout/widgets/customtextfield_widget.dart';
 import 'package:takeout/widgets/primarybutton_widget.dart';
@@ -130,7 +130,7 @@ class _ResetpassPageState extends State<ResetpassPage> {
 
   void _showpasswordChangedSheet(BuildContext context) {
     showModalBottomSheet<void>(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.neutral10,
       context: context,
       builder: (BuildContext context) {
         return Padding(

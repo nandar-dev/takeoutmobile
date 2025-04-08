@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -42,7 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: FontSizes.heading3,
-              color: AppColors.black,
+              color: AppColors.neutral100,
             ),
           ),
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/home/home_page.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/customtextfield_widget.dart';
 import 'package:flutter/gestures.dart';
@@ -89,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                                 text: TextSpan(
                                   text: "I Agree with ",
                                   style: const TextStyle(
-                                    color: AppColors.black,
+                                    color: AppColors.neutral100,
                                   ),
                                   children: [
                                     TextSpan(
@@ -104,7 +104,7 @@ class _SignupPageState extends State<SignupPage> {
                                     TextSpan(
                                       text: ' and ',
                                       style: const TextStyle(
-                                        color: AppColors.black,
+                                        color: AppColors.neutral100,
                                       ),
                                     ),
                                     TextSpan(
@@ -170,7 +170,7 @@ class _SignupPageState extends State<SignupPage> {
                             child: RichText(
                               text: TextSpan(
                                 text: "Already have an account? ",
-                                style: const TextStyle(color: AppColors.black),
+                                style: const TextStyle(color: AppColors.neutral100),
                                 children: [
                                   TextSpan(
                                     text: 'Sign In',

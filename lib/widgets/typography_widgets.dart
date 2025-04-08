@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+
 class TitleText extends StatelessWidget {
   final String text;
   final TextAlign? textAlign;
   final Color? color;
   final FontWeight? fontWeight;
   final bool isCenter;
+  final double? fontSize;
 
   const TitleText({
     super.key,
@@ -15,6 +17,7 @@ class TitleText extends StatelessWidget {
     this.color,
     this.fontWeight,
     this.isCenter = false,
+    this.fontSize,
   });
 
   @override
@@ -23,9 +26,9 @@ class TitleText extends StatelessWidget {
       text,
       textAlign: isCenter ? TextAlign.center : (textAlign ?? TextAlign.start),
       style: TextStyle(
-        fontSize: FontSizes.heading1,
+        fontSize: fontSize ?? FontSizes.heading1,
         fontWeight: fontWeight ?? FontWeight.bold,
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.neutral100,
       ),
     );
   }
@@ -36,6 +39,7 @@ class SubText extends StatelessWidget {
   final TextAlign? textAlign;
   final Color? color;
   final FontWeight? fontWeight;
+  final double? fontSize;
 
   const SubText({
     super.key,
@@ -43,6 +47,7 @@ class SubText extends StatelessWidget {
     this.textAlign,
     this.color,
     this.fontWeight,
+    this.fontSize,
   });
 
   @override
@@ -51,9 +56,9 @@ class SubText extends StatelessWidget {
       text,
       textAlign: textAlign ?? TextAlign.start,
       style: TextStyle(
-        fontSize: FontSizes.body,
+        fontSize: fontSize ?? FontSizes.body1,
         fontWeight: fontWeight ?? FontWeight.normal,
-        color: color ?? AppColors.grey,
+        color: color ?? AppColors.neutral30,
       ),
     );
   }

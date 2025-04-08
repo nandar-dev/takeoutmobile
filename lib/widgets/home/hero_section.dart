@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/widgets/iconbutton_one_widget.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({
@@ -44,82 +46,35 @@ class HeroSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "Your Location",
-                      style: TextStyle(
-                        color: AppColors.textLight,
-                        fontSize: 14,
-                      ),
-                    ),
+                    SubText(text: "Your Location", color: AppColors.textLight),
                     SizedBox(width: 10),
-                    SvgPicture.asset(
-                      chevronDownIcon,
-                      height: 8,
-                      width: 8,
-                    ),
+                    SvgPicture.asset(chevronDownIcon, height: 8, width: 8),
                   ],
                 ),
                 SizedBox(height: 5),
                 Row(
                   children: [
-                    SvgPicture.asset(
-                      locationIcon,
-                      height: 18,
-                      width: 18,
-                    ),
+                    SvgPicture.asset(locationIcon, height: 18, width: 18),
                     SizedBox(width: 10),
-                    Text(
-                      "Yangon",
-                      style: TextStyle(
-                        color: AppColors.textLight,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    SubText(text: "Yangon", color: AppColors.textLight),
                   ],
                 ),
               ],
             ),
             Row(
               children: [
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.textLight,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      searchIcon,
-                      height: 24,
-                      width: 24,
-                    ),
-                  ),
+                IconButtonOneWidget(
+                  icon: searchIcon,
+                  onTap: () {
+                    debugPrint("search button clicked");
+                  },
                 ),
-                SizedBox(width: 15,),
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.textLight,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      notiIcon,
-                      height: 24,
-                      width: 24,
-                    ),
-                  ),
+                SizedBox(width: 15),
+                IconButtonOneWidget(
+                  icon: notiIcon,
+                  onTap: () {
+                    debugPrint("noti button clicked");
+                  },
                 ),
               ],
             ),

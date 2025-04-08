@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/landing/landing_page.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 
 void main() {
   runApp(

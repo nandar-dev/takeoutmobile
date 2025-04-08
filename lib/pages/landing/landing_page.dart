@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/home/home_page.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
 class LandingPage extends StatefulWidget {
@@ -67,7 +67,7 @@ class _LandingPageState extends State<LandingPage> {
             height: 6,
             width: 28,
             decoration: BoxDecoration(
-              color: isActive ? AppColors.white : Colors.white54,
+              color: isActive ? AppColors.neutral10 : Colors.white54,
               borderRadius: BorderRadius.circular(5),
             ),
           ),
@@ -99,7 +99,7 @@ class _LandingPageState extends State<LandingPage> {
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.5),
+                color: AppColors.neutral100.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(24),
               ),
               width: MediaQuery.of(context).size.width,
@@ -122,7 +122,7 @@ class _LandingPageState extends State<LandingPage> {
                               _titles[index],
                               textAlign: TextAlign.center,
                               style: const TextStyle(
-                                color: AppColors.white,
+                                color: AppColors.neutral10,
                                 fontSize: FontSizes.heading1,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -132,7 +132,7 @@ class _LandingPageState extends State<LandingPage> {
                               child: Text(
                                 _descriptions[index],
                                 style: const TextStyle(
-                                  color: AppColors.white,
+                                  color: AppColors.neutral10,
                                   fontSize: FontSizes.body,
                                 ),
                                 textAlign: TextAlign.center,
@@ -162,7 +162,7 @@ class _LandingPageState extends State<LandingPage> {
                         child: const Text(
                           "Skip",
                           style: TextStyle(
-                            color: AppColors.white,
+                            color: AppColors.neutral10,
                             fontSize: FontSizes.body,
                           ),
                         ),
@@ -175,13 +175,13 @@ class _LandingPageState extends State<LandingPage> {
                         icon: Icon(
                           Icons.arrow_forward,
                           size: 20,
-                          color: AppColors.white,
+                          color: AppColors.neutral10,
                         ),
                         iconAlignment: IconAlignment.end,
                         label: Text(
                           "Next",
                           style: TextStyle(
-                            color: AppColors.white,
+                            color: AppColors.neutral10,
                             fontSize: FontSizes.body,
                           ),
                         ),

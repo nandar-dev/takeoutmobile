@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:takeout/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class CategorySection extends StatefulWidget {
   const CategorySection({
@@ -29,12 +31,12 @@ class _CategorySectionState extends State<CategorySection> {
   }
 
   Future<void> loadCategories() async {
-    final String jsonString =
-        await rootBundle.loadString('assets/data/categories.json');
+    final String jsonString = await rootBundle.loadString(
+      'assets/data/categories.json',
+    );
     final List<dynamic> jsonResponse = json.decode(jsonString);
     setState(() {
-      categories =
-          jsonResponse.map((data) => Category.fromJson(data)).toList();
+      categories = jsonResponse.map((data) => Category.fromJson(data)).toList();
     });
   }
 
@@ -47,18 +49,13 @@ class _CategorySectionState extends State<CategorySection> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.categorySectionTitle,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textPrimary,
-              ),
+            SubText(
+              text: widget.categorySectionTitle,
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w500,
+              fontSize: FontSizes.body1,
             ),
-            Text(
-              widget.seeBtnLabel,
-              style: TextStyle(fontSize: 14, color: AppColors.primary),
-            ),
+            SubText(text: widget.seeBtnLabel, color: AppColors.primary),
           ],
         ),
         const SizedBox(height: 10),
@@ -66,25 +63,25 @@ class _CategorySectionState extends State<CategorySection> {
         categories.isEmpty
             ? const Center(child: CircularProgressIndicator())
             : SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    return CategoryCard(
-                      index: index,
-                      isActive: index == activeIndex,
-                      category: category,
-                      onTap: () {
-                        setState(() {
-                          activeIndex = index;
-                        });
-                      },
-                    );
-                  },
-                ),
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  return CategoryCard(
+                    index: index,
+                    isActive: index == activeIndex,
+                    category: category,
+                    onTap: () {
+                      setState(() {
+                        activeIndex = index;
+                      });
+                    },
+                  );
+                },
               ),
+            ),
       ],
     );
   }
@@ -112,9 +109,9 @@ class CategoryCard extends StatelessWidget {
         onTap: onTap,
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.only(top: 8),
-              height: 70,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: 75,
               width: 70,
               decoration: BoxDecoration(
                 color: isActive ? AppColors.primary : null,
@@ -125,29 +122,32 @@ class CategoryCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: 30,
                     width: 30,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        category.imageUrl,
-                        fit: BoxFit.cover,
-                      ),
+                      child: Image.asset(category.imageUrl, fit: BoxFit.cover),
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    category.name,
+                  AnimatedDefaultTextStyle(
+                    duration: const Duration(milliseconds: 300),
                     style: TextStyle(
                       fontSize: 12,
-                      fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                      color: isActive ? AppColors.textLight : AppColors.textSecondary,
+                      color: isActive
+                          ? AppColors.textLight
+                          : AppColors.textSecondary,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
+                    child: Text(
+                      category.name,
+                      maxLines: 2, // Allow a maximum of 2 lines
+                      overflow: TextOverflow.ellipsis, // Handle overflow
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
@@ -158,4 +158,3 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
-

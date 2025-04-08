@@ -25,4 +25,7 @@ class AppColors {
   static const Color textPrimary = Color(0xFF101010);
   static const Color textLight = neutral10;
   static const Color textSecondary = neutral60;
+  // border colors
+  static const textfieldborder = neutral30;
+  static const backkeyborder = Color.fromRGBO(237, 237, 237, 1);
 }

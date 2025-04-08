@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            color: AppColors.black,
+            color: AppColors.neutral100,
             fontSize: FontSizes.body,
             fontWeight: FontWeight.w500,
           ),
@@ -43,11 +43,11 @@ class CustomTextField extends StatelessWidget {
           validator: validator,
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
-            suffixIconColor: AppColors.black,
-            iconColor: AppColors.black,
+            suffixIconColor: AppColors.neutral100,
+            iconColor: AppColors.neutral100,
             hintText: hint,
             errorStyle: TextStyle(
-              color: AppColors.grey,
+              color: AppColors.neutral30,
               fontSize: FontSizes.body,
             ),
             enabledBorder: const OutlineInputBorder(
@@ -57,10 +57,10 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide(color: AppColors.primary),
             ),
             errorBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.red),
+              borderSide: BorderSide(color: AppColors.danger),
             ),
             focusedErrorBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.red),
+              borderSide: BorderSide(color: AppColors.danger),
             ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
           ),

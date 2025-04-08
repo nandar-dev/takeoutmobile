@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -21,7 +21,7 @@ class PrimaryButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          overlayColor: AppColors.grey,
+          overlayColor: AppColors.neutral30,
           backgroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
@@ -31,7 +31,7 @@ class PrimaryButton extends StatelessWidget {
         child: Text(
           text,
           style: const TextStyle(
-            color: AppColors.white,
+            color: AppColors.neutral10,
             fontSize: FontSizes.body,
             fontWeight: FontWeight.w600
           ),

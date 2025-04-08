@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/forgotpass_page.dart';
 import 'package:takeout/pages/auth/resetpass_page.dart';
-import 'package:takeout/utils/colors.dart';
+import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_wdget.dart';
 import 'package:takeout/widgets/primarybutton_widget.dart';
@@ -49,7 +49,7 @@ class OtpPage extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(
                         text: "Didn’t receive code? ",
-                        style: const TextStyle(color: AppColors.grey),
+                        style: const TextStyle(color: AppColors.textSecondary),
                         children: [
                           TextSpan(
                             text: 'Resend',
@@ -113,7 +113,7 @@ Widget _otpBox() {
     margin: EdgeInsets.all(5),
     textStyle: TextStyle(
       fontSize: FontSizes.heading1,
-      color: AppColors.black,
+      color: AppColors.neutral100,
       fontWeight: FontWeight.w500,
     ),
     decoration: BoxDecoration(
@@ -136,7 +136,7 @@ Widget _otpBox() {
       },
       pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
       showCursor: true,
-      onCompleted: (pin) => print(pin),
+      onCompleted: (pin) => debugPrint(pin),
     ),
   );
 }
