@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/utils/colors.dart';
+import 'package:takeout/utils/font_sizes.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -86,15 +87,12 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Image.asset(
               'assets/images/landing_bg.webp',
               fit: BoxFit.cover,
             ),
           ),
-
-          // Bottom Overlay Container
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -104,11 +102,12 @@ class _LandingPageState extends State<LandingPage> {
                 color: Colors.black.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(24),
               ),
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 165,
+                    height: 200,
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: _titles.length,
@@ -124,18 +123,22 @@ class _LandingPageState extends State<LandingPage> {
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: AppColors.white,
-                                fontSize: 28,
+                                fontSize: FontSizes.heading1,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 12),
-                            Text(
-                              _descriptions[index],
-                              style: const TextStyle(
-                                color: AppColors.white,
-                                fontSize: 16,
+                            const SizedBox(height: 16),
+                            Flexible(
+                              child: Text(
+                                _descriptions[index],
+                                style: const TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: FontSizes.body,
+                                ),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ],
                         );
@@ -145,26 +148,29 @@ class _LandingPageState extends State<LandingPage> {
 
                   const SizedBox(height: 16),
 
-                  // Dot Indicator
                   _buildDotsIndicator(),
 
                   const SizedBox(height: 20),
-
-                  // Navigation Buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
+                        style: TextButton.styleFrom(
+                          overlayColor: Colors.transparent,
+                        ),
                         onPressed: _skip,
                         child: const Text(
                           "Skip",
                           style: TextStyle(
                             color: AppColors.white,
-                            fontSize: 16,
+                            fontSize: FontSizes.body,
                           ),
                         ),
                       ),
                       TextButton.icon(
+                        style: TextButton.styleFrom(
+                          overlayColor: Colors.transparent,
+                        ),
                         onPressed: _nextPage,
                         icon: Icon(
                           Icons.arrow_forward,
@@ -176,7 +182,7 @@ class _LandingPageState extends State<LandingPage> {
                           "Next",
                           style: TextStyle(
                             color: AppColors.white,
-                            fontSize: 16,
+                            fontSize: FontSizes.body,
                           ),
                         ),
                       ),

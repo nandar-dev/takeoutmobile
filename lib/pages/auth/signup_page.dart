@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/login_page.dart';
+import 'package:takeout/pages/home/home_page.dart';
 import 'package:takeout/utils/colors.dart';
-import 'package:takeout/widgets/customtextfield.dart';
+import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/customtextfield_widget.dart';
 import 'package:flutter/gestures.dart';
-import 'package:takeout/widgets/primarybutton.dart';
+import 'package:takeout/widgets/primarybutton_widget.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -36,20 +39,11 @@ class _SignupPageState extends State<SignupPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 32),
-                          const Text(
-                            'Create your new account',
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          const TitleText(text: "Create your new account"),
                           const SizedBox(height: 8),
-                          const Text(
-                            'Create an account to start looking for the food you like',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.grey,
-                            ),
+                          const SubText(
+                            text:
+                                "Create an account to start looking for the food you like",
                           ),
                           const SizedBox(height: 32),
 
@@ -58,14 +52,14 @@ class _SignupPageState extends State<SignupPage> {
                             hint: "Enter Email",
                             keyboardType: TextInputType.emailAddress,
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 14),
 
                           CustomTextField(
                             label: "User Name",
                             hint: "Enter User Name",
                             keyboardType: TextInputType.emailAddress,
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 14),
 
                           CustomTextField(
                             label: "Password",
@@ -74,7 +68,7 @@ class _SignupPageState extends State<SignupPage> {
                             suffixIcon: Icon(Icons.visibility_off),
                           ),
 
-                          SizedBox(height: 20),
+                          SizedBox(height: 14),
                           Row(
                             children: [
                               SizedBox(
@@ -126,9 +120,20 @@ class _SignupPageState extends State<SignupPage> {
                             ],
                           ),
 
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 24),
 
-                          PrimaryButton(text: "Register", onPressed: () => {}),
+                          PrimaryButton(
+                            text: "Register",
+                            onPressed:
+                                () => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomePage(),
+                                    ),
+                                  ),
+                                },
+                          ),
 
                           const SizedBox(height: 24),
 
@@ -137,13 +142,16 @@ class _SignupPageState extends State<SignupPage> {
                               Expanded(child: Divider(thickness: 1)),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text('Or sign in with'),
+                                child: Text(
+                                  'Or sign in with',
+                                  style: TextStyle(fontSize: FontSizes.body),
+                                ),
                               ),
                               Expanded(child: Divider(thickness: 1)),
                             ],
                           ),
 
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +164,7 @@ class _SignupPageState extends State<SignupPage> {
                             ],
                           ),
 
-                          SizedBox(height: 20),
+                          SizedBox(height: 32),
 
                           Center(
                             child: RichText(

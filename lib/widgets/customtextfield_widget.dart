@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/utils/colors.dart'; 
+import 'package:takeout/utils/colors.dart';
+import 'package:takeout/utils/font_sizes.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -8,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -17,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.suffixIcon,
     this.controller,
+    this.validator,
   });
 
   @override
@@ -28,18 +31,37 @@ class CustomTextField extends StatelessWidget {
           label,
           style: const TextStyle(
             color: AppColors.black,
-            fontSize: 16,
+            fontSize: FontSizes.body,
             fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
+          validator: validator,
           decoration: InputDecoration(
-            hintText: hint,
             suffixIcon: suffixIcon,
+            suffixIconColor: AppColors.black,
+            iconColor: AppColors.black,
+            hintText: hint,
+            errorStyle: TextStyle(
+              color: AppColors.grey,
+              fontSize: FontSizes.body,
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.textfieldborder),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.primary),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.red),
+            ),
+            focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.red),
+            ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
           ),
         ),
