@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/utils/colors.dart';
+import 'package:takeout/utils/font_sizes.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -27,7 +28,14 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text, style: const TextStyle(color: AppColors.white)),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: AppColors.white,
+            fontSize: FontSizes.body,
+            fontWeight: FontWeight.w600
+          ),
+        ),
       ),
     );
   }

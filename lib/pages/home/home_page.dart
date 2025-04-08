@@ -43,7 +43,10 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     // category section
-                    CategorySection(categorySectionTitle: categorySectionTitle, seeBtnLabel: seeBtnLabel),
+                    CategorySection(
+                      categorySectionTitle: categorySectionTitle,
+                      seeBtnLabel: seeBtnLabel,
+                    ),
                   ],
                 ),
               ),
