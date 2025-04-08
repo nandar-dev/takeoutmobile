@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/login_page.dart';
+import 'package:takeout/pages/home/home_page.dart';
 import 'package:takeout/utils/colors.dart';
 
 class LandingPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _LandingPageState extends State<LandingPage> {
   void _toHomePage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 

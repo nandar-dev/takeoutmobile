@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Burger",
+        "image_url": "assets/images/burger.png"
+    },
+    {
+        "id": 2,
+        "name": "Drink",
+        "image_url": "assets/images/drink.png"
+    },
+    {
+        "id": 3,
+        "name": "Taco",
+        "image_url": "assets/images/taco.png"
+    },
+    {
+        "id": 4,
+        "name": "Pizza",
+        "image_url": "assets/images/pizza.png"
+    },
+    {
+        "id": 5,
+        "name": "Drink",
+        "image_url": "assets/images/drink.png"
+    },
+    {
+        "id": 6,
+        "name": "Taco",
+        "image_url": "assets/images/taco.png"
+    },
+    {
+        "id": 7,
+        "name": "Pizza",
+        "image_url": "assets/images/pizza.png"
+    }
+]
