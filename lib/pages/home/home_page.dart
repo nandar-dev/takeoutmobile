@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
 
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               color: Colors.white,
               width: double.infinity,
               child: SingleChildScrollView(
