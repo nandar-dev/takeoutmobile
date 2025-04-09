@@ -96,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                                       text: 'Terms of Service',
                                       style: const TextStyle(
                                         color: AppColors.primary,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                       recognizer:
                                           TapGestureRecognizer()..onTap = () {},
@@ -111,7 +111,7 @@ class _SignupPageState extends State<SignupPage> {
                                       text: 'Privacy Policy',
                                       style: const TextStyle(
                                         color: AppColors.primary,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ],
@@ -176,7 +176,7 @@ class _SignupPageState extends State<SignupPage> {
                                     text: 'Sign In',
                                     style: const TextStyle(
                                       color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     recognizer:
                                         TapGestureRecognizer()

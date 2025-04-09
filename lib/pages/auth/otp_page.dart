@@ -55,7 +55,7 @@ class OtpPage extends StatelessWidget {
                             text: 'Resend',
                             style: const TextStyle(
                               color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {},
                           ),

@@ -124,7 +124,7 @@ class _LandingPageState extends State<LandingPage> {
                               style: const TextStyle(
                                 color: AppColors.neutral10,
                                 fontSize: FontSizes.heading1,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 16),

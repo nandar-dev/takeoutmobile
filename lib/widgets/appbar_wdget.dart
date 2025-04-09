@@ -6,12 +6,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBackTap;
   final Widget? rightAction;
+  final bool showBackNavigator;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.onBackTap,
     this.rightAction,
+    this.showBackNavigator = true,
   });
 
   @override
@@ -20,21 +22,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          GestureDetector(
-            onTap: onBackTap ?? () => Navigator.of(context).pop(),
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                border: Border.all(
-                  width: 2,
-                  color: AppColors.backkeyborder,
+          showBackNavigator
+              ? GestureDetector(
+                onTap: onBackTap ?? () => Navigator.of(context).pop(),
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                      width: 2,
+                      color: AppColors.backkeyborder,
+                    ),
+                  ),
+                  child: const Icon(Icons.arrow_back_ios_outlined, size: 20),
                 ),
-              ),
-              child: const Icon(Icons.arrow_back_ios_outlined, size: 20),
-            ),
-          ),
+              )
+              : SizedBox(width: 50),
           const Spacer(),
 
           Text(

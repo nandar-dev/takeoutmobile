@@ -4,4 +4,7 @@ class FontSizes {
   static const double heading3 = 20.0;
   static const double body = 14.0;
   static const double body1 = 16.0;
+  static const double md = 16.0;
+  static const double sm = 12.0;
+  static const double xs = 10;
 }

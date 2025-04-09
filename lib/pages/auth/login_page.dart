@@ -127,7 +127,7 @@ class LoginPage extends StatelessWidget {
                                     text: 'Register',
                                     style: const TextStyle(
                                       color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     recognizer:
                                         TapGestureRecognizer()

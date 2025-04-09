@@ -27,7 +27,7 @@ class TitleText extends StatelessWidget {
       textAlign: isCenter ? TextAlign.center : (textAlign ?? TextAlign.start),
       style: TextStyle(
         fontSize: fontSize ?? FontSizes.heading1,
-        fontWeight: fontWeight ?? FontWeight.bold,
+        fontWeight: fontWeight ?? FontWeight.w600,
         color: color ?? AppColors.neutral100,
       ),
     );
