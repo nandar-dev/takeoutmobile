@@ -9,6 +9,8 @@ class TitleText extends StatelessWidget {
   final FontWeight? fontWeight;
   final bool isCenter;
   final double? fontSize;
+  final int? maxLines;
+  final TextOverflow? overflow;
 
   const TitleText({
     super.key,
@@ -18,6 +20,8 @@ class TitleText extends StatelessWidget {
     this.fontWeight,
     this.isCenter = false,
     this.fontSize,
+    this.maxLines,
+    this.overflow,
   });
 
   @override
@@ -25,6 +29,8 @@ class TitleText extends StatelessWidget {
     return Text(
       text,
       textAlign: isCenter ? TextAlign.center : (textAlign ?? TextAlign.start),
+      maxLines: maxLines,
+      overflow: overflow,
       style: TextStyle(
         fontSize: fontSize ?? FontSizes.heading1,
         fontWeight: fontWeight ?? FontWeight.bold,
@@ -40,6 +46,8 @@ class SubText extends StatelessWidget {
   final Color? color;
   final FontWeight? fontWeight;
   final double? fontSize;
+  final int? maxLines;
+  final TextOverflow? overflow;
 
   const SubText({
     super.key,
@@ -48,6 +56,8 @@ class SubText extends StatelessWidget {
     this.color,
     this.fontWeight,
     this.fontSize,
+    this.maxLines,
+    this.overflow,
   });
 
   @override
@@ -55,6 +65,8 @@ class SubText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign ?? TextAlign.start,
+      maxLines: maxLines,
+      overflow: overflow,
       style: TextStyle(
         fontSize: fontSize ?? FontSizes.body1,
         fontWeight: fontWeight ?? FontWeight.normal,

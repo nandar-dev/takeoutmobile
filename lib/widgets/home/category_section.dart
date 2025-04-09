@@ -12,10 +12,12 @@ class CategorySection extends StatefulWidget {
     super.key,
     required this.categorySectionTitle,
     required this.seeBtnLabel,
+    required this.href,
   });
 
   final String categorySectionTitle;
   final String seeBtnLabel;
+  final String href;
 
   @override
   State<CategorySection> createState() => _CategorySectionState();
@@ -56,7 +58,10 @@ class _CategorySectionState extends State<CategorySection> {
               fontWeight: FontWeight.w500,
               fontSize: FontSizes.body1,
             ),
-            SubText(text: widget.seeBtnLabel, color: AppColors.primary),
+            GestureDetector(
+              onTap: () => debugPrint("navigate to ${widget.href}."),
+              child: SubText(text: widget.seeBtnLabel, color: AppColors.primary, fontSize: FontSizes.body),
+            )
           ],
         ),
         const SizedBox(height: 10),

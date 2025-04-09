@@ -31,7 +31,7 @@ class CategoryCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isActive ? AppColors.primary : null,
                 border: Border.all(
-                  color: isActive ? AppColors.primary : AppColors.neutral40,
+                  color: isActive ? AppColors.primary : AppColors.neutral30,
                   width: isActive ? 0 : 1,
                 ),
                 borderRadius: BorderRadius.circular(5),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/widgets/home/category_section.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
 import 'package:takeout/widgets/home/nearby_shops_section.dart';
+import 'package:takeout/widgets/home/product_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +25,8 @@ class _HomePageState extends State<HomePage> {
     final categorySectionTitle = "Find by category";
     final nearbyTitle = "Nearby shops";
     final seeBtnLabel = "See all";
+    final categoryHref = "categories list";
+    final productHref = "products list";
 
     return Scaffold(
       body: Column(
@@ -50,8 +53,10 @@ class _HomePageState extends State<HomePage> {
                     CategorySection(
                       categorySectionTitle: categorySectionTitle,
                       seeBtnLabel: seeBtnLabel,
+                      href: categoryHref
                     ),
-                    NearbyShopsSection(sectionTitle: nearbyTitle, chevronLeftIcon: chevronLeftIcon, chevronRightIcon: chevronRightIcon)
+                    NearbyShopsSection(sectionTitle: nearbyTitle, chevronLeftIcon: chevronLeftIcon, chevronRightIcon: chevronRightIcon),
+                    ProductSection(seeBtnLabel: seeBtnLabel, href: productHref),
                   ],
                 ),
               ),
