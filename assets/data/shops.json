@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "name": "Coffee Corner",
+        "opening_time": "08:00 AM",
+        "closing_time": "06:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 2,
+        "name": "Fresh Market",
+        "opening_time": "07:00 AM",
+        "closing_time": "09:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1653903057504-7417e3cd9aa1?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 3,
+        "name": "Tech Haven",
+        "opening_time": "10:00 AM",
+        "closing_time": "08:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1561140676-3726fdac9bed?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 4,
+        "name": "Book Nook",
+        "opening_time": "09:00 AM",
+        "closing_time": "05:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1578511161102-485cc0775c6b?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 5,
+        "name": "Fashion Hub",
+        "opening_time": "11:00 AM",
+        "closing_time": "07:00 PM",
+        "image_url": "https://plus.unsplash.com/premium_photo-1700056212664-a2998bf82d32?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 6,
+        "name": "Gourmet Deli",
+        "opening_time": "06:00 AM",
+        "closing_time": "08:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 7,
+        "name": "Pet Paradise",
+        "opening_time": "09:30 AM",
+        "closing_time": "06:30 PM",
+        "image_url": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 8,
+        "name": "Sporting Goods",
+        "opening_time": "10:00 AM",
+        "closing_time": "07:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 9,
+        "name": "Home Essentials",
+        "opening_time": "08:30 AM",
+        "closing_time": "06:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 10,
+        "name": "Beauty Bliss",
+        "opening_time": "10:00 AM",
+        "closing_time": "09:00 PM",
+        "image_url": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+]
