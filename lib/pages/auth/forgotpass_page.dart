@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/otp_page.dart';
-import 'package:takeout/widgets/customtextfield_widget.dart';
-import 'package:takeout/widgets/primarybutton_widget.dart';
+import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
+import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ForgotPassPage extends StatelessWidget {

@@ -3,9 +3,9 @@ import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/home/home_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/customtextfield_widget.dart';
+import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:flutter/gestures.dart';
-import 'package:takeout/widgets/primarybutton_widget.dart';
+import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class SignupPage extends StatefulWidget {

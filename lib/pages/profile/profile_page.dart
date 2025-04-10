@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:takeout/pages/profile/personaldata_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_wdget.dart';
-import 'package:takeout/widgets/outlinebutton_widget.dart';
-import 'package:takeout/widgets/primarybutton_widget.dart';
+import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
+import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -281,9 +282,23 @@ class ProfilePage extends StatelessWidget {
             ),
 
             const SizedBox(height: 8),
-            _buildMenuItem(Icons.person, "Personal Data"),
+            _buildMenuItem(Icons.person, "Personal Data", () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PersonalDataPage(),
+                ),
+              );
+            }),
             const SizedBox(height: 8),
-            _buildMenuItem(Icons.settings, "Settings"),
+            _buildMenuItem(Icons.settings, "Settings", () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PersonalDataPage(),
+                ),
+              );
+            }),
 
             const SizedBox(height: 16),
             const Text(
@@ -294,7 +309,14 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            _buildMenuItem(Icons.info_outline, "Help Center"),
+            _buildMenuItem(Icons.info_outline, "Help Center", () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PersonalDataPage(),
+                ),
+              );
+            }),
             const SizedBox(height: 16),
 
             CustomOutlinedButton(
@@ -305,24 +327,6 @@ class ProfilePage extends StatelessWidget {
               textColor: AppColors.danger,
               borderColor: AppColors.danger,
             ),
-
-            // OutlinedButton.icon(
-            //   onPressed: () {},
-            //   icon: const Icon(Icons.logout, color: AppColors.danger),
-            //   label: const Text(
-            //     "Sign Out",
-            //     style: TextStyle(
-            //       color: AppColors.danger,
-            //       fontSize: FontSizes.body,
-            //     ),
-            //   ),
-            //   style: OutlinedButton.styleFrom(
-            //     overlayColor: AppColors.danger,
-            //     shape: StadiumBorder(),
-            //     side: const BorderSide(color: AppColors.danger),
-            //     padding: const EdgeInsets.symmetric(vertical: 14),
-            //   ),
-            // ),
             const SizedBox(height: 32),
           ],
         ),
@@ -330,7 +334,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String text) {
+  Widget _buildMenuItem(IconData icon, String text, VoidCallback onTap) {
     return ListTile(
       splashColor: Colors.transparent,
       contentPadding: EdgeInsets.zero,
@@ -347,7 +351,7 @@ class ProfilePage extends StatelessWidget {
         style: TextStyle(fontSize: FontSizes.body, fontWeight: FontWeight.w500),
       ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }

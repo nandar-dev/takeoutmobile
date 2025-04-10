@@ -3,8 +3,8 @@ import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/auth/otp_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_wdget.dart';
-import 'package:takeout/widgets/customtextfield_widget.dart';
-import 'package:takeout/widgets/primarybutton_widget.dart';
+import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
+import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ResetpassPage extends StatefulWidget {
