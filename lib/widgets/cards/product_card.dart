@@ -27,21 +27,19 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 4, spreadRadius: 1),
-        ],
+    return Card(
+      elevation: .5,
+      color: AppColors.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Image with heart button overlaid
-          Padding(
-            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-            child: Stack(
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image with heart button
+            Stack(
               children: [
                 RenderNetworkImage(
                   imageUrl: widget.product.imageUrl,
@@ -53,7 +51,9 @@ class _ProductCardState extends State<ProductCard> {
                   top: 8,
                   right: 8,
                   child: IconButtonTwoWidget(
-                    icon: isLoved ? 'assets/icons/heart_fill.svg' : 'assets/icons/heart.svg',
+                    icon: isLoved
+                        ? 'assets/icons/heart_fill.svg'
+                        : 'assets/icons/heart.svg',
                     bgColor: AppColors.background,
                     active: isLoved,
                     activeColor: AppColors.danger,
@@ -63,39 +63,38 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ],
             ),
-          ),
-
-          // Product Details
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SubText(
-                    text: widget.product.name,
-                    color: AppColors.textPrimary,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SubText(
-                    text: widget.product.shopName,
-                    fontSize: FontSizes.body,
-                    color: AppColors.textSecondary,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 3),
-                  SubText(
-                    text: "\$${widget.product.price.toStringAsFixed(2)}",
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ],
-              ),
+            
+            // Product details
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 3),
+                SubText(
+                  text: widget.product.name,
+                  color: AppColors.textPrimary,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SubText(
+                  text: widget.product.shopName,
+                  fontSize: FontSizes.body,
+                  color: AppColors.textSecondary,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 3),
+                SubText(
+                  text: "\$${widget.product.price.toStringAsFixed(2)}",
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.bold,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

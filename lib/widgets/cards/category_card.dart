@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/widgets/render_network_image.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
@@ -43,10 +44,7 @@ class CategoryCard extends StatelessWidget {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(category.imageUrl, fit: BoxFit.cover),
-                    ),
+                    child: RenderNetworkImage(imageUrl: category.imageUrl, height: 20, width: 20,)
                   ),
                   const SizedBox(height: 4),
                   AnimatedDefaultTextStyle(
@@ -60,8 +58,8 @@ class CategoryCard extends StatelessWidget {
                     ),
                     child: Text(
                       category.name,
-                      maxLines: 2, // Allow a maximum of 2 lines
-                      overflow: TextOverflow.ellipsis, // Handle overflow
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                     ),
                   ),
