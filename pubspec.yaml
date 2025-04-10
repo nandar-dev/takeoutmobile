@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.0.17
   intl: ^0.20.2
   cached_network_image: ^3.4.1
+  webview_flutter: ^4.10.0
   
 dev_dependencies:
   flutter_test:
