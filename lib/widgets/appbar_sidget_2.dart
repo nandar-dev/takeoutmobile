@@ -23,6 +23,7 @@ class AppbarWidget2 extends StatelessWidget implements PreferredSizeWidget {
         child: const Icon(Icons.chevron_left),
       ),
       centerTitle: true,
+      surfaceTintColor: AppColors.background,
       backgroundColor: AppColors.background,
       elevation: 0,
       title: SubText(

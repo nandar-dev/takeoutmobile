@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:takeout/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
