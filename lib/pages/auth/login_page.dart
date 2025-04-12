@@ -178,7 +178,10 @@ class LoginPage extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                const TitleText(text: "Forgot password?"),
+                const TitleText(
+                  text: "Forgot password?",
+                  fontSize: FontSizes.heading2,
+                ),
                 const SizedBox(height: 8),
                 const SubText(
                   text:

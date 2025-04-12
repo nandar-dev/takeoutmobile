@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/profile/personaldata_page.dart';
+import 'package:takeout/pages/settings_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_wdget.dart';
@@ -294,9 +295,7 @@ class ProfilePage extends StatelessWidget {
             _buildMenuItem(Icons.settings, "Settings", () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const PersonalDataPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
               );
             }),
 
@@ -336,7 +335,6 @@ class ProfilePage extends StatelessWidget {
 
   Widget _buildMenuItem(IconData icon, String text, VoidCallback onTap) {
     return ListTile(
-      splashColor: Colors.transparent,
       contentPadding: EdgeInsets.zero,
       leading: Container(
         decoration: BoxDecoration(
