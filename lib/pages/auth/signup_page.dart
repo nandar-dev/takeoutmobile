@@ -122,17 +122,20 @@ class _SignupPageState extends State<SignupPage> {
 
                           const SizedBox(height: 24),
 
-                          PrimaryButton(
-                            text: "Register",
-                            onPressed:
-                                () => {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomePage(),
+                          SizedBox(
+                            width: double.infinity,
+                            child: PrimaryButton(
+                              text: "Register",
+                              onPressed:
+                                  () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePage(),
+                                      ),
                                     ),
-                                  ),
-                                },
+                                  },
+                            ),
                           ),
 
                           const SizedBox(height: 24),
@@ -170,7 +173,9 @@ class _SignupPageState extends State<SignupPage> {
                             child: RichText(
                               text: TextSpan(
                                 text: "Already have an account? ",
-                                style: const TextStyle(color: AppColors.neutral100),
+                                style: const TextStyle(
+                                  color: AppColors.neutral100,
+                                ),
                                 children: [
                                   TextSpan(
                                     text: 'Sign In',

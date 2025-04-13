@@ -10,7 +10,8 @@ void main() {
     ChangeNotifierProvider(
       create: (_) => LanguageProvider(),
       child: MaterialApp(
-        home: AppNavigation(),
+        // home: AppNavigation(),
+        home: LandingPage(),
         theme: ThemeData(
           appBarTheme: AppBarTheme(backgroundColor: AppColors.appbarBackground),
           scaffoldBackgroundColor: AppColors.background,

@@ -73,17 +73,20 @@ class LoginPage extends StatelessWidget {
 
                           const SizedBox(height: 8),
 
-                          PrimaryButton(
-                            text: "Sign In",
-                            onPressed:
-                                () => {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomePage(),
+                          SizedBox(
+                            width: double.infinity,
+                            child: PrimaryButton(
+                              text: "Sign In",
+                              onPressed:
+                                  () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePage(),
+                                      ),
                                     ),
-                                  ),
-                                },
+                                  },
+                            ),
                           ),
 
                           const SizedBox(height: 24),
@@ -121,7 +124,9 @@ class LoginPage extends StatelessWidget {
                             child: RichText(
                               text: TextSpan(
                                 text: "Don't have an account? ",
-                                style: const TextStyle(color: AppColors.neutral100),
+                                style: const TextStyle(
+                                  color: AppColors.neutral100,
+                                ),
                                 children: [
                                   TextSpan(
                                     text: 'Register',

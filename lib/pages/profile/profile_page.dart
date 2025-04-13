@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/profile/personaldata_page.dart';
 import 'package:takeout/pages/settings_page.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -319,7 +320,12 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 16),
 
             CustomOutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
               icon: Icons.logout,
               text: "Sign Out",
               iconColor: AppColors.danger,

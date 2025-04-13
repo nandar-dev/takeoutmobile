@@ -82,17 +82,20 @@ class OtpPage extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
-                  PrimaryButton(
-                    text: "Continue",
-                    onPressed:
-                        () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ResetpassPage(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrimaryButton(
+                      text: "Continue",
+                      onPressed:
+                          () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResetpassPage(),
+                              ),
                             ),
-                          ),
-                        },
+                          },
+                    ),
                   ),
 
                   const SizedBox(height: 24),

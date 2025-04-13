@@ -37,15 +37,20 @@ class ForgotPassPage extends StatelessWidget {
 
                   const SizedBox(height: 30),
 
-                  PrimaryButton(
-                    text: "Continue",
-                    onPressed:
-                        () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => OtpPage()),
-                          ),
-                        },
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrimaryButton(
+                      text: "Continue",
+                      onPressed:
+                          () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OtpPage(),
+                              ),
+                            ),
+                          },
+                    ),
                   ),
 
                   const SizedBox(height: 24),

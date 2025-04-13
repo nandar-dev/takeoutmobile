@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
             iconColor: AppColors.neutral100,
             hintText: hint,
             errorStyle: TextStyle(
-              color: AppColors.neutral30,
+              color: AppColors.neutral60,
               fontSize: FontSizes.body,
             ),
             enabledBorder: const OutlineInputBorder(

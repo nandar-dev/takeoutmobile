@@ -104,13 +104,16 @@ class _ResetpassPageState extends State<ResetpassPage> {
 
                             const SizedBox(height: 32),
 
-                            PrimaryButton(
-                              text: "Verify Account",
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  _showpasswordChangedSheet(context);
-                                }
-                              },
+                            SizedBox(
+                              width: double.infinity,
+                              child: PrimaryButton(
+                                text: "Verify Account",
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _showpasswordChangedSheet(context);
+                                  }
+                                },
+                              ),
                             ),
 
                             const SizedBox(height: 32),
@@ -140,21 +143,26 @@ class _ResetpassPageState extends State<ResetpassPage> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                const TitleText(text: "Password Changed", isCenter: true),
-                const SizedBox(height: 8),
-                const SubText(
-                  text:
-                      "Password changed successfully, you can login again with a new password",
-                ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 32),
 
                 Image.asset(
                   'assets/images/illustration_success.png',
                   height: 168,
                   width: 203,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 32),
 
+                const TitleText(
+                  text: "Password Changed",
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                const SubText(
+                  textAlign: TextAlign.center,
+                  text:
+                      "Password changed successfully, you can login again with a new password",
+                ),
+                const SizedBox(height: 32),
                 PrimaryButton(
                   text: "Verify Account",
                   onPressed:
