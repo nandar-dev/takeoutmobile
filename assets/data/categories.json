@@ -2,36 +2,36 @@
     {
         "id": 1,
         "name": "Burger",
-        "image_url": "assets/images/burger.png"
+        "image_url": "https://img.freepik.com/free-vector/hamburger_53876-25481.jpg?t=st=1744260814~exp=1744264414~hmac=cabb8fa41aab17ac37371c1e72990f07913c40d9208aa09d379c6e09ffe05355&w=1060"
     },
     {
         "id": 2,
         "name": "Drink",
-        "image_url": "assets/images/drink.png"
+        "image_url": "https://img.freepik.com/free-vector/hand-drawn-refreshing-michelada-illustration_23-2149189385.jpg?t=st=1744261047~exp=1744264647~hmac=bfbc5e2151268243b08fe86661eb4264e7cfa0082752127f58b6bf55be2c5433&w=1060"
     },
     {
         "id": 3,
         "name": "Taco",
-        "image_url": "assets/images/taco.png"
+        "image_url": "https://img.freepik.com/free-vector/taco-delicious-mexican-food_24908-81165.jpg?t=st=1744261121~exp=1744264721~hmac=0afdf29e5e22c26df1f464a6f8d136cafc3df4596a818abe240c3f7947fc3754&w=1380"
     },
     {
         "id": 4,
         "name": "Pizza",
-        "image_url": "assets/images/pizza.png"
+        "image_url": "https://img.freepik.com/free-vector/pizza-slice-design_25030-78625.jpg?t=st=1744261157~exp=1744264757~hmac=8381cdfe43946c4cdf15ac85c64648d8d80f42098439a9a2a8e9ad4566ef794b&w=1380"
     },
     {
         "id": 5,
         "name": "Drink",
-        "image_url": "assets/images/drink.png"
+        "image_url": "https://img.freepik.com/free-vector/hand-drawn-refreshing-michelada-illustration_23-2149189385.jpg?t=st=1744261047~exp=1744264647~hmac=bfbc5e2151268243b08fe86661eb4264e7cfa0082752127f58b6bf55be2c5433&w=1060"
     },
     {
         "id": 6,
         "name": "Taco",
-        "image_url": "assets/images/taco.png"
+        "image_url": "https://img.freepik.com/free-vector/taco-delicious-mexican-food_24908-81165.jpg?t=st=1744261121~exp=1744264721~hmac=0afdf29e5e22c26df1f464a6f8d136cafc3df4596a818abe240c3f7947fc3754&w=1380"
     },
     {
         "id": 7,
         "name": "Pizza",
-        "image_url": "assets/images/pizza.png"
+        "image_url": "https://img.freepik.com/free-vector/pizza-slice-design_25030-78625.jpg?t=st=1744261157~exp=1744264757~hmac=8381cdfe43946c4cdf15ac85c64648d8d80f42098439a9a2a8e9ad4566ef794b&w=1380"
     }
 ]

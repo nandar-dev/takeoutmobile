@@ -1,28 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/navigation/app_navigation.dart';
-import 'package:takeout/pages/landing/landing_page.dart';
-import 'package:takeout/providers/language_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takeout/bloc/product_filters/bloc.dart';
+import 'package:takeout/bloc/language/bloc.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
-import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => LanguageProvider(),
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => FilterBloc()),
+        BlocProvider(create: (_) => LanguageBloc()),
+      ],
       child: MaterialApp(
-        // home: AppNavigation(),
-        home: LandingPage(),
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.landing,
+        onGenerateRoute: AppRoutes.onGenerateRoute,
         theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: AppColors.appbarBackground),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppColors.appbarBackground,
+          ),
           scaffoldBackgroundColor: AppColors.background,
           colorScheme: ColorScheme.fromSeed(
-            primary: AppColors.primary,
             seedColor: AppColors.primary,
+            primary: AppColors.primary,
           ),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
         ),
       ),
-    ),
-  );
+    );
+  }
 }

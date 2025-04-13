@@ -3,7 +3,7 @@ import 'package:takeout/pages/auth/forgotpass_page.dart';
 import 'package:takeout/pages/auth/resetpass_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/appbar_wdget.dart';
+import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 import 'package:flutter/gestures.dart';
@@ -17,7 +17,7 @@ class OtpPage extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: CustomAppBar(
+        appBar: AppBarWidget(
           title: "OTP",
           onBackTap: () {
             Navigator.push(

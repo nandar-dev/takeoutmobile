@@ -25,8 +25,6 @@ class _HomePageState extends State<HomePage> {
     final categorySectionTitle = "Find by category";
     final nearbyTitle = "Nearby shops";
     final seeBtnLabel = "See all";
-    final categoryHref = "categories list";
-    final productHref = "products list";
 
     return Scaffold(
       body: Column(
@@ -52,11 +50,10 @@ class _HomePageState extends State<HomePage> {
                     // category section
                     CategorySection(
                       categorySectionTitle: categorySectionTitle,
-                      seeBtnLabel: seeBtnLabel,
-                      href: categoryHref
+                      seeBtnLabel: seeBtnLabel
                     ),
                     NearbyShopsSection(sectionTitle: nearbyTitle, chevronLeftIcon: chevronLeftIcon, chevronRightIcon: chevronRightIcon),
-                    ProductSection(seeBtnLabel: seeBtnLabel, href: productHref),
+                    ProductSection(seeBtnLabel: seeBtnLabel),
                   ],
                 ),
               ),

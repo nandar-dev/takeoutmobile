@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/iconbutton_two_widget.dart';
@@ -17,6 +18,8 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   bool isLoved = false;
+  final heartFilledIcon = 'assets/icons/heart_fill.svg';
+  final heartOutlinedIcon = 'assets/icons/heart.svg';
 
   void toggleLove() {
     setState(() {
@@ -27,51 +30,53 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 4, spreadRadius: 1),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Image with heart button overlaid
-          Padding(
-            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-            child: Stack(
-              children: [
-                RenderNetworkImage(
-                  imageUrl: widget.product.imageUrl,
-                  height: 110,
-                  width: double.infinity,
-                  rounded: 8,
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: IconButtonTwoWidget(
-                    icon: isLoved ? 'assets/icons/heart_fill.svg' : 'assets/icons/heart.svg',
-                    bgColor: AppColors.background,
-                    active: isLoved,
-                    activeColor: AppColors.danger,
-                    iconColor: AppColors.danger,
-                    onTap: toggleLove,
-                  ),
-                ),
-              ],
-            ),
+    return GestureDetector(
+      onTap:
+          () => Navigator.pushNamed(
+            context,
+            AppRoutes.product,
+            arguments: {'product': widget.product},
           ),
-
-          // Product Details
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: Card(
+        elevation: .5,
+        color: AppColors.background,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
+                  RenderNetworkImage(
+                    imageUrl: widget.product.imageUrl,
+                    height: 110,
+                    width: double.infinity,
+                    rounded: 8,
+                  ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: IconButtonTwoWidget(
+                      buttonSize: 35,
+                      icon: isLoved ? heartFilledIcon : heartOutlinedIcon,
+                      bgColor: AppColors.background,
+                      active: isLoved,
+                      activeColor: AppColors.danger,
+                      iconColor: AppColors.danger,
+                      onTap: toggleLove,
+                      iconSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+
+              // Product details
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 3),
                   SubText(
                     text: widget.product.name,
                     color: AppColors.textPrimary,
@@ -90,12 +95,14 @@ class _ProductCardState extends State<ProductCard> {
                     text: "\$${widget.product.price.toStringAsFixed(2)}",
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

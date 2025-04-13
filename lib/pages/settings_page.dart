@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' show Provider;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takeout/bloc/language/bloc.dart';
+import 'package:takeout/bloc/language/event.dart';
+import 'package:takeout/bloc/language/state.dart';
 import 'package:takeout/pages/profile/profile_page.dart';
-import 'package:takeout/providers/language_provider.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/appbar_wdget.dart';
+import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
@@ -21,10 +23,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context);
-
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: AppBarWidget(
         title: 'Settings',
         onBackTap: () {
           Navigator.push(
@@ -51,24 +51,30 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             const SizedBox(height: 8),
 
-            SettingsTile(
-              title: "Language",
-              onTap: () => _showChangeLanguageSheet(context),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    languageProvider.selectedLanguageId == 1
-                        ? "English"
-                        : "Chinese",
-                    style: const TextStyle(
-                      fontSize: FontSizes.body,
-                      color: AppColors.neutral100,
-                    ),
+            BlocBuilder<LanguageBloc, LanguageState>(
+              builder: (context, state) {
+                return SettingsTile(
+                  title: "Language",
+                  onTap:
+                      () => _showChangeLanguageSheet(
+                        context,
+                        state.selectedLanguageId,
+                      ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        state.selectedLanguageId == 1 ? "English" : "Chinese",
+                        style: const TextStyle(
+                          fontSize: FontSizes.body,
+                          color: AppColors.neutral100,
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right_rounded),
+                    ],
                   ),
-                  const Icon(Icons.chevron_right_rounded),
-                ],
-              ),
+                );
+              },
             ),
 
             const SizedBox(height: 66),
@@ -106,72 +112,64 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-}
 
-void _showChangeLanguageSheet(BuildContext context) {
-  final List<Map<String, dynamic>> languages = [
-    {"id": 1, "label": "English (US)", "icon": "assets/icons/eng.png"},
-    {"id": 2, "label": "Chinese", "icon": "assets/icons/cn.png"},
-  ];
+  void _showChangeLanguageSheet(BuildContext context, int selectedId) {
+    final List<Map<String, dynamic>> languages = [
+      {"id": 1, "label": "English (US)", "icon": "assets/icons/eng.png"},
+      {"id": 2, "label": "Chinese", "icon": "assets/icons/cn.png"},
+    ];
 
-  final languageProvider = Provider.of<LanguageProvider>(
-    context,
-    listen: false,
-  );
-
-  showModalBottomSheet<void>(
-    context: context,
-    backgroundColor: AppColors.neutral10,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
-    builder: (BuildContext context) {
-      return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setModalState) {
-          return Padding(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TitleText(
-                  text: "Select Language",
-                  fontSize: FontSizes.heading2,
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.neutral10,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TitleText(
+                text: "Select Language",
+                fontSize: FontSizes.heading2,
+              ),
+              const SizedBox(height: 16),
+              ListView.builder(
+                itemCount: languages.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final lang = languages[index];
+                  return LanguageTile(
+                    iconPath: lang['icon'],
+                    label: lang['label'],
+                    isSelected: selectedId == lang['id'],
+                    onTap: () {
+                      context.read<LanguageBloc>().add(
+                        SetLanguageEvent(lang['id']),
+                      );
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: PrimaryButton(
+                  text: "Close",
+                  onPressed: () => Navigator.pop(context),
                 ),
-                const SizedBox(height: 16),
-                ListView.builder(
-                  itemCount: languages.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final lang = languages[index];
-                    return LanguageTile(
-                      iconPath: lang['icon'],
-                      label: lang['label'],
-                      isSelected:
-                          languageProvider.selectedLanguageId == lang['id'],
-                      onTap: () {
-                        languageProvider.setLanguage(lang['id']);
-                        Navigator.pop(context);
-                      },
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: PrimaryButton(
-                    text: "Close",
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    },
-  );
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 class LanguageTile extends StatelessWidget {

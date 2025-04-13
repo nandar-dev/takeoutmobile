@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:takeout/models/product_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/cards/product_card.dart';
@@ -9,14 +10,9 @@ import 'package:takeout/widgets/cards/product_card.dart';
 import '../typography_widgets.dart';
 
 class ProductSection extends StatefulWidget {
-  const ProductSection({
-    super.key,
-    required this.seeBtnLabel,
-    required this.href,
-  });
+  const ProductSection({super.key, required this.seeBtnLabel});
 
   final String seeBtnLabel;
-  final String href;
 
   @override
   State<ProductSection> createState() => _ProductSectionState();
@@ -34,8 +30,9 @@ class _ProductSectionState extends State<ProductSection> {
 
   Future<void> loadProducts() async {
     try {
-      final String jsonString =
-          await rootBundle.loadString('assets/data/products.json');
+      final String jsonString = await rootBundle.loadString(
+        'assets/data/products.json',
+      );
       final List<dynamic> jsonResponse = json.decode(jsonString);
       setState(() {
         products = jsonResponse.map((data) => Product.fromJson(data)).toList();
@@ -53,12 +50,17 @@ class _ProductSectionState extends State<ProductSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Top "See all" button
+        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             GestureDetector(
-              onTap: () => debugPrint("navigate to ${widget.href}."),
+              onTap:
+                  () => Navigator.pushNamed(
+                    context,
+                    AppRoutes.products,
+                    arguments: {'categoryId': null},
+                  ),
               child: SubText(
                 text: widget.seeBtnLabel,
                 color: AppColors.primary,
@@ -70,21 +72,20 @@ class _ProductSectionState extends State<ProductSection> {
         const SizedBox(height: 12),
 
         // Loading indicator
-        if (isLoading)
-          const Center(child: CircularProgressIndicator()),
+        if (isLoading) const Center(child: CircularProgressIndicator()),
 
         // Grid view
         if (!isLoading)
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(5),
             itemCount: products.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 3 / 4,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              childAspectRatio: 3 / 3.5,
             ),
             itemBuilder: (context, index) {
               final product = products[index];

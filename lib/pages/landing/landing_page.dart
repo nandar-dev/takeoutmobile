@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/navigation/app_navigation.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
@@ -27,10 +27,7 @@ class _LandingPageState extends State<LandingPage> {
   ];
 
   void _toHomePage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AppNavigation()),
-    );
+    Navigator.pushNamed(context, AppRoutes.appNavigation);
   }
 
   void _nextPage() {

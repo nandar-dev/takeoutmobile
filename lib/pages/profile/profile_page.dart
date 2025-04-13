@@ -4,7 +4,7 @@ import 'package:takeout/pages/profile/personaldata_page.dart';
 import 'package:takeout/pages/settings_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/appbar_wdget.dart';
+import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 
@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Profile Settings", showBackNavigator: false),
+      appBar: AppBarWidget(title: "Profile Settings", showBackNavigator: false),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
