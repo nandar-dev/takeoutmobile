@@ -1,7 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:takeout/models/shop_model.dart';
+import 'package:takeout/services/shop_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/check_shop_status.dart';
 import 'package:takeout/utils/font_sizes.dart';
@@ -29,6 +28,7 @@ class NearbyShopsSection extends StatefulWidget {
 class _NearbyShopsSectionState extends State<NearbyShopsSection> {
   List<Shop> shops = [];
   final ScrollController _scrollController = ScrollController();
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -37,12 +37,9 @@ class _NearbyShopsSectionState extends State<NearbyShopsSection> {
   }
 
   Future<void> loadShops() async {
-    final String jsonString = await rootBundle.loadString(
-      'assets/data/shops.json',
-    );
-    final List<dynamic> jsonResponse = json.decode(jsonString);
+    shops = await ShopService.loadShops();
     setState(() {
-      shops = jsonResponse.map((data) => Shop.fromJson(data)).toList();
+      isLoading = false;
     });
   }
 
@@ -50,6 +47,7 @@ class _NearbyShopsSectionState extends State<NearbyShopsSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Title Row
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -63,40 +61,52 @@ class _NearbyShopsSectionState extends State<NearbyShopsSection> {
               children: [
                 IconButtonTwoWidget(
                   icon: widget.chevronLeftIcon,
-                  onTap: () => horizontalSlidingHandler(ScrollDirection.left, _scrollController),
+                  onTap:
+                      () => horizontalSlidingHandler(
+                        ScrollDirection.left,
+                        _scrollController,
+                      ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 IconButtonTwoWidget(
                   icon: widget.chevronRightIcon,
-                  onTap: () => horizontalSlidingHandler(ScrollDirection.right, _scrollController),
+                  onTap:
+                      () => horizontalSlidingHandler(
+                        ScrollDirection.right,
+                        _scrollController,
+                      ),
                 ),
               ],
             ),
           ],
         ),
-        SizedBox(height: 10),
-        // shops list
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          controller: _scrollController,
-          child: Row(
-            children: shops.map((shop) {
-              String status = checkShopStatus(
-                shop.openingTime,
-                shop.closingTime,
-              );
+        const SizedBox(height: 10),
 
-              return ShopCard(
-                name: shop.name,
-                imageUrl: shop.imageUrl,
-                status: status,
-                onTap: () {
-                  debugPrint("you clicked ${shop.name}");
-                },
-              );
-            }).toList(),
-          ),
-        ),
+        // Shops list
+        isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              child: Row(
+                children:
+                    shops.map((shop) {
+                      String status = checkShopStatus(
+                        shop.openingTime,
+                        shop.closingTime,
+                      );
+
+                      return ShopCard(
+                        name: shop.name,
+                        imageUrl: shop.imageUrl,
+                        status: status,
+                        onTap: () {
+                          debugPrint("you clicked ${shop.name}");
+                        },
+                      );
+                    }).toList(),
+              ),
+            ),
       ],
     );
   }

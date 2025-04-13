@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:takeout/models/category_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
+import 'package:takeout/services/category_service.dart'; // Import the service
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/cards/category_card.dart';
@@ -25,6 +24,7 @@ class CategorySection extends StatefulWidget {
 class _CategorySectionState extends State<CategorySection> {
   List<Category> categories = [];
   int activeIndex = 0;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -33,12 +33,9 @@ class _CategorySectionState extends State<CategorySection> {
   }
 
   Future<void> loadCategories() async {
-    final String jsonString = await rootBundle.loadString(
-      'assets/data/categories.json',
-    );
-    final List<dynamic> jsonResponse = json.decode(jsonString);
+    categories = await CategoryService.loadCategories();
     setState(() {
-      categories = jsonResponse.map((data) => Category.fromJson(data)).toList();
+      isLoading = false;
     });
   }
 
@@ -47,7 +44,6 @@ class _CategorySectionState extends State<CategorySection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Title Row
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -68,8 +64,9 @@ class _CategorySectionState extends State<CategorySection> {
           ],
         ),
         const SizedBox(height: 10),
+
         // Categories List
-        categories.isEmpty
+        isLoading
             ? const Center(child: CircularProgressIndicator())
             : SizedBox(
               height: 100,

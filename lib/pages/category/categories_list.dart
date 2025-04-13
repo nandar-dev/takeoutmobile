@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:takeout/models/category_model.dart';
-import 'package:takeout/widgets/appbar_sidget_2.dart';
+import 'package:takeout/widgets/appbar_widget_2.dart';
 import 'package:takeout/widgets/cards/category_card_2.dart';
 
 

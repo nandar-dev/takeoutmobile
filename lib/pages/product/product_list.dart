@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/theme/app_colors.dart';
-import 'package:takeout/widgets/appbar_sidget_2.dart';
+import 'package:takeout/widgets/appbar_widget_2.dart';
 import 'package:takeout/widgets/cards/product_card_2.dart';
-import 'package:takeout/widgets/sort_button.dart';
+import 'package:takeout/widgets/product/product_filters.dart';
+import 'package:takeout/services/product_service.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key, this.categoryId});
@@ -27,6 +25,8 @@ class _ProductListState extends State<ProductList> {
   final String chevronDownIcon = "assets/icons/chevron_down.svg";
   final String filterBtnIcon = "assets/icons/filter.svg";
 
+  final ProductService _productService = ProductService();
+
   @override
   void initState() {
     super.initState();
@@ -35,12 +35,9 @@ class _ProductListState extends State<ProductList> {
 
   Future<void> loadProducts() async {
     try {
-      final String jsonString = await rootBundle.loadString(
-        'assets/data/products.json',
-      );
-      final List<dynamic> jsonResponse = json.decode(jsonString);
+      final loadedProducts = await _productService.loadProducts();
       setState(() {
-        products = jsonResponse.map((data) => Product.fromJson(data)).toList();
+        products = loadedProducts;
         isLoading = false;
       });
     } catch (e) {
@@ -70,53 +67,16 @@ class _ProductListState extends State<ProductList> {
                   ),
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SortButton(
-                    onTap: () {
-                      // Sorting functionality here
-                    },
-                    iconHeight: 12,
-                    iconWeight: 12,
-                    icon: filterBtnIcon,
-                    angleVal: 90 * (3.1416 / 180),
-                  ),
-                  SizedBox(width: 5),
-                  SortButton(
-                    onTap: () {
-                      // Sorting functionality here
-                    },
-                    label: sortBtnLabel,
-                    icon: chevronDownIcon,
-                  ),
-                  SizedBox(width: 5),
-                  SortButton(
-                    onTap: () {
-                      // Sorting functionality here
-                    },
-                    label: offerBtnLabel,
-                    icon: chevronDownIcon,
-                  ),
-                  SizedBox(width: 5),
-                  SortButton(
-                    onTap: () {
-                      // Sorting functionality here
-                    },
-                    label: shopBtnLabel,
-                    icon: chevronDownIcon,
-                  ),
-                ],
-              ),
+              child: ProductFilters(filterBtnIcon: filterBtnIcon, sortBtnLabel: sortBtnLabel, chevronDownIcon: chevronDownIcon, offerBtnLabel: offerBtnLabel, shopBtnLabel: shopBtnLabel),
             ),
           ),
-          // products list using ListView.separated
+          // products list
           Expanded(
             child: isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.separated(
                     itemCount: products.length,
-                    separatorBuilder: (context, index) => SizedBox(height: 10,),
+                    separatorBuilder: (context, index) => SizedBox(height: 10),
                     itemBuilder: (context, index) {
                       final product = products[index];
                       return Padding(

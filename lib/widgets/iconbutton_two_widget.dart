@@ -9,6 +9,8 @@ class IconButtonTwoWidget extends StatelessWidget {
   final VoidCallback onTap;
   final bool? active;
   final Color? activeColor;
+  final double? iconSize;
+  final double? buttonSize;
 
   const IconButtonTwoWidget({
     super.key,
@@ -18,27 +20,31 @@ class IconButtonTwoWidget extends StatelessWidget {
     this.iconColor,
     this.active = false,
     this.activeColor,
+    this.iconSize,
+    this.buttonSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color finalIconColor = active != null && active == true
+    final Color finalIconColor = active == true
         ? (activeColor ?? AppColors.primary)
         : (iconColor ?? AppColors.primary);
+    final double actualButtonSize = buttonSize ?? 40.0;
+    final double actualIconSize = iconSize ?? 24.0;
 
     return Container(
-      height: 35,
-      width: 35,
+      height: actualButtonSize,
+      width: actualButtonSize,
       decoration: BoxDecoration(
-        color: bgColor ?? AppColors.primary.withValues(alpha: 0.2),
+        color: bgColor ?? AppColors.primary.withValues(alpha: .2),
         borderRadius: BorderRadius.circular(30),
       ),
       child: IconButton(
         onPressed: onTap,
         icon: SvgPicture.asset(
           icon,
-          height: 12,
-          width: 12,
+          height: actualIconSize,
+          width: actualIconSize,
           colorFilter: ColorFilter.mode(finalIconColor, BlendMode.srcIn),
         ),
       ),

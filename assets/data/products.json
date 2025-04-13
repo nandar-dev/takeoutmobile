@@ -1,143 +1,162 @@
 [
-    {
-      "id": 1,
-      "name": "Classic Burger",
-      "price": 120.00,
-      "image_url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=2799&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 6,
-        "name": "Gourmet Deli"
-      },
-      "category": {
-        "id": 1,
-        "name": "Burger"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Sparkling Water",
-      "price": 60.00,
-      "image_url": "https://images.unsplash.com/photo-1550505095-81378a674395?q=80&w=2784&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 1,
-        "name": "Coffee Corner"
-      },
-      "category": {
-        "id": 2,
-        "name": "Drink"
-      }
-    },
-    {
-      "id": 3,
-      "name": "Beef Taco",
-      "price": 95.00,
-      "image_url": "https://images.unsplash.com/photo-1633243279656-0157b0b3cdd8?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 2,
-        "name": "Fresh Market"
-      },
-      "category": {
-        "id": 3,
-        "name": "Taco"
-      }
-    },
-    {
-      "id": 4,
-      "name": "Pepperoni Pizza",
-      "price": 140.00,
-      "image_url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=2881&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 4,
-        "name": "Book Nook"
-      },
-      "category": {
-        "id": 4,
-        "name": "Pizza"
-      }
-    },
-    {
-      "id": 5,
-      "name": "Fruit Juice",
-      "price": 75.00,
-      "image_url": "https://plus.unsplash.com/premium_photo-1675667390417-d9d23160f4a6?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 5,
-        "name": "Fashion Hub"
-      },
-      "category": {
-        "id": 5,
-        "name": "Drink"
-      }
-    },
-    {
+  {
+    "id": 1,
+    "name": "Classic Burger",
+    "price": 120.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=2799&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
       "id": 6,
-      "name": "Chicken Taco",
-      "price": 90.00,
-      "image_url": "https://images.unsplash.com/photo-1633243279656-0157b0b3cdd8?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 3,
-        "name": "Tech Haven"
-      },
-      "category": {
-        "id": 6,
-        "name": "Taco"
-      }
+      "name": "Gourmet Deli"
     },
-    {
+    "category": {
+      "id": 1,
+      "name": "Burger"
+    },
+    "description": "A juicy, perfectly grilled beef patty served in a soft, toasted bun with fresh lettuce, tomato, and cheese."
+  },
+  {
+    "id": 2,
+    "name": "Sparkling Water",
+    "price": 60.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1550505095-81378a674395?q=80&w=2784&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
+      "id": 1,
+      "name": "Coffee Corner"
+    },
+    "category": {
+      "id": 2,
+      "name": "Drink"
+    },
+    "description": "Refreshingly crisp sparkling water, perfect for hydration or as a light accompaniment to any meal."
+  },
+  {
+    "id": 3,
+    "name": "Beef Taco",
+    "price": 95.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1633243279656-0157b0b3cdd8?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
+      "id": 2,
+      "name": "Fresh Market"
+    },
+    "category": {
+      "id": 3,
+      "name": "Taco"
+    },
+    "description": "A soft tortilla filled with tender, seasoned beef, topped with fresh onions, cilantro, and a squeeze of lime."
+  },
+  {
+    "id": 4,
+    "name": "Pepperoni Pizza",
+    "price": 140.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=2881&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
+      "id": 4,
+      "name": "Book Nook"
+    },
+    "category": {
+      "id": 4,
+      "name": "Pizza"
+    },
+    "description": "A delicious pizza with a thin crispy crust, topped with tangy tomato sauce, gooey mozzarella cheese, and savory pepperoni slices."
+  },
+  {
+    "id": 5,
+    "name": "Fruit Juice",
+    "price": 75.00,
+    "stock": 100,
+    "image_url": "https://plus.unsplash.com/premium_photo-1675667390417-d9d23160f4a6?q=80&w=2787&auto=format&fit=crop&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
+      "id": 5,
+      "name": "Fashion Hub"
+    },
+    "category": {
+      "id": 5,
+      "name": "Drink"
+    },
+    "description": "A refreshing blend of mixed fruits, offering a natural and delicious way to hydrate and energize your day."
+  },
+  {
+    "id": 6,
+    "name": "Chicken Taco",
+    "price": 90.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1633243279656-0157b0b3cdd8?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
+      "id": 3,
+      "name": "Tech Haven"
+    },
+    "category": {
+      "id": 6,
+      "name": "Taco"
+    },
+    "description": "A delicious taco made with grilled chicken, crispy lettuce, and a tangy salsa in a soft tortilla shell."
+  },
+  {
+    "id": 7,
+    "name": "Veggie Pizza",
+    "price": 130.00,
+    "stock": 100,
+    "image_url": "https://plus.unsplash.com/premium_photo-1675451537771-0dd5b06b3985?q=80&w=2787&auto=format&fit=crop&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
       "id": 7,
-      "name": "Veggie Pizza",
-      "price": 130.00,
-      "image_url": "https://plus.unsplash.com/premium_photo-1675451537771-0dd5b06b3985?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 7,
-        "name": "Pet Paradise"
-      },
-      "category": {
-        "id": 7,
-        "name": "Pizza"
-      }
+      "name": "Pet Paradise"
     },
-    {
+    "category": {
+      "id": 7,
+      "name": "Pizza"
+    },
+    "description": "A savory pizza topped with fresh vegetables like bell peppers, onions, olives, and tomatoes, all melted with mozzarella."
+  },
+  {
+    "id": 8,
+    "name": "Double Burger",
+    "price": 145.00,
+    "stock": 100,
+    "image_url": "https://plus.unsplash.com/premium_photo-1683619761492-639240d29bb5?q=80&w=2787&auto=format&fit=crop&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
       "id": 8,
-      "name": "Double Burger",
-      "price": 145.00,
-      "image_url": "https://plus.unsplash.com/premium_photo-1683619761492-639240d29bb5?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 8,
-        "name": "Sporting Goods"
-      },
-      "category": {
-        "id": 1,
-        "name": "Burger"
-      }
+      "name": "Sporting Goods"
     },
-    {
+    "category": {
+      "id": 1,
+      "name": "Burger"
+    },
+    "description": "A hearty double-patty burger with crispy bacon, melted cheese, and fresh lettuce and tomato, all sandwiched in a toasted bun."
+  },
+  {
+    "id": 9,
+    "name": "Cola Drink",
+    "price": 50.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1735643434124-f51889fa1f8c?q=80&w=2787&auto=format&fit=crop&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
       "id": 9,
-      "name": "Cola Drink",
-      "price": 50.00,
-      "image_url": "https://images.unsplash.com/photo-1735643434124-f51889fa1f8c?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 9,
-        "name": "Home Essentials"
-      },
-      "category": {
-        "id": 2,
-        "name": "Drink"
-      }
+      "name": "Home Essentials"
     },
-    {
+    "category": {
+      "id": 2,
+      "name": "Drink"
+    },
+    "description": "A classic and refreshing cola drink, perfect for quenching your thirst with a crisp, bubbly flavor."
+  },
+  {
+    "id": 10,
+    "name": "Cheesy Taco",
+    "price": 100.00,
+    "stock": 100,
+    "image_url": "https://images.unsplash.com/photo-1730878423239-0fd430bbac37?q=80&w=2355&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "shop": {
       "id": 10,
-      "name": "Cheesy Taco",
-      "price": 100.00,
-      "image_url": "https://images.unsplash.com/photo-1730878423239-0fd430bbac37?q=80&w=2355&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "shop": {
-        "id": 10,
-        "name": "Beauty Bliss"
-      },
-      "category": {
-        "id": 3,
-        "name": "Taco"
-      }
-    }
-  ]
-  
+      "name": "Beauty Bliss"
+    },
+    "category": {
+      "id": 3,
+      "name": "Taco"
+    },
+    "description": "A cheesy taco filled with seasoned meat, melted cheese, fresh veggies, and a tangy sauce, wrapped in a soft tortilla."
+  }
+]
