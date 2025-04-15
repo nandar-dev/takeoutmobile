@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/bloc/language/bloc.dart';
 import 'package:takeout/bloc/language/event.dart';
 import 'package:takeout/bloc/language/state.dart';
-import 'package:takeout/pages/profile/profile_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
@@ -27,9 +27,10 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBarWidget(
         title: 'Settings',
         onBackTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()),
+            AppRoutes.appNavigation,
+            arguments: {'initialIndex': 2},
           );
         },
       ),
@@ -159,7 +160,7 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
-                child: PrimaryButton(
+                child: CustomPrimaryButton(
                   text: "Close",
                   onPressed: () => Navigator.pop(context),
                 ),

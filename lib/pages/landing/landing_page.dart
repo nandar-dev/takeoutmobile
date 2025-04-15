@@ -142,11 +142,8 @@ class _LandingPageState extends State<LandingPage> {
                       },
                     ),
                   ),
-
                   const SizedBox(height: 16),
-
                   _buildDotsIndicator(),
-
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

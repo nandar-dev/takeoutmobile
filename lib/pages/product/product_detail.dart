@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cart/add_to_cart.dart';
 import 'package:takeout/widgets/iconbutton_one_widget.dart';
 import 'package:takeout/widgets/iconbutton_two_widget.dart';

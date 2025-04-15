@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/forgotpass_page.dart';
-import 'package:takeout/pages/auth/signup_page.dart';
-import 'package:takeout/pages/home/home_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
@@ -75,15 +73,13 @@ class LoginPage extends StatelessWidget {
 
                           SizedBox(
                             width: double.infinity,
-                            child: PrimaryButton(
+                            child: CustomPrimaryButton(
                               text: "Sign In",
                               onPressed:
                                   () => {
-                                    Navigator.push(
+                                    Navigator.pushNamed(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (context) => HomePage(),
-                                      ),
+                                      AppRoutes.appNavigation,
                                     ),
                                   },
                             ),
@@ -137,12 +133,9 @@ class LoginPage extends StatelessWidget {
                                     recognizer:
                                         TapGestureRecognizer()
                                           ..onTap = () {
-                                            Navigator.push(
+                                            Navigator.pushNamed(
                                               context,
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (context) => SignupPage(),
-                                              ),
+                                              AppRoutes.signup,
                                             );
                                           },
                                   ),
@@ -193,16 +186,11 @@ class LoginPage extends StatelessWidget {
                       "Create an account to start looking for the food you like",
                 ),
                 const SizedBox(height: 30),
-                PrimaryButton(
+                CustomPrimaryButton(
                   text: "Continue",
                   onPressed:
                       () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ForgotPassPage(),
-                          ),
-                        ),
+                        Navigator.pushNamed(context, AppRoutes.forgotpass),
                       },
                 ),
               ],

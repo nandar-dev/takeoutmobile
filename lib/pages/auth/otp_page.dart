@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/forgotpass_page.dart';
-import 'package:takeout/pages/auth/resetpass_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
@@ -20,10 +19,7 @@ class OtpPage extends StatelessWidget {
         appBar: AppBarWidget(
           title: "OTP",
           onBackTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ForgotPassPage()),
-            );
+            Navigator.pushNamed(context, AppRoutes.forgotpass);
           },
         ),
         body: SafeArea(
@@ -84,16 +80,11 @@ class OtpPage extends StatelessWidget {
 
                   SizedBox(
                     width: double.infinity,
-                    child: PrimaryButton(
+                    child: CustomPrimaryButton(
                       text: "Continue",
                       onPressed:
                           () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ResetpassPage(),
-                              ),
-                            ),
+                            Navigator.pushNamed(context, AppRoutes.resetpass),
                           },
                     ),
                   ),

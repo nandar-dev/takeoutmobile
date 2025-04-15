@@ -78,7 +78,7 @@ class AddToCartState extends State<AddToCart> {
         // Checkout Button
         SizedBox(
           width: double.infinity,
-          child: PrimaryButton(
+          child: CustomPrimaryButton(
             disabled: _quantity == 0,
             icon: Icons.shopping_cart_outlined,
             text: "Checkout",

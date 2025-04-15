@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/otp_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
@@ -39,17 +39,10 @@ class ForgotPassPage extends StatelessWidget {
 
                   SizedBox(
                     width: double.infinity,
-                    child: PrimaryButton(
+                    child: CustomPrimaryButton(
                       text: "Continue",
                       onPressed:
-                          () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OtpPage(),
-                              ),
-                            ),
-                          },
+                          () => {Navigator.pushNamed(context, AppRoutes.otp)},
                     ),
                   ),
 

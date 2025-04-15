@@ -138,7 +138,7 @@ class _FilterModalState extends State<FilterModal> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: PrimaryButton(
+                child: CustomPrimaryButton(
                   text: "Apply",
                   onPressed: () {
                     Navigator.pop(context, selectedItemIds.toList());

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/login_page.dart';
-import 'package:takeout/pages/home/home_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
@@ -124,15 +123,13 @@ class _SignupPageState extends State<SignupPage> {
 
                           SizedBox(
                             width: double.infinity,
-                            child: PrimaryButton(
+                            child: CustomPrimaryButton(
                               text: "Register",
                               onPressed:
                                   () => {
-                                    Navigator.push(
+                                    Navigator.pushNamed(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (context) => HomePage(),
-                                      ),
+                                      AppRoutes.appNavigation,
                                     ),
                                   },
                             ),
@@ -186,12 +183,9 @@ class _SignupPageState extends State<SignupPage> {
                                     recognizer:
                                         TapGestureRecognizer()
                                           ..onTap = () {
-                                            Navigator.push(
+                                            Navigator.pushNamed(
                                               context,
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (context) => LoginPage(),
-                                              ),
+                                              AppRoutes.login,
                                             );
                                           },
                                   ),

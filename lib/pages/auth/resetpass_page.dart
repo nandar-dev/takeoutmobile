@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/login_page.dart';
-import 'package:takeout/pages/auth/otp_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
@@ -36,10 +35,7 @@ class _ResetpassPageState extends State<ResetpassPage> {
         appBar: AppBarWidget(
           title: "Reset Password",
           onBackTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => OtpPage()),
-            );
+            Navigator.pushNamed(context, AppRoutes.otp);
           },
         ),
         body: SafeArea(
@@ -106,7 +102,7 @@ class _ResetpassPageState extends State<ResetpassPage> {
 
                             SizedBox(
                               width: double.infinity,
-                              child: PrimaryButton(
+                              child: CustomPrimaryButton(
                                 text: "Verify Account",
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
@@ -163,15 +159,10 @@ class _ResetpassPageState extends State<ResetpassPage> {
                       "Password changed successfully, you can login again with a new password",
                 ),
                 const SizedBox(height: 32),
-                PrimaryButton(
+                CustomPrimaryButton(
                   text: "Verify Account",
                   onPressed:
-                      () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                        ),
-                      },
+                      () => {Navigator.pushNamed(context, AppRoutes.login)},
                 ),
               ],
             ),

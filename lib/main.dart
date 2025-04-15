@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
             seedColor: AppColors.primary,
             primary: AppColors.primary,
           ),
+          canvasColor: AppColors.neutral10,
         ),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
-class PrimaryButton extends StatelessWidget {
+class CustomPrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
@@ -16,7 +16,7 @@ class PrimaryButton extends StatelessWidget {
   final double? fontSize;
   final bool? disabled;
 
-  const PrimaryButton({
+  const CustomPrimaryButton({
     super.key,
     required this.text,
     required this.onPressed,

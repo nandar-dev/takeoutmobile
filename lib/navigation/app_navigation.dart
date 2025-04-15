@@ -5,14 +5,16 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
 class AppNavigation extends StatefulWidget {
-  const AppNavigation({super.key});
+  final int initialIndex;
+
+  const AppNavigation({super.key, this.initialIndex = 0});
 
   @override
   State<AppNavigation> createState() => _AppNavigationState();
 }
 
 class _AppNavigationState extends State<AppNavigation> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   static const List<BottomNavigationBarItem> _navBarItems = [
     BottomNavigationBarItem(
@@ -34,6 +36,12 @@ class _AppNavigationState extends State<AppNavigation> {
 
   final List<Widget> _pages = const [HomePage(), HomePage(), ProfilePage()];
 
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
+
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
   }
@@ -42,7 +50,6 @@ class _AppNavigationState extends State<AppNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

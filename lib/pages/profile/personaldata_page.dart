@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/profile/profile_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
@@ -23,9 +23,10 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       appBar: AppBarWidget(
         title: 'Personal Data',
         onBackTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(builder: (context) => ProfilePage()),
+            AppRoutes.appNavigation,
+            arguments: {'initialIndex': 2},
           );
         },
       ),
@@ -100,7 +101,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
             SizedBox(height: 12),
             CustomTextField(label: "Email", hint: "Enter email"),
             SizedBox(height: 36),
-            PrimaryButton(text: "Save", onPressed: () {}),
+            CustomPrimaryButton(text: "Save", onPressed: () {}),
           ],
         ),
       ),

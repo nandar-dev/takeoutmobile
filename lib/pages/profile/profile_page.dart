@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/auth/login_page.dart';
-import 'package:takeout/pages/profile/personaldata_page.dart';
-import 'package:takeout/pages/settings_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/alertbox_widget.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
@@ -131,11 +130,13 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
 
-                  PrimaryButton(
+                  CustomPrimaryButton(
                     height: 30,
                     padding: EdgeInsets.only(left: 8, right: 8),
-                    text: "Top Up",
-                    onPressed: () {},
+                    text: "Refill",
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.refillwallet);
+                    },
                     icon: Icons.arrow_circle_up_rounded,
                   ),
                 ],
@@ -285,19 +286,11 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 8),
             _buildMenuItem(Icons.person, "Personal Data", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PersonalDataPage(),
-                ),
-              );
+              Navigator.pushNamed(context, AppRoutes.personaldata);
             }),
             const SizedBox(height: 8),
             _buildMenuItem(Icons.settings, "Settings", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()),
-              );
+              Navigator.pushNamed(context, AppRoutes.settingspage);
             }),
 
             const SizedBox(height: 16),
@@ -310,27 +303,31 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             _buildMenuItem(Icons.info_outline, "Help Center", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PersonalDataPage(),
-                ),
-              );
+              Navigator.pushNamed(context, AppRoutes.personaldata);
             }),
             const SizedBox(height: 16),
 
-            CustomOutlinedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
-              },
-              icon: Icons.logout,
-              text: "Sign Out",
-              iconColor: AppColors.danger,
-              textColor: AppColors.danger,
-              borderColor: AppColors.danger,
+            SizedBox(
+              width: 150,
+              child: CustomOutlinedButton(
+                onPressed: () {
+                  showCustomAlertDialog(
+                    context: context,
+                    title: 'Sign Out',
+                    message: 'Do you want to log out?',
+                    confirmText: 'Log Out',
+                    cancelText: 'Cancel',
+                    onConfirm: () {
+                      Navigator.pushNamed(context, AppRoutes.login);
+                    },
+                  );
+                },
+                icon: Icons.logout,
+                text: "Sign Out",
+                iconColor: AppColors.danger,
+                textColor: AppColors.danger,
+                borderColor: AppColors.danger,
+              ),
             ),
             const SizedBox(height: 32),
           ],
