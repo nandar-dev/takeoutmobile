@@ -51,8 +51,6 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
       _dummyTransactions =
           jsonResponse.map((data) => TransactionModel.fromJson(data)).toList();
     });
-
-    // Initial load
     _loadMore();
   }
 
@@ -77,10 +75,6 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(title: 'Transaction History'),
-      // appBar: AppBar(
-      //   title: const Text("Transaction History"),
-      //   leading: const Icon(Icons.history),
-      // ),
       body:
           _transactions.isEmpty && _isLoading
               ? const Center(child: CircularProgressIndicator())

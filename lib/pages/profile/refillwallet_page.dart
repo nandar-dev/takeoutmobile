@@ -92,16 +92,15 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
                       children: [
                         const TitleText(
                           text: 'Refill Your Wallet',
-                          textAlign: TextAlign.center,
+                          // textAlign: TextAlign.center,
                         ),
                         const SubText(
                           text:
                               'Add funds to your wallet to make quick and easy payments',
-                          textAlign: TextAlign.center,
+                          // textAlign: TextAlign.center,
                         ),
 
                         const SizedBox(height: 32),
@@ -176,13 +175,14 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                                     top: 4,
                                     right: 4,
                                     child: Container(
+                                      height: 40,
+                                      width: 40,
                                       decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 2,
-                                          color: AppColors.backkeyborder,
-                                        ),
+                                        color: AppColors.danger,
+                                        borderRadius: BorderRadius.circular(40),
                                       ),
                                       child: IconButton(
+                                        color: AppColors.neutral10,
                                         icon: const Icon(Icons.close),
                                         tooltip: 'Clear selection',
                                         onPressed: _clearFile,
@@ -190,6 +190,16 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                                     ),
                                   ),
                               ],
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            'Upload a screenshot of your transaction (JPEG, PNG, max 5MB)',
+                            style: TextStyle(
+                              fontSize: FontSizes.sm,
+                              color: AppColors.neutral80,
                             ),
                           ),
                         ),
@@ -296,7 +306,6 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
         ),
       );
     } else {
-      // Fallback for non-image files or missing path
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
