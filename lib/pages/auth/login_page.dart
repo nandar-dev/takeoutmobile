@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/auth/forgotpass_page.dart';
 import 'package:takeout/pages/auth/signup_page.dart';
-import 'package:takeout/pages/home/home_page.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
@@ -78,14 +78,7 @@ class LoginPage extends StatelessWidget {
                             child: PrimaryButton(
                               text: "Sign In",
                               onPressed:
-                                  () => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => HomePage(),
-                                      ),
-                                    ),
-                                  },
+                                  () => Navigator.pushNamed(context, AppRoutes.appNavigation),
                             ),
                           ),
 

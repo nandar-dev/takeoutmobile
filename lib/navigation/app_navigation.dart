@@ -21,9 +21,9 @@ class _AppNavigationState extends State<AppNavigation> {
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.search_outlined),
-      activeIcon: Icon(Icons.search),
-      label: 'Search',
+      icon: Icon(Icons.shopping_bag_outlined),
+      activeIcon: Icon(Icons.shopping_bag),
+      label: 'Cart',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.person_outline),
