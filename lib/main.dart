@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takeout/bloc/cart/bloc.dart';
+import 'package:takeout/bloc/cart/event.dart';
 import 'package:takeout/bloc/product_filters/bloc.dart';
 import 'package:takeout/bloc/language/bloc.dart';
 import 'package:takeout/pages/routing/routes.dart';
+import 'package:takeout/services/cart_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 
 void main() {
@@ -18,6 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => FilterBloc()),
         BlocProvider(create: (_) => LanguageBloc()),
+        BlocProvider(create: (_) => CartBloc(CartService())..add(LoadCart())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

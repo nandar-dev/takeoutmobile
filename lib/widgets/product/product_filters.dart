@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/widgets/filters/filter_model.dart';
-import 'package:takeout/widgets/sort_button.dart';
+import 'package:takeout/widgets/buttons/sort_button.dart';
 import 'package:takeout/bloc/product_filters/bloc.dart';
 import 'package:takeout/bloc/product_filters/state.dart';
 import 'package:takeout/bloc/product_filters/event.dart';

@@ -4,7 +4,7 @@ class AppColors {
   // Primary and secondary colors
   static const Color primary = Color(0xFFFE8C00);
   static const Color danger = Color(0xFFF14141);
-  static const Color success = Color(0xFF27AE60);
+  static const Color success = Color.fromARGB(255, 2, 175, 80);
 
   // Neutral color scales
   static const Color neutral10  = Color(0xFFFFFFFF);
@@ -21,7 +21,7 @@ class AppColors {
   // Backgrounds and surfaces
   static const Color background = neutral10;
   static const Color surface = Color(0xFFF5F5FF);
-  static const Color appbarBackground = Color(0xFFF5F5FF);
+  static const Color appbarBackground = Color(0xFFFDFDFD);
 
   // Text colors
   static const Color textPrimary = Color(0xFF101010);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takeout/pages/cart/my_cart.dart';
 import 'package:takeout/pages/home/home_page.dart';
 import 'package:takeout/pages/profile/profile_page.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -32,7 +33,7 @@ class _AppNavigationState extends State<AppNavigation> {
     ),
   ];
 
-  final List<Widget> _pages = const [HomePage(), HomePage(), ProfilePage()];
+  final List<Widget> _pages = const [HomePage(), MyCart(), ProfilePage()];
 
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);

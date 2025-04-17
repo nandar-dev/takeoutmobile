@@ -6,7 +6,7 @@ import 'package:takeout/utils/check_shop_status.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/utils/horizontal_sliding_handler.dart';
 import 'package:takeout/widgets/cards/shop_card.dart';
-import 'package:takeout/widgets/iconbutton_two_widget.dart';
+import 'package:takeout/widgets/buttons/iconbutton_two_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class NearbyShopsSection extends StatefulWidget {

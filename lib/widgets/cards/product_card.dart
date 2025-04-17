@@ -3,8 +3,8 @@ import 'package:takeout/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/iconbutton_two_widget.dart';
-import 'package:takeout/widgets/render_network_image.dart';
+import 'package:takeout/widgets/buttons/iconbutton_two_widget.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProductCard extends StatefulWidget {
@@ -48,7 +48,7 @@ class _ProductCardState extends State<ProductCard> {
             children: [
               Stack(
                 children: [
-                  RenderNetworkImage(
+                  RenderCustomImage(
                     imageUrl: widget.product.imageUrl,
                     height: 110,
                     width: double.infinity,

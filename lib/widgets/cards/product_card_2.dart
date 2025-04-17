@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/render_network_image.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProductCard2 extends StatelessWidget {
@@ -47,7 +47,7 @@ class ProductCard2 extends StatelessWidget {
                   ),
                 ],
               ),
-              child: RenderNetworkImage(
+              child: RenderCustomImage(
                 imageUrl: product.imageUrl,
                 height: 100,
                 width: 100,
