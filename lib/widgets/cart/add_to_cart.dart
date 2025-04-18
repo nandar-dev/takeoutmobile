@@ -11,22 +11,14 @@ import 'package:takeout/widgets/snackbar.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class AddToCart extends StatefulWidget {
-  final int? initialQuantity;
-  final Product? product;
-  final int? productId;
-  final String? productName;
-  final int? productStock;
-  final double? productPrice;
-  final bool? isDetailPage;
+  final int initialQuantity;
+  final Product product;
+  final bool isDetailPage;
 
   const AddToCart({
     super.key,
-    this.initialQuantity,
-    this.product,
-    this.productId,
-    this.productName,
-    this.productStock,
-    this.productPrice,
+    this.initialQuantity = 0,
+    required this.product,
     this.isDetailPage = false,
   });
 
@@ -39,27 +31,28 @@ class AddToCartState extends State<AddToCart> {
   final String minusIcon = "assets/icons/minus_icon.svg";
   final String trashIcon = "assets/icons/trash_icon.svg";
 
-  int _quantity = 0;
+  late int _quantity;
   bool _isAddingToCart = false;
-
-  int get productId => widget.product?.id ?? widget.productId ?? -1;
-  int get stock => widget.product?.stock ?? widget.productStock ?? 0;
-  double get price => widget.product?.price ?? widget.productPrice ?? 0.0;
-  String get name => widget.product?.name ?? widget.productName ?? "Item";
-  String get imageUrl => widget.product?.imageUrl ?? "";
-  bool get isDetailPage => widget.isDetailPage == true;
-  bool get isOutOfStock => stock <= 0;
-  double get totalPrice => price * _quantity;
 
   @override
   void initState() {
     super.initState();
-    _quantity = widget.initialQuantity ?? 0;
+    _quantity = widget.initialQuantity;
+  }
+
+  @override
+  void didUpdateWidget(AddToCart oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialQuantity != oldWidget.initialQuantity) {
+      setState(() {
+        _quantity = widget.initialQuantity;
+      });
+    }
   }
 
   void _updateQuantity(int newQty) {
     if (newQty < 0) return;
-    if (newQty > stock) {
+    if (newQty > widget.product.stock) {
       Snackbar.showError(context, 'Maximum stock reached!');
       return;
     }
@@ -67,40 +60,41 @@ class AddToCartState extends State<AddToCart> {
     setState(() => _quantity = newQty);
 
     if (newQty == 0) {
-      context.read<CartBloc>().add(RemoveCartItem(productId));
+      context.read<CartBloc>().add(RemoveCartItem(widget.product.id));
     } else {
-      context.read<CartBloc>().add(UpdateItemQuantity(productId, newQty));
+      context.read<CartBloc>().add(UpdateItemQuantity(widget.product.id, newQty));
     }
   }
 
   void _handleAddToCart() {
-    if (_quantity == 0 || isOutOfStock) return;
+    if (_quantity == 0 || widget.product.stock <= 0) return;
 
     setState(() => _isAddingToCart = true);
 
     final cartItem = {
-      'productId': productId,
-      'name': name,
-      'price': price,
+      'productId': widget.product.id,
+      'name': widget.product.name,
+      'price': widget.product.price,
       'quantity': _quantity,
-      'imageUrl': imageUrl,
-      'stock': stock,
+      'imageUrl': widget.product.imageUrl,
+      'stock': widget.product.stock,
     };
 
     context.read<CartBloc>().add(AddToCartEvent(cartItem));
 
-    Snackbar.showSuccess(context, '$name added to cart!');
-    setState(() {
-      _isAddingToCart = false;
-    });
+    Snackbar.showSuccess(context, '${widget.product.name} added to cart!');
+    setState(() => _isAddingToCart = false);
   }
 
   @override
   Widget build(BuildContext context) {
+    final isOutOfStock = widget.product.stock <= 0;
+    final totalPrice = widget.product.price * _quantity;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!isDetailPage && !isOutOfStock) ...[
+        if (!widget.isDetailPage && !isOutOfStock) ...[
           TitleText(
             text: '\$${totalPrice.toStringAsFixed(2)}',
             fontSize: FontSizes.md,
@@ -117,70 +111,68 @@ class AddToCartState extends State<AddToCart> {
                 IconButtonOneWidget(
                   buttonSize: 30,
                   icon: minusIcon,
-                  onTap:
-                      (_quantity > 0 && !isOutOfStock)
-                          ? () => _updateQuantity(_quantity - 1)
-                          : () {},
+                  onTap: (_quantity > 0 && !isOutOfStock)
+                      ? () => _updateQuantity(_quantity - 1)
+                      : (){},
                   iconColor: AppColors.neutral90,
                   iconSize: 30,
-                  borderColor:
-                      isDetailPage ? AppColors.neutral10 : AppColors.neutral40,
+                  borderColor: widget.isDetailPage 
+                      ? AppColors.neutral10 
+                      : AppColors.neutral40,
                 ),
                 const SizedBox(width: 15),
-                SubText(
-                  text: isOutOfStock ? 'Out of stock' : '$_quantity',
-                  fontSize: FontSizes.heading3,
-                  fontWeight: FontWeight.bold,
-                  color:
-                      isOutOfStock ? AppColors.danger : AppColors.textPrimary,
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  child: SubText(
+                    key: ValueKey(_quantity),
+                    text: isOutOfStock ? 'Out of stock' : '$_quantity',
+                    fontSize: FontSizes.heading3,
+                    fontWeight: FontWeight.bold,
+                    color: isOutOfStock 
+                        ? AppColors.danger 
+                        : AppColors.textPrimary,
+                  ),
                 ),
                 const SizedBox(width: 15),
                 IconButtonOneWidget(
                   buttonSize: 30,
                   icon: plusIcon,
-                  onTap:
-                      !isOutOfStock
-                          ? () => _updateQuantity(_quantity + 1)
-                          : () {},
+                  onTap: !isOutOfStock 
+                      ? () => _updateQuantity(_quantity + 1) 
+                      : (){},
                   iconColor: AppColors.neutral90,
                   iconSize: 30,
-                  borderColor:
-                      isDetailPage ? AppColors.neutral10 : AppColors.neutral40,
+                  borderColor: widget.isDetailPage 
+                      ? AppColors.neutral10 
+                      : AppColors.neutral40,
                 ),
               ],
             ),
-            Row(
-              children: [
-                if (isDetailPage && !isOutOfStock) ...[
-                  TitleText(
-                    text: '\$${totalPrice.toStringAsFixed(2)}',
-                    fontSize: FontSizes.heading3,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
-                  const SizedBox(width: 10),
-                ],
-                if (!isDetailPage)
-                  IconButtonOneWidget(
-                    icon: trashIcon,
-                    onTap: () => _updateQuantity(0),
-                    iconColor: AppColors.danger,
-                    iconSize: 17,
-                  ),
-              ],
-            ),
+            if (!widget.isDetailPage)
+              IconButtonOneWidget(
+                icon: trashIcon,
+                onTap: () => _updateQuantity(0),
+                iconColor: AppColors.danger,
+                iconSize: 17,
+              ),
+              if(widget.isDetailPage)
+              TitleText(
+                text: '\$${totalPrice.toStringAsFixed(2)}',
+                fontSize: FontSizes.md,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary,
+              )
           ],
         ),
-        if (isDetailPage) const SizedBox(height: 20),
-        if (isDetailPage)
+        if (widget.isDetailPage) const SizedBox(height: 20),
+        if (widget.isDetailPage)
           SizedBox(
             width: double.infinity,
             child: PrimaryButton(
               disabled: isOutOfStock || _quantity == 0 || _isAddingToCart,
-              text:
-                  isOutOfStock
-                      ? "Out of Stock"
-                      : (_isAddingToCart ? "Adding..." : "Add to Cart"),
+              text: isOutOfStock
+                  ? "Out of Stock"
+                  : (_isAddingToCart ? "Adding..." : "Add to Cart"),
               icon: isOutOfStock ? null : Icons.shopping_cart_outlined,
               onPressed: _handleAddToCart,
             ),

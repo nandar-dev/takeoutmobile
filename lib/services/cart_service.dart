@@ -28,9 +28,7 @@ class CartService {
     }
 
     final index = cartItems.indexWhere((i) => i['productId'] == productId);
-
     if (index >= 0) {
-      // Replace the existing item with the new one (with updated quantity)
       cartItems[index] = item;
     } else {
       cartItems.add(item);

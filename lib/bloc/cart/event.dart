@@ -2,6 +2,8 @@ abstract class CartEvent {}
 
 class LoadCart extends CartEvent {}
 
+class CalculateTotalPrice extends CartEvent {}
+
 class AddToCartEvent extends CartEvent {
   final Map<String, dynamic> item;
 

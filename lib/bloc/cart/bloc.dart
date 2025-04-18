@@ -8,11 +8,34 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   CartBloc(this._cartService) : super(CartLoading()) {
     on<LoadCart>(_onLoadCart);
+    on<CalculateTotalPrice>(_onCalculateTotalPrice);
     on<AddToCartEvent>(_onAddToCart);
     on<UpdateItemQuantity>(_onUpdateItemQuantity);
     on<RemoveCartItem>(_onRemoveCartItem);
     on<ClearCart>(_onClearCart);
     on<GetCartItemById>(_onGetCartItemById);
+  }
+
+  Future<void> _onCalculateTotalPrice(
+    CalculateTotalPrice event,
+    Emitter<CartState> emit,
+  ) async {
+    try {
+      if (state is CartLoaded) {
+        final items = (state as CartLoaded).items;
+        double total = 0.0;
+
+        for (final item in items) {
+          final price = item['price'] as double;
+          final quantity = item['quantity'] as int;
+          total += price * quantity;
+        }
+
+        emit(TotalPriceCalculated(total));
+      }
+    } catch (e) {
+      emit(CartError('Failed to calculate total price.'));
+    }
   }
 
   Future<void> _onLoadCart(LoadCart event, Emitter<CartState> emit) async {
@@ -25,7 +48,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onAddToCart(AddToCartEvent event, Emitter<CartState> emit) async {
+  Future<void> _onAddToCart(
+    AddToCartEvent event,
+    Emitter<CartState> emit,
+  ) async {
     try {
       await _cartService.addToCart(event.item);
       add(LoadCart());
@@ -34,7 +60,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onUpdateItemQuantity(UpdateItemQuantity event, Emitter<CartState> emit) async {
+  Future<void> _onUpdateItemQuantity(
+    UpdateItemQuantity event,
+    Emitter<CartState> emit,
+  ) async {
     try {
       await _cartService.setItemQuantity(event.productId, event.quantity);
       add(LoadCart());
@@ -43,7 +72,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onRemoveCartItem(RemoveCartItem event, Emitter<CartState> emit) async {
+  Future<void> _onRemoveCartItem(
+    RemoveCartItem event,
+    Emitter<CartState> emit,
+  ) async {
     await _cartService.removeItem(event.productId);
     add(LoadCart());
   }
@@ -53,7 +85,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     add(LoadCart());
   }
 
-  Future<void> _onGetCartItemById(GetCartItemById event, Emitter<CartState> emit) async {
+  Future<void> _onGetCartItemById(
+    GetCartItemById event,
+    Emitter<CartState> emit,
+  ) async {
     try {
       final item = await _cartService.getItemById(event.productId);
       emit(CartItemLoaded(item));

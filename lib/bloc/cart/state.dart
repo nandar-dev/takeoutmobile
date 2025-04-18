@@ -2,6 +2,12 @@ abstract class CartState {}
 
 class CartLoading extends CartState {}
 
+class TotalPriceCalculated extends CartState {
+  final double totalPrice;
+
+  TotalPriceCalculated(this.totalPrice);
+}
+
 class CartLoaded extends CartState {
   final List<Map<String, dynamic>> items;
 

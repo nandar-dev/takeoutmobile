@@ -55,73 +55,83 @@ class _MyCartState extends State<MyCart> {
               return const EmptyCart();
             }
 
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            SubText(
-                              text: "Delivery Location",
-                              fontSize: FontSizes.sm,
-                            ),
-                            SubText(
-                              text: "Yangon",
-                              color: AppColors.textPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: FontSizes.md,
-                            ),
-                          ],
-                        ),
+            return RefreshIndicator(
+              onRefresh: _refreshCart,
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 20,
                       ),
-                      CustomOutlinedButton(
-                        onPressed: () {},
-                        text: "Change Location",
-                        borderColor: AppColors.primary,
-                        textColor: AppColors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                SubText(
+                                  text: "Delivery Location",
+                                  fontSize: FontSizes.sm,
+                                ),
+                                SubText(
+                                  text: "Yangon",
+                                  color: AppColors.textPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: FontSizes.md,
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomOutlinedButton(
+                            onPressed: () {},
+                            text: "Change Location",
+                            borderColor: AppColors.primary,
+                            textColor: AppColors.primary,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 10,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: _refreshCart,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.all(16),
-                      itemCount: cartItems.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (context, index) {
-                        final item = cartItems[index];
-                        return OrderItemCard(item: item);
-                      },
                     ),
                   ),
-                ),
-                CustomOutlinedButton(
-                  onPressed: () {},
-                  text: "Add more items",
-                  borderRadius: 5,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  icon: Icons.add,
-                  borderColor: AppColors.neutral40,
-                ),
-              ],
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final item = cartItems[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 6,
+                        ),
+                        child: OrderItemCard(item: item),
+                      );
+                    }, childCount: cartItems.length),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CustomOutlinedButton(
+                          onPressed: () {},
+                          text: "Add more items",
+                          borderRadius: 5,
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          icon: Icons.add,
+                          borderColor: AppColors.neutral40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           }
-
-          return const SizedBox.shrink(); // fallback
+          return const SizedBox.shrink();
         },
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/render_custom_image.dart';
@@ -12,19 +13,22 @@ class ProductCard2 extends StatelessWidget {
 
   // Reusable TextStyle for SubText
   TextStyle get subTextStyle => TextStyle(
-        fontSize: FontSizes.body1,
-        color: AppColors.textPrimary,
-        fontWeight: FontWeight.bold,
-        overflow: TextOverflow.ellipsis,
-      );
+    fontSize: FontSizes.body1,
+    color: AppColors.textPrimary,
+    fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
+  );
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: AppColors.primary.withValues(alpha: .2),
-      onTap: () {
-        // Handle tap if needed
-      },
+      onTap:
+          () => Navigator.pushNamed(
+            context,
+            AppRoutes.product,
+            arguments: {'product': product},
+          ),
       borderRadius: BorderRadius.circular(12),
       child: Container(
         decoration: BoxDecoration(

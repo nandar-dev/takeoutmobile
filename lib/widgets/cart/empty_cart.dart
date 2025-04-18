@@ -25,18 +25,18 @@ class EmptyCart extends StatelessWidget {
               text: "Ouch! Cart is empty",
               fontSize: FontSizes.heading2,
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
             const SubText(
               text: "Seems like you haven't ordered any food yet",
               fontSize: FontSizes.md,
             ),
-            SizedBox(height: 25,),
+            SizedBox(height: 25),
             SizedBox(
               width: double.infinity,
               child: PrimaryButton(
                 text: "Find Foods",
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.products);
+                  Navigator.pushNamed(context, AppRoutes.products, arguments: {'categoryId': null},);
                 },
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takeout/models/product_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/cart/add_to_cart.dart';
@@ -15,12 +16,10 @@ class OrderItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int productId = item['productId'] ?? -1;
+    final product = Product.fromCartItem(item);
     final String name = item['name'] ?? 'Unnamed';
     final String imageUrl = item['imageUrl'] ?? '';
-    final int stock = item['stock'] ?? 0;
     final int quantity = item['quantity'] ?? 0;
-    final double price = (item['price'] as num).toDouble();
 
     return Container(
       decoration: BoxDecoration(
@@ -69,10 +68,7 @@ class OrderItemCard extends StatelessWidget {
                 const SizedBox(height: 4),
 
                 AddToCart(
-                  productId: productId,
-                  productName: name,
-                  productStock: stock,
-                  productPrice: price,
+                  product: product,
                   isDetailPage: false,
                   initialQuantity: quantity,
                 ),
