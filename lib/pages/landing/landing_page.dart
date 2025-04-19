@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:takeout/pages/routing/routes.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/services.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/pages/routing/routes.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -14,24 +17,55 @@ class _LandingPageState extends State<LandingPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<String> _titles = [
-    "We serve incomparable delicacies",
-    "We serve incomparable delicacies",
-    "We serve incomparable delicacies",
+  List<String> titles = [
+    'landing.title1'.tr(),
+    'landing.title2'.tr(),
+    'landing.title3'.tr(),
   ];
 
-  final List<String> _descriptions = [
-    "All the best restaurants with their top menu waiting for you, they cant’t wait for your order!!",
-    "All the best restaurants with their top menu waiting for you, they cant’t wait for your order!!",
-    "All the best restaurants with their top menu waiting for you, they cant’t wait for your order!!",
+  List<String> descriptions = [
+    'landing.desc1'.tr(),
+    'landing.desc2'.tr(),
+    'landing.desc3'.tr(),
   ];
+
+  // bool _isLoaded = false;
+  // Locale? _lastLocale;
+
+  // Future<Map<String, dynamic>> loadLandingTranslation(String locale) async {
+  //   final String jsonString = await rootBundle.loadString(
+  //     'assets/l10n/landing_$locale.json',
+  //   );
+  //   return json.decode(jsonString);
+  // }
+
+  // Future<void> _loadTranslation(String localeCode) async {
+  //   final json = await loadLandingTranslation(localeCode);
+  //   setState(() {
+  //     titles = [json['title1'], json['title2'], json['title3']];
+  //     descriptions = [json['desc1'], json['desc2'], json['desc3']];
+  //     _isLoaded = true;
+  //   });
+  // }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+
+  //   final currentLocale = context.locale;
+
+  //   if (_lastLocale != currentLocale) {
+  //     _lastLocale = currentLocale;
+  //     _loadTranslation(currentLocale.languageCode);
+  //   }
+  // }
 
   void _toHomePage() {
     Navigator.pushNamed(context, AppRoutes.appNavigation);
   }
 
   void _nextPage() {
-    if (_currentPage < _titles.length - 1) {
+    if (_currentPage < titles.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -48,7 +82,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget _buildDotsIndicator() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(_titles.length, (index) {
+      children: List.generate(titles.length, (index) {
         bool isActive = index == _currentPage;
         return GestureDetector(
           onTap: () {
@@ -81,6 +115,10 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    // if (!_isLoaded) {
+    //   return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    // }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -96,10 +134,9 @@ class _LandingPageState extends State<LandingPage> {
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: AppColors.neutral100.withValues(alpha: 0.5),
+                color: AppColors.neutral100.withAlpha(128),
                 borderRadius: BorderRadius.circular(24),
               ),
-              width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -107,7 +144,7 @@ class _LandingPageState extends State<LandingPage> {
                     height: 200,
                     child: PageView.builder(
                       controller: _pageController,
-                      itemCount: _titles.length,
+                      itemCount: titles.length,
                       onPageChanged: (index) {
                         setState(() => _currentPage = index);
                       },
@@ -116,7 +153,7 @@ class _LandingPageState extends State<LandingPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              _titles[index],
+                              titles[index],
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: AppColors.neutral10,
@@ -127,7 +164,7 @@ class _LandingPageState extends State<LandingPage> {
                             const SizedBox(height: 16),
                             Flexible(
                               child: Text(
-                                _descriptions[index],
+                                descriptions[index],
                                 style: const TextStyle(
                                   color: AppColors.neutral10,
                                   fontSize: FontSizes.body,
@@ -149,36 +186,30 @@ class _LandingPageState extends State<LandingPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        style: TextButton.styleFrom(
-                          overlayColor: Colors.transparent,
-                        ),
                         onPressed: _skip,
                         child: const Text(
-                          "Skip",
+                              "landing.skip",
                           style: TextStyle(
                             color: AppColors.neutral10,
                             fontSize: FontSizes.body,
                           ),
-                        ),
+                            ).tr(),
                       ),
                       TextButton.icon(
-                        style: TextButton.styleFrom(
-                          overlayColor: Colors.transparent,
-                        ),
                         onPressed: _nextPage,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_forward,
-                          size: 20,
                           color: AppColors.neutral10,
+                          size: 20,
                         ),
-                        iconAlignment: IconAlignment.end,
-                        label: Text(
-                          "Next",
+                        label:
+                            const Text(
+                              "landing.next",
                           style: TextStyle(
                             color: AppColors.neutral10,
                             fontSize: FontSizes.body,
                           ),
-                        ),
+                            ).tr(),
                       ),
                     ],
                   ),

@@ -1,6 +1,6 @@
 abstract class LanguageEvent {}
 
 class SetLanguageEvent extends LanguageEvent {
-  final int languageId;
+  final String languageId;
   SetLanguageEvent(this.languageId);
 }

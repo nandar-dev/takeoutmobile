@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,10 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _allowedLocation = true;
-
+  List<Map<String, dynamic>> languages = [
+    {"id": 'en', "label": "English (US)", "icon": "assets/icons/eng.png"},
+    {"id": 'zh', "label": "Chinese", "icon": "assets/icons/cn.png"},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +58,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
             BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
+                final selectedLang = languages.firstWhere(
+                  (lang) => lang['id'] == state.selectedLanguageId,
+                  orElse: () => {"label": "Unknown"},
+                );
+
                 return SettingsTile(
                   title: "Language",
                   onTap:
@@ -65,7 +74,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        state.selectedLanguageId == 1 ? "English" : "Chinese",
+                        selectedLang['label'],
                         style: const TextStyle(
                           fontSize: FontSizes.body,
                           color: AppColors.neutral100,
@@ -114,12 +123,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  void _showChangeLanguageSheet(BuildContext context, int selectedId) {
-    final List<Map<String, dynamic>> languages = [
-      {"id": 1, "label": "English (US)", "icon": "assets/icons/eng.png"},
-      {"id": 2, "label": "Chinese", "icon": "assets/icons/cn.png"},
-    ];
-
+  void _showChangeLanguageSheet(BuildContext context, String selectedId) {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: AppColors.neutral10,
@@ -149,6 +153,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     label: lang['label'],
                     isSelected: selectedId == lang['id'],
                     onTap: () {
+                      context.setLocale(Locale(lang['id']));
                       context.read<LanguageBloc>().add(
                         SetLanguageEvent(lang['id']),
                       );

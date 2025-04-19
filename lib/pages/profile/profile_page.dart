@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -9,11 +10,13 @@ import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: "Profile Settings", showBackNavigator: false),
+      appBar: AppBarWidget(
+        title: "profile.profileSetting".tr(),
+        showBackNavigator: false,
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -61,6 +64,7 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(height: 12),
             const Center(
               child: Text(

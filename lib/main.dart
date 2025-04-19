@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takeout/bloc/language/state.dart';
 import 'package:takeout/bloc/product_filters/bloc.dart';
 import 'package:takeout/bloc/language/bloc.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('en'), Locale('zh')],
+      path: 'assets/l10n',
+      fallbackLocale: Locale('en'),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,21 +30,29 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => FilterBloc()),
         BlocProvider(create: (_) => LanguageBloc()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.landing,
-        onGenerateRoute: AppRoutes.onGenerateRoute,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            backgroundColor: AppColors.appbarBackground,
-          ),
-          scaffoldBackgroundColor: AppColors.background,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.primary,
-            primary: AppColors.primary,
-          ),
-          canvasColor: AppColors.neutral10,
-        ),
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        builder: (context, locale) {
+          context.setLocale(Locale(locale.selectedLanguageId));
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRoutes.landing,
+            onGenerateRoute: AppRoutes.onGenerateRoute,
+            theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                backgroundColor: AppColors.appbarBackground,
+              ),
+              scaffoldBackgroundColor: AppColors.background,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: AppColors.primary,
+                primary: AppColors.primary,
+              ),
+              canvasColor: AppColors.neutral10,
+            ),
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+          );
+        },
       ),
     );
   }

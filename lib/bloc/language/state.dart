@@ -1,4 +1,4 @@
 class LanguageState {
-  final int selectedLanguageId;
+  final String selectedLanguageId;
   LanguageState(this.selectedLanguageId);
 }
