@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:takeout/theme/app_colors.dart';
-import 'package:takeout/widgets/iconbutton_one_widget.dart';
+import 'package:takeout/widgets/buttons/iconbutton_one_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class HeroSection extends StatelessWidget {

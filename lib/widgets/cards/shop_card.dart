@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/render_network_image.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ShopCard extends StatelessWidget {
@@ -32,7 +32,7 @@ class ShopCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8),
-              child: RenderNetworkImage(
+              child: RenderCustomImage(
                 imageUrl: imageUrl,
                 height: 100,
                 width: 100,

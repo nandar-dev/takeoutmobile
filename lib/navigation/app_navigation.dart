@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:takeout/pages/cart/my_cart.dart';
 import 'package:takeout/pages/home/home_page.dart';
 import 'package:takeout/pages/profile/profile_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AppNavigation extends StatefulWidget {
   final int initialIndex;
@@ -23,9 +26,9 @@ class _AppNavigationState extends State<AppNavigation> {
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.search_outlined),
-      activeIcon: Icon(Icons.search),
-      label: 'Search',
+      icon: Icon(Icons.shopping_bag_outlined),
+      activeIcon: Icon(Icons.shopping_bag),
+      label: 'Cart',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.person_outline),
@@ -34,7 +37,7 @@ class _AppNavigationState extends State<AppNavigation> {
     ),
   ];
 
-  final List<Widget> _pages = const [HomePage(), HomePage(), ProfilePage()];
+  final List<Widget> _pages = const [HomePage(), MyCart(), ProfilePage()];
 
   @override
   void initState() {
@@ -46,24 +49,49 @@ class _AppNavigationState extends State<AppNavigation> {
     setState(() => _selectedIndex = index);
   }
 
+  DateTime? _lastPressed;
+
+  Future<bool> _onWillPop() async {
+    final now = DateTime.now();
+    if (_lastPressed == null ||
+        now.difference(_lastPressed!) > const Duration(seconds: 2)) {
+      _lastPressed = now;
+      Fluttertoast.showToast(
+        msg: "Press again to exit",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primary,
+        textColor: Colors.white,
+        fontSize: FontSizes.body,
+      );
+      return false;
+    }
+    SystemNavigator.pop();
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        backgroundColor: AppColors.neutral10,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.neutral50,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: FontSizes.sm,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          backgroundColor: AppColors.neutral10,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: AppColors.neutral50,
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: FontSizes.sm,
+          ),
+          items: _navBarItems,
         ),
-        items: _navBarItems,
       ),
     );
   }

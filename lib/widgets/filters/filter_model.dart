@@ -133,7 +133,7 @@ class _FilterModalState extends State<FilterModal> {
                   },
                   borderColor: AppColors.neutral40,
                   borderRadius: 10,
-                  fontSize: FontSizes.body1,
+                  fontSize: FontSizes.md,
                 ),
               ),
               const SizedBox(width: 12),
@@ -144,7 +144,7 @@ class _FilterModalState extends State<FilterModal> {
                     Navigator.pop(context, selectedItemIds.toList());
                   },
                   borderRadius: 10,
-                  fontSize: FontSizes.body1,
+                  fontSize: FontSizes.md,
                 ),
               ),
             ],

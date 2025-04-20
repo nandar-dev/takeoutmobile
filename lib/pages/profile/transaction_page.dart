@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:takeout/models/transaction_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/transaction_card.dart';
 
@@ -71,27 +72,38 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
     });
   }
 
+  Future<bool> _onWillPop() async {
+    Navigator.pushNamed(context, AppRoutes.refillwallet);
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(title: 'Transaction History'),
-      body:
-          _transactions.isEmpty && _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                controller: _scrollController,
-                itemCount: _transactions.length + (_isLoading ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (index < _transactions.length) {
-                    return TransactionCard(transaction: _transactions[index]);
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-                },
-              ),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBarWidget(
+          title: 'Transaction History',
+          onBackTap: _onWillPop,
+        ),
+        body:
+            _transactions.isEmpty && _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                  controller: _scrollController,
+                  itemCount: _transactions.length + (_isLoading ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index < _transactions.length) {
+                      return TransactionCard(transaction: _transactions[index]);
+                    } else {
+                      return const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                  },
+                ),
+      ),
     );
   }
 }

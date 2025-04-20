@@ -68,7 +68,7 @@ class SubText extends StatelessWidget {
       maxLines: maxLines,
       overflow: overflow,
       style: TextStyle(
-        fontSize: fontSize ?? FontSizes.body1,
+        fontSize: fontSize ?? FontSizes.md,
         fontWeight: fontWeight ?? FontWeight.normal,
         color: color ?? AppColors.neutral60,
       ),

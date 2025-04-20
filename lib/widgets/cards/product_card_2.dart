@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/render_network_image.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProductCard2 extends StatelessWidget {
@@ -12,19 +13,22 @@ class ProductCard2 extends StatelessWidget {
 
   // Reusable TextStyle for SubText
   TextStyle get subTextStyle => TextStyle(
-        fontSize: FontSizes.body1,
-        color: AppColors.textPrimary,
-        fontWeight: FontWeight.bold,
-        overflow: TextOverflow.ellipsis,
-      );
+    fontSize: FontSizes.md,
+    color: AppColors.textPrimary,
+    fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
+  );
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: AppColors.primary.withValues(alpha: .2),
-      onTap: () {
-        // Handle tap if needed
-      },
+      onTap:
+          () => Navigator.pushNamed(
+            context,
+            AppRoutes.product,
+            arguments: {'product': product},
+          ),
       borderRadius: BorderRadius.circular(12),
       child: Container(
         decoration: BoxDecoration(
@@ -47,7 +51,7 @@ class ProductCard2 extends StatelessWidget {
                   ),
                 ],
               ),
-              child: RenderNetworkImage(
+              child: RenderCustomImage(
                 imageUrl: product.imageUrl,
                 height: 100,
                 width: 100,
@@ -69,7 +73,7 @@ class ProductCard2 extends StatelessWidget {
                         text: product.name,
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.bold,
-                        fontSize: FontSizes.body1,
+                        fontSize: FontSizes.md,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -78,7 +82,7 @@ class ProductCard2 extends StatelessWidget {
                         text: product.shopName,
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.bold,
-                        fontSize: FontSizes.body1,
+                        fontSize: FontSizes.md,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
-import 'package:takeout/widgets/render_network_image.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
@@ -44,7 +44,7 @@ class CategoryCard extends StatelessWidget {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child: RenderNetworkImage(imageUrl: category.imageUrl, height: 20, width: 20,)
+                    child: RenderCustomImage(imageUrl: category.imageUrl, height: 20, width: 20,)
                   ),
                   const SizedBox(height: 4),
                   AnimatedDefaultTextStyle(

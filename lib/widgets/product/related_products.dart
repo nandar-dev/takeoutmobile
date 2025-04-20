@@ -56,7 +56,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
               text: "Recommended For You",
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w500,
-              fontSize: FontSizes.body1,
+              fontSize: FontSizes.md,
             ),
             GestureDetector(
               onTap: () => Navigator.pushNamed(context, AppRoutes.products),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/product_card_2.dart';
@@ -51,7 +52,7 @@ class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: title, borderedBack: false),
+      appBar: AppBarWidget(title: title, borderedBack: false, onBackTap: () => Navigator.pushNamed(context, AppRoutes.appNavigation),),
       body: Column(
         children: [
           // sorting group

@@ -25,90 +25,101 @@ class _SettingsPageState extends State<SettingsPage> {
     {"id": 'en', "label": "English (US)", "icon": "assets/icons/eng.png"},
     {"id": 'zh', "label": "Chinese", "icon": "assets/icons/cn.png"},
   ];
+
+  Future<bool> _onWillPop() async {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.appNavigation,
+      arguments: {'initialIndex': 2},
+    );
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(
-        title: 'Settings',
-        onBackTap: () {
-          Navigator.pushNamed(
-            context,
-            AppRoutes.appNavigation,
-            arguments: {'initialIndex': 2},
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        builder: (context, state) {
+          final selectedLang = languages.firstWhere(
+            (lang) => lang['id'] == state.selectedLanguageId,
+            orElse: () => {"label": "Unknown"},
           );
-        },
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          children: [
-            const SizedBox(height: 32),
-            _buildSectionTitle("PROFILE"),
-            const SizedBox(height: 8),
+          return Scaffold(
+            appBar: AppBarWidget(
+              title: 'profile.setting'.tr(),
+              onBackTap: _onWillPop,
+            ),
+            body: SafeArea(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                children: [
+                  const SizedBox(height: 32),
+                  _buildSectionTitle("PROFILE"),
+                  const SizedBox(height: 8),
 
-            SettingsTile(
-              title: "Location",
-              trailing: CupertinoSwitch(
-                activeColor: AppColors.primary,
-                value: _allowedLocation,
-                onChanged: (value) => setState(() => _allowedLocation = value),
+                  SettingsTile(
+                    title: "Location",
+                    trailing: CupertinoSwitch(
+                      activeColor: AppColors.primary,
+                      value: _allowedLocation,
+                      onChanged:
+                          (value) => setState(() => _allowedLocation = value),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // BlocBuilder<LanguageBloc, LanguageState>(
+                  //   builder: (context, state) {
+                  SettingsTile(
+                    title: "Language",
+                    onTap:
+                        () => _showChangeLanguageSheet(
+                          context,
+                          state.selectedLanguageId,
+                        ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          selectedLang['label'],
+                          style: const TextStyle(
+                            fontSize: FontSizes.body,
+                            color: AppColors.neutral100,
+                          ),
+                        ),
+                        const Icon(Icons.chevron_right_rounded),
+                      ],
+                    ),
+                  ),
+
+                  //   },
+                  // ),
+                  const SizedBox(height: 66),
+                  _buildSectionTitle("OTHER"),
+                  const SizedBox(height: 8),
+
+                  const SettingsTile(
+                    title: "About Ticketis",
+                    trailing: Icon(Icons.chevron_right_rounded),
+                  ),
+                  const SizedBox(height: 8),
+
+                  const SettingsTile(
+                    title: "Privacy Policy",
+                    trailing: Icon(Icons.chevron_right_rounded),
+                  ),
+                  const SizedBox(height: 8),
+
+                  const SettingsTile(
+                    title: "Terms and Conditions",
+                    trailing: Icon(Icons.chevron_right_rounded),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-
-            BlocBuilder<LanguageBloc, LanguageState>(
-              builder: (context, state) {
-                final selectedLang = languages.firstWhere(
-                  (lang) => lang['id'] == state.selectedLanguageId,
-                  orElse: () => {"label": "Unknown"},
-                );
-
-                return SettingsTile(
-                  title: "Language",
-                  onTap:
-                      () => _showChangeLanguageSheet(
-                        context,
-                        state.selectedLanguageId,
-                      ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        selectedLang['label'],
-                        style: const TextStyle(
-                          fontSize: FontSizes.body,
-                          color: AppColors.neutral100,
-                        ),
-                      ),
-                      const Icon(Icons.chevron_right_rounded),
-                    ],
-                  ),
-                );
-              },
-            ),
-
-            const SizedBox(height: 66),
-            _buildSectionTitle("OTHER"),
-            const SizedBox(height: 8),
-
-            const SettingsTile(
-              title: "About Ticketis",
-              trailing: Icon(Icons.chevron_right_rounded),
-            ),
-            const SizedBox(height: 8),
-
-            const SettingsTile(
-              title: "Privacy Policy",
-              trailing: Icon(Icons.chevron_right_rounded),
-            ),
-            const SizedBox(height: 8),
-
-            const SettingsTile(
-              title: "Terms and Conditions",
-              trailing: Icon(Icons.chevron_right_rounded),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

@@ -51,7 +51,7 @@ class _CategorySectionState extends State<CategorySection> {
               text: widget.categorySectionTitle,
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w500,
-              fontSize: FontSizes.body1,
+              fontSize: FontSizes.md,
             ),
             GestureDetector(
               onTap: () => Navigator.pushNamed(context, AppRoutes.categories),

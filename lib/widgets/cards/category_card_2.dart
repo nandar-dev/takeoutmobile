@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/render_network_image.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class CategoryCard2 extends StatelessWidget {
@@ -46,7 +46,7 @@ class CategoryCard2 extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(12),
-                child: RenderNetworkImage(
+                child: RenderCustomImage(
                   imageUrl: category.imageUrl,
                   height: 50,
                   width: 50,
@@ -59,7 +59,7 @@ class CategoryCard2 extends StatelessWidget {
                 text: category.name,
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.bold,
-                fontSize: FontSizes.body1,
+                fontSize: FontSizes.md,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

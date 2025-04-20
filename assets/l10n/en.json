@@ -6,10 +6,11 @@
         "desc1": "Explore nearby shops offering convenient delivery services. From groceries to gifts, everything is just a click away.",
         "desc2": "Access the world's resources, right now. Global takeout provides instant access to digitial goods, and global services.",
         "desc3": "Access a world of resources, digital goods, and international services. Global Takeout brings the best of the world to your fingertips, wherever you are.",
-        "next": "Next e",
-        "skip": "Skip e"
+        "next": "Next",
+        "skip": "Skip"
     },
     "profile": {
-        "profileSetting": "Profile Setting e"
+        "profileSetting": "Profile Setting",
+        "setting": "Setting"
     }
 }

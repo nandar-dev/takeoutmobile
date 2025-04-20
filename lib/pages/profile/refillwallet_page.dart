@@ -64,204 +64,209 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
     return ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].contains(ext);
   }
 
+  Future<bool> _onWillPop() async {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.appNavigation,
+      arguments: {'initialIndex': 2},
+    );
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(
-        title: 'Refill Wallet',
-        onBackTap: () {
-          Navigator.pushNamed(
-            context,
-            AppRoutes.appNavigation,
-            arguments: {'initialIndex': 2},
-          );
-        },
-      ),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const TitleText(
-                          text: 'Refill Your Wallet',
-                          // textAlign: TextAlign.center,
-                        ),
-                        const SubText(
-                          text:
-                              'Add funds to your wallet to make quick and easy payments',
-                          // textAlign: TextAlign.center,
-                        ),
-
-                        const SizedBox(height: 32),
-
-                        CustomTextField(
-                          label: 'Amount',
-                          hint: '\$ Enter amount',
-                        ),
-                        SizedBox(height: 16),
-
-                        CustomDropdownFormField<String>(
-                          label: "Payment Method",
-                          value: selectedPaymentMethod,
-                          items: paymethodMethodOptiosn,
-                          hintText: "Select payment method",
-                          onChanged: (val) {
-                            setState(() {
-                              selectedPaymentMethod = val;
-                            });
-                          },
-                          validator:
-                              (val) =>
-                                  val == null
-                                      ? "Please select a payment method"
-                                      : null,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            'Select a payment method to see account details for your transfer',
-                            style: TextStyle(
-                              fontSize: FontSizes.sm,
-                              color: AppColors.neutral80,
-                            ),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBarWidget(title: 'Refill Wallet', onBackTap: _onWillPop),
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TitleText(
+                            text: 'Refill Your Wallet',
+                            // textAlign: TextAlign.center,
                           ),
-                        ),
-                        SizedBox(height: 16),
-
-                        CustomTextField(
-                          label: 'Transaction ID',
-                          hint: 'Enter transaction ID',
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        Text(
-                          'Transaction Screenshot',
-                          style: const TextStyle(
-                            color: AppColors.neutral100,
-                            fontSize: FontSizes.body,
-                            fontWeight: FontWeight.w500,
+                          const SubText(
+                            text:
+                                'Add funds to your wallet to make quick and easy payments',
+                            // textAlign: TextAlign.center,
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        GestureDetector(
-                          onTap: _pickFile,
-                          child: Container(
-                            width: double.infinity,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.textfieldborder,
+
+                          const SizedBox(height: 32),
+
+                          CustomTextField(
+                            label: 'Amount',
+                            hint: '\$ Enter amount',
+                          ),
+                          SizedBox(height: 16),
+
+                          CustomDropdownFormField<String>(
+                            label: "Payment Method",
+                            value: selectedPaymentMethod,
+                            items: paymethodMethodOptiosn,
+                            hintText: "Select payment method",
+                            onChanged: (val) {
+                              setState(() {
+                                selectedPaymentMethod = val;
+                              });
+                            },
+                            validator:
+                                (val) =>
+                                    val == null
+                                        ? "Please select a payment method"
+                                        : null,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              'Select a payment method to see account details for your transfer',
+                              style: TextStyle(
+                                fontSize: FontSizes.sm,
+                                color: AppColors.neutral80,
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                _buildPreview(),
-                                if (_pickedFile != null)
-                                  Positioned(
-                                    top: 4,
-                                    right: 4,
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.danger,
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                      child: IconButton(
-                                        color: AppColors.neutral10,
-                                        icon: const Icon(Icons.close),
-                                        tooltip: 'Clear selection',
-                                        onPressed: _clearFile,
+                          ),
+                          SizedBox(height: 16),
+
+                          CustomTextField(
+                            label: 'Transaction ID',
+                            hint: 'Enter transaction ID',
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          Text(
+                            'Transaction Screenshot',
+                            style: const TextStyle(
+                              color: AppColors.neutral100,
+                              fontSize: FontSizes.body,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: _pickFile,
+                            child: Container(
+                              width: double.infinity,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.textfieldborder,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  _buildPreview(),
+                                  if (_pickedFile != null)
+                                    Positioned(
+                                      top: 4,
+                                      right: 4,
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.danger,
+                                          borderRadius: BorderRadius.circular(
+                                            40,
+                                          ),
+                                        ),
+                                        child: IconButton(
+                                          color: AppColors.neutral10,
+                                          icon: const Icon(Icons.close),
+                                          tooltip: 'Clear selection',
+                                          onPressed: _clearFile,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            'Upload a screenshot of your transaction (JPEG, PNG, max 5MB)',
-                            style: TextStyle(
-                              fontSize: FontSizes.sm,
-                              color: AppColors.neutral80,
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              'Upload a screenshot of your transaction (JPEG, PNG, max 5MB)',
+                              style: TextStyle(
+                                fontSize: FontSizes.sm,
+                                color: AppColors.neutral80,
+                              ),
                             ),
                           ),
-                        ),
 
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
-                        CustomTextField(
-                          label: 'Remark (Optional)',
-                          hint: 'Add any additional information',
-                          maxLines: 3,
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        SizedBox(
-                          width: double.infinity,
-                          child: CustomPrimaryButton(
-                            text: 'Refill Wallet',
-                            onPressed: () => (),
-                            borderRadius: 8,
+                          CustomTextField(
+                            label: 'Remark (Optional)',
+                            hint: 'Add any additional information',
+                            maxLines: 3,
                           ),
-                        ),
 
-                        const SizedBox(height: 16),
-                        const Center(
-                          child: Text(
-                            'Your refill request will be processed within 24 hours. You will receive a notification once completed.',
-                            style: TextStyle(
-                              color: AppColors.neutral60,
-                              fontSize: FontSizes.sm,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 24),
 
-                        Center(
-                          child: SizedBox(
-                            width: 200,
-                            child: CustomOutlinedButton(
-                              icon: Icons.history,
-                              iconColor: AppColors.primary,
-                              textColor: AppColors.primary,
-                              borderColor: AppColors.primary,
+                          SizedBox(
+                            width: double.infinity,
+                            child: CustomPrimaryButton(
+                              text: 'Refill Wallet',
+                              onPressed: () => (),
                               borderRadius: 8,
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.transactionhistory,
-                                );
-                              },
-                              text: "Payment History",
                             ),
                           ),
-                        ),
-                      ],
+
+                          const SizedBox(height: 16),
+                          const Center(
+                            child: Text(
+                              'Your refill request will be processed within 24 hours. You will receive a notification once completed.',
+                              style: TextStyle(
+                                color: AppColors.neutral60,
+                                fontSize: FontSizes.sm,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          Center(
+                            child: SizedBox(
+                              width: 200,
+                              child: CustomOutlinedButton(
+                                icon: Icons.history,
+                                iconColor: AppColors.primary,
+                                textColor: AppColors.primary,
+                                borderColor: AppColors.primary,
+                                borderRadius: 8,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.transactionhistory,
+                                  );
+                                },
+                                text: "Payment History",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

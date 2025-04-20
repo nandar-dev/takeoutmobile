@@ -28,7 +28,20 @@ class Product {
       shopName: json['shop']['name'],
       categoryName: json['category']['name'],
       description: json['description'],
-      stock: json['stock']
+      stock: json['stock'],
+    );
+  }
+
+  factory Product.fromCartItem(Map<String, dynamic> item) {
+    return Product(
+      id: item['productId'],
+      name: item['name'],
+      price: (item['price'] as num).toDouble(),
+      imageUrl: item['imageUrl'],
+      shopName: item['shopName'] ?? '',
+      categoryName: item['categoryName'] ?? '',
+      description: item['description'] ?? '',
+      stock: item['stock'],
     );
   }
 }

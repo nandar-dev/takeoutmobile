@@ -1,4 +1,5 @@
-import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
@@ -28,37 +29,6 @@ class _LandingPageState extends State<LandingPage> {
     'landing.desc2'.tr(),
     'landing.desc3'.tr(),
   ];
-
-  // bool _isLoaded = false;
-  // Locale? _lastLocale;
-
-  // Future<Map<String, dynamic>> loadLandingTranslation(String locale) async {
-  //   final String jsonString = await rootBundle.loadString(
-  //     'assets/l10n/landing_$locale.json',
-  //   );
-  //   return json.decode(jsonString);
-  // }
-
-  // Future<void> _loadTranslation(String localeCode) async {
-  //   final json = await loadLandingTranslation(localeCode);
-  //   setState(() {
-  //     titles = [json['title1'], json['title2'], json['title3']];
-  //     descriptions = [json['desc1'], json['desc2'], json['desc3']];
-  //     _isLoaded = true;
-  //   });
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-
-  //   final currentLocale = context.locale;
-
-  //   if (_lastLocale != currentLocale) {
-  //     _lastLocale = currentLocale;
-  //     _loadTranslation(currentLocale.languageCode);
-  //   }
-  // }
 
   void _toHomePage() {
     Navigator.pushNamed(context, AppRoutes.appNavigation);
@@ -113,111 +83,116 @@ class _LandingPageState extends State<LandingPage> {
     super.dispose();
   }
 
+  Future<bool> _onWillPop() async {
+    SystemNavigator.pop();
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // if (!_isLoaded) {
-    //   return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    // }
-
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/landing_bg.webp',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: AppColors.neutral100.withAlpha(128),
-                borderRadius: BorderRadius.circular(24),
+    return WillPopScope(
+      onWillPop: () async => _onWillPop(),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/landing_bg.webp',
+                fit: BoxFit.cover,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 200,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: titles.length,
-                      onPageChanged: (index) {
-                        setState(() => _currentPage = index);
-                      },
-                      itemBuilder: (_, index) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              titles[index],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: AppColors.neutral10,
-                                fontSize: FontSizes.heading1,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Flexible(
-                              child: Text(
-                                descriptions[index],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: AppColors.neutral100.withAlpha(128),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: titles.length,
+                        onPageChanged: (index) {
+                          setState(() => _currentPage = index);
+                        },
+                        itemBuilder: (_, index) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                titles[index],
+                                textAlign: TextAlign.center,
                                 style: const TextStyle(
+                                  color: AppColors.neutral10,
+                                  fontSize: FontSizes.heading1,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Flexible(
+                                child: Text(
+                                  descriptions[index],
+                                  style: const TextStyle(
+                                    color: AppColors.neutral10,
+                                    fontSize: FontSizes.body,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildDotsIndicator(),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: _skip,
+                          child:
+                              const Text(
+                                "landing.skip",
+                                style: TextStyle(
                                   color: AppColors.neutral10,
                                   fontSize: FontSizes.body,
                                 ),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildDotsIndicator(),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: _skip,
-                        child: const Text(
-                              "landing.skip",
-                          style: TextStyle(
-                            color: AppColors.neutral10,
-                            fontSize: FontSizes.body,
-                          ),
-                            ).tr(),
-                      ),
-                      TextButton.icon(
-                        onPressed: _nextPage,
-                        icon: const Icon(
-                          Icons.arrow_forward,
-                          color: AppColors.neutral10,
-                          size: 20,
+                              ).tr(),
                         ),
-                        label:
-                            const Text(
-                              "landing.next",
-                          style: TextStyle(
+                        TextButton.icon(
+                          onPressed: _nextPage,
+                          icon: const Icon(
+                            Icons.arrow_forward,
                             color: AppColors.neutral10,
-                            fontSize: FontSizes.body,
+                            size: 20,
                           ),
-                            ).tr(),
-                      ),
-                    ],
-                  ),
-                ],
+                          label:
+                              const Text(
+                                "landing.next",
+                                style: TextStyle(
+                                  color: AppColors.neutral10,
+                                  fontSize: FontSizes.body,
+                                ),
+                              ).tr(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

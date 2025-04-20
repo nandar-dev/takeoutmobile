@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/buttons/iconbutton_one_widget.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -15,7 +16,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.onBackTap,
     this.rightAction,
     this.showBackNavigator = true,
-    this.borderedBack = true, 
+    this.borderedBack = true,
   });
 
   @override
@@ -24,35 +25,28 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      surfaceTintColor: Colors.transparent,
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
+      surfaceTintColor: AppColors.background,
+      backgroundColor: AppColors.background,
       elevation: 0,
       centerTitle: true,
       title: Row(
         children: [
           if (showBackNavigator)
-            GestureDetector(
-              onTap: onBackTap ?? () => Navigator.of(context).pop(),
-              child:
-                  borderedBack
-                      ? Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(
-                            width: 2,
-                            color: AppColors.backkeyborder,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 20,
-                        ),
-                      )
-                      : const Icon(Icons.chevron_left, size: 28),
-            )
+            borderedBack
+                ? IconButtonOneWidget(
+                  icon: "assets/icons/chevron_left.svg",
+                  onTap: onBackTap ?? () => Navigator.of(context).pop(),
+                  borderColor: AppColors.neutral40,
+                  iconColor: AppColors.neutral90,
+                  iconSize: 15,
+                )
+                : IconButtonOneWidget(
+                  icon: "assets/icons/chevron_left.svg",
+                  onTap: onBackTap ?? () => Navigator.of(context).pop(),
+                  iconColor: AppColors.neutral90,
+                  iconSize: 15,
+                )
           else
             const SizedBox(width: 50),
 
