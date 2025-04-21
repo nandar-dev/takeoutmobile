@@ -130,7 +130,7 @@ class ProductDetailState extends State<ProductDetail> {
                       ),
                       const SizedBox(height: 8),
                       ...[
-                        widget.product.shopName,
+                        widget.product.shop.name,
                         widget.product.categoryName,
                         "Items in stock - ${widget.product.stock}",
                       ].map(
@@ -167,7 +167,7 @@ class ProductDetailState extends State<ProductDetail> {
                         initialQuantity: initialQuantity,
                       ),
                       const SizedBox(height: 20),
-                      RelatedProducts(productId: widget.product.id),
+                      RelatedProducts(productId: widget.product.id, merchantId: widget.product.shop.id,),
                     ],
                   ),
                 ),

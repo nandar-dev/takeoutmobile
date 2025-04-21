@@ -79,7 +79,7 @@ class ProductCard2 extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       SubText(
-                        text: product.shopName,
+                        text: product.shop.name,
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.bold,
                         fontSize: FontSizes.md,

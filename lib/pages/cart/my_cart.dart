@@ -132,12 +132,11 @@ class _MyCartState extends State<MyCart> {
                             child: Align(
                               alignment: Alignment.center,
                               child: CustomOutlinedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    AppRoutes.products,
-                                  );
-                                },
+                                onPressed: () => Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.products,
+                                  arguments: {'categoryId': null},
+                                ),
                                 text: "Add more items",
                                 borderRadius: 5,
                                 padding: const EdgeInsets.symmetric(
@@ -183,7 +182,7 @@ class _MyCartState extends State<MyCart> {
           SizedBox(
             width: double.infinity,
             child: CustomPrimaryButton(
-              onPressed: () {},
+              onPressed: ()=> Navigator.pushNamed(context, AppRoutes.selectPayment),
               text: "Proceed to Payment",
             ),
           ),

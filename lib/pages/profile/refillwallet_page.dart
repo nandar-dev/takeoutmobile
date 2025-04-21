@@ -65,11 +65,12 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
   }
 
   Future<bool> _onWillPop() async {
-    Navigator.pushNamed(
-      context,
-      AppRoutes.appNavigation,
-      arguments: {'initialIndex': 2},
-    );
+    // Navigator.pushNamed(
+    //   context,
+    //   AppRoutes.appNavigation,
+    //   arguments: {'initialIndex': 2},
+    // );
+    Navigator.pop(context);
     return false;
   }
 

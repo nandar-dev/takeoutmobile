@@ -10,18 +10,16 @@ class TransactionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusBgColors =
-        transaction.status == "completed"
-            ? AppColors.green50
-            : AppColors.yello50;
-    final statusTextColor =
-        transaction.status == "completed"
-            ? AppColors.success
-            : AppColors.yello700;
-    final statusBorderColor =
-        transaction.status == "completed"
-            ? AppColors.green200
-            : AppColors.yello200;
+    final statusBgColors = transaction.status == "completed"
+        ? AppColors.green50
+        : AppColors.yello50;
+    final statusTextColor = transaction.status == "completed"
+        ? AppColors.success
+        : AppColors.yello700;
+    final statusBorderColor = transaction.status == "completed"
+        ? AppColors.green200
+        : AppColors.yello200;
+
     return Card(
       color: AppColors.neutral10,
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
@@ -31,10 +29,11 @@ class TransactionCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            // Avatar icon
+            const SizedBox(
               height: 50,
               width: 50,
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 backgroundColor: AppColors.green50,
                 child: Icon(
                   size: 35,
@@ -44,54 +43,75 @@ class TransactionCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
+            // Main content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Title
                   Text(
                     transaction.title,
                     style: const TextStyle(fontSize: FontSizes.md),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 4),
+                  // Time and ID info
                   Row(
                     children: [
-                      Icon(
-                        size: 15,
+                      const Icon(
                         Icons.access_time,
+                        size: 15,
                         color: AppColors.neutral60,
                       ),
-                      SizedBox(width: 1),
-                      Text(
-                        transaction.dateTime,
-                        style: TextStyle(
-                          color: AppColors.neutral60,
-                          fontSize: FontSizes.sm,
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          transaction.dateTime,
+                          style: const TextStyle(
+                            color: AppColors.neutral60,
+                            fontSize: FontSizes.sm,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 4),
                   Text(
-                    "Account: ${transaction.account}\nID: ${transaction.id}",
-                    style: TextStyle(
+                    "Account: ${transaction.account}",
+                    style: const TextStyle(
                       color: AppColors.neutral60,
                       fontSize: FontSizes.sm,
                     ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    "ID: ${transaction.id}",
+                    style: const TextStyle(
+                      color: AppColors.neutral60,
+                      fontSize: FontSizes.sm,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
+            const SizedBox(width: 8),
+            // Amount and Status
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   "+ \$${transaction.amount.toStringAsFixed(2)}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.success,
                     fontSize: FontSizes.md,
                     fontWeight: FontWeight.w600,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
@@ -109,6 +129,7 @@ class TransactionCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

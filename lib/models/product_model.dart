@@ -3,7 +3,7 @@ class Product {
   final String name;
   final double price;
   final String imageUrl;
-  final String shopName;
+  final Shop shop;
   final String categoryName;
   final String description;
   final int stock;
@@ -13,7 +13,7 @@ class Product {
     required this.name,
     required this.price,
     required this.imageUrl,
-    required this.shopName,
+    required this.shop,
     required this.categoryName,
     required this.description,
     required this.stock,
@@ -23,9 +23,9 @@ class Product {
     return Product(
       id: json['id'],
       name: json['name'],
-      price: json['price'],
+      price: (json['price'] as num).toDouble(),
       imageUrl: json['image_url'],
-      shopName: json['shop']['name'],
+      shop: Shop.fromJson(json['shop']),
       categoryName: json['category']['name'],
       description: json['description'],
       stock: json['stock'],
@@ -38,10 +38,30 @@ class Product {
       name: item['name'],
       price: (item['price'] as num).toDouble(),
       imageUrl: item['imageUrl'],
-      shopName: item['shopName'] ?? '',
+      shop: Shop(
+        id: item['shopId'] ?? 0,
+        name: item['shopName'] ?? '',
+      ),
       categoryName: item['categoryName'] ?? '',
       description: item['description'] ?? '',
       stock: item['stock'],
+    );
+  }
+}
+
+class Shop {
+  final int id;
+  final String name;
+
+  Shop({
+    required this.id,
+    required this.name,
+  });
+
+  factory Shop.fromJson(Map<String, dynamic> json) {
+    return Shop(
+      id: json['id'],
+      name: json['name'],
     );
   }
 }

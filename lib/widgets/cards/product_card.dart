@@ -84,7 +84,7 @@ class _ProductCardState extends State<ProductCard> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   SubText(
-                    text: widget.product.shopName,
+                    text: widget.product.shop.name,
                     fontSize: FontSizes.body,
                     color: AppColors.textSecondary,
                     maxLines: 1,

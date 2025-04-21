@@ -9,8 +9,9 @@ import 'package:takeout/widgets/typography_widgets.dart';
 
 class RelatedProducts extends StatefulWidget {
   final int productId;
+  final int merchantId;
 
-  const RelatedProducts({super.key, required this.productId});
+  const RelatedProducts({super.key, required this.productId, required this.merchantId});
 
   @override
   State<RelatedProducts> createState() => _RelatedProductsState();
@@ -19,7 +20,7 @@ class RelatedProducts extends StatefulWidget {
 class _RelatedProductsState extends State<RelatedProducts> {
   List<Product> relatedProducts = [];
   bool isLoading = true;
-  
+
   final ProductService _productService = ProductService();
 
   @override
@@ -59,7 +60,12 @@ class _RelatedProductsState extends State<RelatedProducts> {
               fontSize: FontSizes.md,
             ),
             GestureDetector(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.products),
+              onTap:
+                  () => Navigator.pushNamed(
+                    context,
+                    AppRoutes.merchantProducts,
+                    arguments: {'merchantId': widget.merchantId},
+                  ),
               child: SubText(
                 text: "See All",
                 color: AppColors.primary,

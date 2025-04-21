@@ -7,10 +7,13 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final bool obscureText;
   final TextInputType keyboardType;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final int maxLines;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final bool isDense;
+  final EdgeInsetsGeometry? contentPadding;
 
   const CustomTextField({
     super.key,
@@ -18,10 +21,13 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
+    this.prefixIcon,
     this.suffixIcon,
     this.maxLines = 1,
     this.controller,
     this.validator,
+    this.isDense = false,
+    this.contentPadding,
   });
 
   @override
@@ -29,15 +35,16 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: AppColors.neutral100,
-            fontSize: FontSizes.body,
-            fontWeight: FontWeight.w500,
+        if (label.isNotEmpty)
+          Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.neutral100,
+              fontSize: FontSizes.body,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
+        if (label.isNotEmpty) const SizedBox(height: 8),
         TextFormField(
           maxLines: maxLines,
           controller: controller,
@@ -46,6 +53,9 @@ class CustomTextField extends StatelessWidget {
           validator: validator,
           style: TextStyle(fontSize: FontSizes.body),
           decoration: InputDecoration(
+            isDense: isDense,
+            contentPadding: contentPadding ?? const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             suffixIconColor: AppColors.neutral100,
             iconColor: AppColors.neutral100,
@@ -66,7 +76,7 @@ class CustomTextField extends StatelessWidget {
             focusedErrorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.danger),
             ),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
       ],

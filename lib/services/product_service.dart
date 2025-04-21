@@ -21,4 +21,13 @@ class ProductService {
       throw Exception('Error filtering related products: $e');
     }
   }
+  
+  Future<List<Product>> getProductsByShopId(int shopId) async {
+    try {
+      final products = await loadProducts();
+      return products.where((product) => product.shop.id == shopId).toList();
+    } catch (e) {
+      throw Exception('Error filtering products by shop ID: $e');
+    }
+  }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:takeout/utils/font_sizes.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final IconData? icon;
+  final String? svgAssetPath;
   final Color textColor;
   final Color iconColor;
   final Color borderColor;
@@ -13,12 +15,14 @@ class CustomOutlinedButton extends StatelessWidget {
   final TextStyle? textStyle;
   final double fontSize;
   final double borderRadius;
+  final double iconSize;
 
   const CustomOutlinedButton({
     super.key,
     required this.onPressed,
     required this.text,
     this.icon,
+    this.svgAssetPath,
     this.textColor = Colors.black,
     this.iconColor = Colors.black,
     this.borderColor = Colors.black,
@@ -27,6 +31,7 @@ class CustomOutlinedButton extends StatelessWidget {
     this.textStyle,
     this.fontSize = FontSizes.body,
     this.borderRadius = 24.0,
+    this.iconSize = 20,
   });
 
   @override
@@ -52,10 +57,23 @@ class CustomOutlinedButton extends StatelessWidget {
           ),
     );
 
-    if (icon != null) {
+    Widget? leadingIcon;
+
+    if (svgAssetPath != null) {
+      leadingIcon = SvgPicture.asset(
+        svgAssetPath!,
+        colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+        height: iconSize,
+        width: iconSize,
+      );
+    } else if (icon != null) {
+      leadingIcon = Icon(icon, color: iconColor, size: iconSize);
+    }
+
+    if (leadingIcon != null) {
       return OutlinedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, color: iconColor),
+        icon: leadingIcon,
         label: label,
         style: style,
       );

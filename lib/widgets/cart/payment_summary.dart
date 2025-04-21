@@ -5,8 +5,9 @@ import 'package:takeout/widgets/typography_widgets.dart';
 
 class PaymentSummary extends StatelessWidget {
   final List<Map<String, dynamic>> items;
+  final bool? showTitle;
 
-  const PaymentSummary({super.key, required this.items});
+  const PaymentSummary({super.key, required this.items, this.showTitle = true});
 
   double _calculateSubtotal() {
     return items.fold(
@@ -24,18 +25,15 @@ class PaymentSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          color: AppColors.neutral30, // use your theme color or Colors.grey
-          width: 1,
-        ),
+        color: AppColors.background,
+        border: Border.all(color: AppColors.neutral30, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TitleText(text: 'Payment Summary', fontSize: FontSizes.heading3),
+          if(showTitle == true) TitleText(text: 'Payment Summary', fontSize: FontSizes.heading3),
           _buildSummaryRow('Total items(${items.length})', subtotal),
           _buildSummaryRow('Delivery Fee', shipping),
           _buildSummaryRow('Total', total, isTotal: true),
