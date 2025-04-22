@@ -11,6 +11,12 @@
     },
     "profile": {
         "profileSetting": "Profile Setting",
-        "setting": "Setting"
+        "setting": "设置",
+        "profile": "个人资料",
+        "language": "语言",
+        "other": "其他",
+        "aboutTicket": "关于票务",
+        "privacyPolicy": "隐私政策",
+        "termsConditions": "条款和条件"
     }
 }

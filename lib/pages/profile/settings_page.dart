@@ -55,24 +55,21 @@ class _SettingsPageState extends State<SettingsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 children: [
                   const SizedBox(height: 32),
-                  _buildSectionTitle("PROFILE"),
+                  _buildSectionTitle("profile.profile".tr()),
                   const SizedBox(height: 8),
 
+                  // SettingsTile(
+                  //   title: "Location",
+                  //   trailing: CupertinoSwitch(
+                  //     activeColor: AppColors.primary,
+                  //     value: _allowedLocation,
+                  //     onChanged:
+                  //         (value) => setState(() => _allowedLocation = value),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 8),
                   SettingsTile(
-                    title: "Location",
-                    trailing: CupertinoSwitch(
-                      activeColor: AppColors.primary,
-                      value: _allowedLocation,
-                      onChanged:
-                          (value) => setState(() => _allowedLocation = value),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-
-                  // BlocBuilder<LanguageBloc, LanguageState>(
-                  //   builder: (context, state) {
-                  SettingsTile(
-                    title: "Language",
+                    title: "profile.language".tr(),
                     onTap:
                         () => _showChangeLanguageSheet(
                           context,
@@ -93,26 +90,24 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
 
-                  //   },
-                  // ),
                   const SizedBox(height: 66),
-                  _buildSectionTitle("OTHER"),
+                  _buildSectionTitle("profile.other".tr()),
                   const SizedBox(height: 8),
 
-                  const SettingsTile(
-                    title: "About Ticketis",
+                  SettingsTile(
+                    title: "profile.aboutTicket".tr(),
                     trailing: Icon(Icons.chevron_right_rounded),
                   ),
                   const SizedBox(height: 8),
 
-                  const SettingsTile(
-                    title: "Privacy Policy",
+                  SettingsTile(
+                    title: "profile.privacyPolicy",
                     trailing: Icon(Icons.chevron_right_rounded),
                   ),
                   const SizedBox(height: 8),
 
-                  const SettingsTile(
-                    title: "Terms and Conditions",
+                  SettingsTile(
+                    title: "profile.termsConditions",
                     trailing: Icon(Icons.chevron_right_rounded),
                   ),
                 ],
@@ -265,7 +260,7 @@ class SettingsTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       title: Text(
-        title,
+        title.tr(),
         style: const TextStyle(
           fontSize: FontSizes.body,
           color: AppColors.neutral100,

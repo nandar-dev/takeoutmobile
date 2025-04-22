@@ -11,6 +11,13 @@
     },
     "profile": {
         "profileSetting": "Profile Setting",
-        "setting": "Setting"
+        "setting": "Setting",
+        "profile": "Profile",
+        "language": "Language",
+        "other": "Other",
+        "aboutTicket": "About Ticket",
+        "privacyPolicy": "Privacy Policy",
+        "termsConditions":"Terms and Conditions"
+
     }
 }
