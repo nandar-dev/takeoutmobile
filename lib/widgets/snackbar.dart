@@ -25,7 +25,7 @@ class Snackbar {
     String message, {
     required IconData icon,
     required Color backgroundColor,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = const Duration(seconds: 1),
   }) {
     final overlay = Overlay.of(context);
     late OverlayEntry entry;

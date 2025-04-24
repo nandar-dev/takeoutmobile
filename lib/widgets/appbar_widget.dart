@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/iconbutton_one_widget.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -52,12 +53,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
           const Spacer(),
 
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: FontSizes.md,
-              color: AppColors.neutral100,
+          SizedBox(
+            width: 250,
+            child: Center(
+              child: TitleText(
+                text: title,
+                color: AppColors.textPrimary,
+                fontSize: FontSizes.md,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
 

@@ -1,22 +1,107 @@
 {
-    "landing": {
-        "title1": "Local Pickup, Simplified. china",
-        "title2": "Global Takeout, Instantly Available.",
-        "title3": "Global Takeout: Your World, Delivered.",
-        "desc1": "Explore nearby shops offering convenient delivery services. From groceries to gifts, everything is just a click away.",
-        "desc2": "Access the world's resources, right now. Global takeout provides instant access to digitial goods, and global services.",
-        "desc3": "Access a world of resources, digital goods, and international services. Global Takeout brings the best of the world to your fingertips, wherever you are.",
-        "next": "Next",
-        "skip": "Skip"
-    },
-    "profile": {
-        "profileSetting": "Profile Setting",
-        "setting": "设置",
-        "profile": "个人资料",
-        "language": "语言",
-        "other": "其他",
-        "aboutTicket": "关于票务",
-        "privacyPolicy": "隐私政策",
-        "termsConditions": "条款和条件"
-    }
+  "landing": {
+    "title1": "Local Pickup, Simplified. china",
+    "title2": "Global Takeout, Instantly Available.",
+    "title3": "Global Takeout: Your World, Delivered.",
+    "desc1": "Explore nearby shops offering convenient delivery services. From groceries to gifts, everything is just a click away.",
+    "desc2": "Access the world's resources, right now. Global takeout provides instant access to digitial goods, and global services.",
+    "desc3": "Access a world of resources, digital goods, and international services. Global Takeout brings the best of the world to your fingertips, wherever you are.",
+    "next": "Next",
+    "skip": "Skip"
+  },
+  "profile": {
+    "setting": "设置",
+    "profile": "个人资料",
+    "language": "语言",
+    "other": "其他",
+    "aboutTicket": "关于票务",
+    "privacyPolicy": "隐私政策",
+    "termsConditions": "条款和条件"
+  },
+
+  "title": {
+    "category": "分类列表",
+    "product": "产品列表",
+    "merchant_product": "商家商品",
+    "cart": "我的购物车",
+    "payment": "选择支付方式",
+    "profileSetting": "个人资料设置",
+    "refill": "钱包充值"
+  },
+  "button": {
+    "see_all": "查看全部",
+    "add_cart": "加入购物车",
+    "change_location": "更改位置",
+    "proceed_payment": "前往支付",
+    "view_all": "查看全部",
+    "refill": "充值",
+    "signout": "退出登录",
+    "signin": "登录",
+    "signup": "注册",
+    "save": "保存",
+    "refill_wallet": "钱包充值",
+    "pay_history": "支付记录",
+    "add_more": "添加更多商品",
+    "place_order": "提交订单",
+    "payment_history": "支付记录"
+  },
+  "input": {
+    "search_product": "搜索商品"
+  },
+  "status": {
+    "free": "空闲",
+    "pending": "待处理",
+    "completed": "已完成"
+  },
+  "home": {
+    "location_label": "您的位置",
+    "category_title": "按分类查找",
+    "shop_title": "附近商店",
+    "open": "营业中",
+    "closed": "已关闭"
+  },
+  "product": {
+    "description": "描述",
+    "recommend": "为您推荐",
+    "search": "搜索商品"
+  },
+  "cart": {
+    "location_label": "配送地址",
+    "payment_label": "支付摘要",
+    "item": "商品总数",
+    "deli": "配送费",
+    "total": "总计",
+    "order_label": "订单摘要",
+    "wallet_balance": "钱包余额",
+    "current_balance": "当前余额",
+    "methods": "支付方式",
+    "wallet": "钱包支付",
+    "cash": "货到付款",
+    "wallet_warning": "余额不足警告",
+    "cash_description": "货到付款"
+  },
+  "refill": {
+    "title": "钱包充值",
+    "description": "向您的钱包充值资金，以便快速便捷地付款",
+    "amount_label": "金额",
+    "amount_placeholder": "输入金额",
+    "payment_label": "支付方式",
+    "payment_placeholder": "选择支付方式",
+    "payment_description": "选择支付方式以查看转账账户详情",
+    "transaction_label": "交易ID",
+    "transaction_placeholder": "输入交易ID",
+    "ss_label": "交易截图",
+    "ss_placeholder": "拖放文件到此处，或点击选择 \n支持格式：image/*",
+    "ss_description": "上传您的交易截图（JPEG、PNG，最大5MB）",
+    "remark_label": "备注（可选）",
+    "remark_placeholder": "添加任何额外信息",
+    "note": "您的充值请求将在24小时内处理。完成后您将收到通知。",
+    "topup": "钱包充值"
+  },
+  "message": {
+    "no_file_selected": "未选择文件",
+    "file_error": "选择文件时出错：{error}",
+    "tap_to_select": "点击选择图片",
+    "error_loading_preview": "加载预览时出错"
+  }
 }

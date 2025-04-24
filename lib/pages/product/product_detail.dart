@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/bloc/cart/bloc.dart';
@@ -38,6 +39,7 @@ class ProductDetailState extends State<ProductDetail> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final imageHeight = screenHeight * 0.5;
+    final des = "product.description".tr();
 
     return Scaffold(
       body: BlocListener<CartBloc, CartState>(
@@ -77,29 +79,30 @@ class ProductDetailState extends State<ProductDetail> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: isFav && favId == widget.product.id
-                                ? IconButtonTwoWidget(
-                                    bgColor: AppColors.background,
-                                    iconColor: AppColors.danger,
-                                    iconSize: 15.0,
-                                    icon: 'assets/icons/heart_fill.svg',
-                                    onTap: () {
-                                      setState(() {
-                                        isFav = false;
-                                        favId = null;
-                                      });
-                                    },
-                                  )
-                                : IconButtonOneWidget(
-                                    iconSize: 15.0,
-                                    icon: 'assets/icons/heart.svg',
-                                    onTap: () {
-                                      setState(() {
-                                        isFav = true;
-                                        favId = widget.product.id;
-                                      });
-                                    },
-                                  ),
+                            child:
+                                isFav && favId == widget.product.id
+                                    ? IconButtonTwoWidget(
+                                      bgColor: AppColors.background,
+                                      iconColor: AppColors.danger,
+                                      iconSize: 15.0,
+                                      icon: 'assets/icons/heart_fill.svg',
+                                      onTap: () {
+                                        setState(() {
+                                          isFav = false;
+                                          favId = null;
+                                        });
+                                      },
+                                    )
+                                    : IconButtonOneWidget(
+                                      iconSize: 15.0,
+                                      icon: 'assets/icons/heart.svg',
+                                      onTap: () {
+                                        setState(() {
+                                          isFav = true;
+                                          favId = widget.product.id;
+                                        });
+                                      },
+                                    ),
                           ),
                         ],
                       ),
@@ -151,7 +154,7 @@ class ProductDetailState extends State<ProductDetail> {
                       ),
                       const SizedBox(height: 12),
                       SubText(
-                        text: "Description",
+                        text: des,
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -167,7 +170,10 @@ class ProductDetailState extends State<ProductDetail> {
                         initialQuantity: initialQuantity,
                       ),
                       const SizedBox(height: 20),
-                      RelatedProducts(productId: widget.product.id, merchantId: widget.product.shop.id,),
+                      RelatedProducts(
+                        productId: widget.product.id,
+                        merchantId: widget.product.shop.id,
+                      ),
                     ],
                   ),
                 ),

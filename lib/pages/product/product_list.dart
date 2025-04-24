@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
@@ -19,7 +20,7 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   List<Product> products = [];
   bool isLoading = true;
-  final String title = "Products List";
+  final String title = "title.product".tr();
   final String sortBtnLabel = "Sort";
   final String offerBtnLabel = "Offer";
   final String shopBtnLabel = "Shop";

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -64,22 +65,44 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
     return ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].contains(ext);
   }
 
-  Future<bool> _onWillPop() async {
-    // Navigator.pushNamed(
-    //   context,
-    //   AppRoutes.appNavigation,
-    //   arguments: {'initialIndex': 2},
-    // );
-    Navigator.pop(context);
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    final title = "title.refill".tr();
+    final paymentHistoryLabel = "button.payment_history".tr();
+    final refillDes = "refill.description".tr();
+    final amtLabel = "refill.amount_label".tr();
+    final amtPlaceholder = "refill.amount_placeholder".tr();
+    final paymentLabel = "refill.payment_label".tr();
+    final paymentPlaceholder = "refill.payment_placeholder".tr();
+    final paymentDes = "refill.payment_description".tr();
+    final transactionLabel = "refill.transaction_label".tr();
+    final transactionPlaceholder = "refill.transaction_placeholder".tr();
+    final ssLabel = "refill.ss_label".tr();
+    final ssDes = "refill.ss_description".tr();
+    final note = "refill.note".tr();
+    final remarkLabel = "refill.remark_label".tr();
+    final remarkPlaceholder = "refill.remark_placeholder".tr();
+    
+    Future<bool> onWillPop() async {
+      // Navigator.pushNamed(
+      //   context,
+      //   AppRoutes.appNavigation,
+      //   arguments: {'initialIndex': 2},
+      // );
+      Navigator.pushNamed(context, AppRoutes.selectPayment);
+      return false;
+    }
+
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          onWillPop();
+        }
+      },
       child: Scaffold(
-        appBar: AppBarWidget(title: 'Refill Wallet', onBackTap: _onWillPop),
+        appBar: AppBarWidget(title: title, onBackTap: onWillPop),
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
@@ -89,36 +112,24 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
+                      padding: const EdgeInsets.all(12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const TitleText(
-                            text: 'Refill Your Wallet',
-                            // textAlign: TextAlign.center,
-                          ),
-                          const SubText(
-                            text:
-                                'Add funds to your wallet to make quick and easy payments',
-                            // textAlign: TextAlign.center,
-                          ),
-
-                          const SizedBox(height: 32),
-
+                          SubText(text: refillDes, fontSize: FontSizes.sm),
+                          const SizedBox(height: 16),
                           CustomTextField(
-                            label: 'Amount',
-                            hint: '\$ Enter amount',
+                            prefixIcon: Icon(Icons.attach_money_outlined),
+                            label: amtLabel,
+                            hint: amtPlaceholder,
                           ),
                           SizedBox(height: 16),
 
                           CustomDropdownFormField<String>(
-                            label: "Payment Method",
+                            label: paymentLabel,
                             value: selectedPaymentMethod,
                             items: paymethodMethodOptiosn,
-                            hintText: "Select payment method",
+                            hintText: paymentPlaceholder,
                             onChanged: (val) {
                               setState(() {
                                 selectedPaymentMethod = val;
@@ -126,36 +137,23 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                             },
                             validator:
                                 (val) =>
-                                    val == null
-                                        ? "Please select a payment method"
-                                        : null,
+                                    val == null ? paymentPlaceholder : null,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 8.0),
-                            child: Text(
-                              'Select a payment method to see account details for your transfer',
-                              style: TextStyle(
-                                fontSize: FontSizes.sm,
-                                color: AppColors.neutral80,
-                              ),
-                            ),
-                          ),
+                          SizedBox(height: 8),
+                          SubText(text: paymentDes, fontSize: FontSizes.sm),
                           SizedBox(height: 16),
 
                           CustomTextField(
-                            label: 'Transaction ID',
-                            hint: 'Enter transaction ID',
+                            label: transactionLabel,
+                            hint: transactionPlaceholder,
                           ),
 
                           const SizedBox(height: 16),
 
-                          Text(
-                            'Transaction Screenshot',
-                            style: const TextStyle(
-                              color: AppColors.neutral100,
-                              fontSize: FontSizes.body,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          SubText(
+                            text: ssLabel,
+                            fontSize: FontSizes.md,
+                            color: AppColors.textPrimary,
                           ),
                           SizedBox(height: 8),
                           GestureDetector(
@@ -198,22 +196,14 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 8.0),
-                            child: Text(
-                              'Upload a screenshot of your transaction (JPEG, PNG, max 5MB)',
-                              style: TextStyle(
-                                fontSize: FontSizes.sm,
-                                color: AppColors.neutral80,
-                              ),
-                            ),
-                          ),
+                          SizedBox(height: 8),
+                          SubText(text: ssDes, fontSize: FontSizes.sm),
 
                           const SizedBox(height: 16),
 
                           CustomTextField(
-                            label: 'Remark (Optional)',
-                            hint: 'Add any additional information',
+                            label: remarkLabel,
+                            hint: remarkPlaceholder,
                             maxLines: 3,
                           ),
 
@@ -222,22 +212,17 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                           SizedBox(
                             width: double.infinity,
                             child: CustomPrimaryButton(
-                              text: 'Refill Wallet',
+                              text: title,
                               onPressed: () => (),
                               borderRadius: 8,
                             ),
                           ),
 
                           const SizedBox(height: 16),
-                          const Center(
-                            child: Text(
-                              'Your refill request will be processed within 24 hours. You will receive a notification once completed.',
-                              style: TextStyle(
-                                color: AppColors.neutral60,
-                                fontSize: FontSizes.sm,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                          SubText(
+                            text: note,
+                            fontSize: FontSizes.sm,
+                            textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 16),
 
@@ -256,7 +241,7 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
                                     AppRoutes.transactionhistory,
                                   );
                                 },
-                                text: "Payment History",
+                                text: paymentHistoryLabel,
                               ),
                             ),
                           ),
@@ -274,8 +259,9 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
   }
 
   Widget _buildPreview() {
+    final ssPlaceholder = "refill.ss_placeholder".tr();
     if (_pickedFile == null) {
-      return const Column(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
@@ -284,10 +270,10 @@ class _RefillWalletPageState extends State<RefillWalletPage> {
             color: Colors.grey,
           ),
           SizedBox(height: 8),
-          Text(
-            'Tap to select an image',
-            style: TextStyle(color: Colors.grey),
+          SubText(
             textAlign: TextAlign.center,
+            text: ssPlaceholder,
+            fontSize: FontSizes.sm,
           ),
         ],
       );

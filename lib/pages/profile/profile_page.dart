@@ -7,14 +7,17 @@ import 'package:takeout/widgets/alertbox_widget.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
+    final title = "title.profileSetting".tr();
     return Scaffold(
       appBar: AppBarWidget(
-        title: "profile.profileSetting".tr(),
+        title: title,
         showBackNavigator: false,
       ),
       body: SafeArea(
@@ -289,11 +292,11 @@ class ProfilePage extends StatelessWidget {
             ),
 
             const SizedBox(height: 8),
-            _buildMenuItem(Icons.person, "Personal Data", () {
+            _buildMenuItem("assets/icons/user.svg", "Personal Data", () {
               Navigator.pushNamed(context, AppRoutes.personaldata);
             }),
             const SizedBox(height: 8),
-            _buildMenuItem(Icons.settings, "Settings", () {
+            _buildMenuItem("assets/icons/setting.svg", "Settings", () {
               Navigator.pushNamed(context, AppRoutes.settingspage);
             }),
 
@@ -306,7 +309,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            _buildMenuItem(Icons.info_outline, "Help Center", () {
+            _buildMenuItem("assets/icons/info.svg", "Help Center", () {
               Navigator.pushNamed(context, AppRoutes.personaldata);
             }),
             const SizedBox(height: 16),
@@ -340,7 +343,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String text, VoidCallback onTap) {
+  Widget _buildMenuItem(String icon, String text, VoidCallback onTap) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Container(
@@ -349,13 +352,23 @@ class ProfilePage extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         padding: const EdgeInsets.all(8),
-        child: Icon(icon, color: AppColors.neutral100),
+        child: RenderSvgIcon(
+          assetName: icon,
+          color: AppColors.textPrimary,
+          size: 20,
+        ),
       ),
-      title: Text(
-        text,
-        style: TextStyle(fontSize: FontSizes.body, fontWeight: FontWeight.w500),
+      title: SubText(
+        text: text,
+        fontSize: FontSizes.md,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textPrimary,
       ),
-      trailing: const Icon(Icons.chevron_right),
+      trailing: RenderSvgIcon(
+        assetName: "assets/icons/chevron_right.svg",
+        color: AppColors.neutral90,
+        size: 12,
+      ),
       onTap: onTap,
     );
   }

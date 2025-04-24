@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/models/transaction_model.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -50,7 +51,7 @@ class TransactionCard extends StatelessWidget {
                 children: [
                   // Title
                   Text(
-                    transaction.title,
+                    "refill.${transaction.title}".tr(),
                     style: const TextStyle(fontSize: FontSizes.md),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -123,7 +124,7 @@ class TransactionCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    transaction.status,
+                    "status.${transaction.status}".tr(),
                     style: TextStyle(
                       color: statusTextColor,
                       fontWeight: FontWeight.w500,

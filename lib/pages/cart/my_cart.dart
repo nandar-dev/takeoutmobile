@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/bloc/cart/bloc.dart';
@@ -36,10 +37,15 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
+    final locationLabel = "cart.location_label".tr();
+    final title = "title.cart".tr();
+    final addMoreBtnLabel = "button.add_more".tr();
+    final locationBtnLabel = "button.change_location".tr();
+
     return Scaffold(
       backgroundColor: AppColors.appbarBackground,
       appBar: AppBarWidget(
-        title: "My Cart",
+        title: title,
         onBackTap: () => Navigator.pushNamed(context, AppRoutes.appNavigation),
       ),
       body: BlocConsumer<CartBloc, CartState>(
@@ -82,9 +88,9 @@ class _MyCartState extends State<MyCart> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
+                                    children: [
                                       SubText(
-                                        text: "Delivery Location",
+                                        text: locationLabel,
                                         fontSize: FontSizes.sm,
                                       ),
                                       SubText(
@@ -98,7 +104,7 @@ class _MyCartState extends State<MyCart> {
                                 ),
                                 CustomOutlinedButton(
                                   onPressed: () {},
-                                  text: "Change Location",
+                                  text: locationBtnLabel,
                                   borderColor: AppColors.primary,
                                   textColor: AppColors.primary,
                                   padding: const EdgeInsets.symmetric(
@@ -132,12 +138,13 @@ class _MyCartState extends State<MyCart> {
                             child: Align(
                               alignment: Alignment.center,
                               child: CustomOutlinedButton(
-                                onPressed: () => Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.products,
-                                  arguments: {'categoryId': null},
-                                ),
-                                text: "Add more items",
+                                onPressed:
+                                    () => Navigator.pushNamed(
+                                      context,
+                                      AppRoutes.products,
+                                      arguments: {'categoryId': null},
+                                    ),
+                                text: addMoreBtnLabel,
                                 borderRadius: 5,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16,
@@ -167,6 +174,7 @@ class _MyCartState extends State<MyCart> {
     BuildContext context,
     List<Map<String, dynamic>> cartItems,
   ) {
+    final btnLabel = "button.proceed_payment".tr();
     return Container(
       constraints: BoxConstraints(
         minHeight: 200,
@@ -182,8 +190,9 @@ class _MyCartState extends State<MyCart> {
           SizedBox(
             width: double.infinity,
             child: CustomPrimaryButton(
-              onPressed: ()=> Navigator.pushNamed(context, AppRoutes.selectPayment),
-              text: "Proceed to Payment",
+              onPressed:
+                  () => Navigator.pushNamed(context, AppRoutes.selectPayment),
+              text: btnLabel,
             ),
           ),
         ],

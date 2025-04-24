@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/bloc/cart/bloc.dart';
@@ -172,7 +173,7 @@ class AddToCartState extends State<AddToCart> {
               disabled: isOutOfStock || _quantity == 0 || _isAddingToCart,
               text: isOutOfStock
                   ? "Out of Stock"
-                  : (_isAddingToCart ? "Adding..." : "Add to Cart"),
+                  : (_isAddingToCart ? "..." : "button.add_cart".tr()),
               icon: isOutOfStock ? null : Icons.shopping_cart_outlined,
               onPressed: _handleAddToCart,
             ),

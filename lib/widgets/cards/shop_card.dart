@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
@@ -61,7 +62,7 @@ class ShopCard extends StatelessWidget {
                   ),
                   SizedBox(width: 5),
                   SubText(
-                    text: status,
+                    text: "home.${status.toLowerCase()}".tr(),
                     color: AppColors.textSecondary,
                     fontSize: FontSizes.body,
                   ),
