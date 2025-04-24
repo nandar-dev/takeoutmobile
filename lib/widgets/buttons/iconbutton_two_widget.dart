@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
 
 class IconButtonTwoWidget extends StatelessWidget {
   final String icon;
@@ -26,9 +26,10 @@ class IconButtonTwoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color finalIconColor = active == true
-        ? (activeColor ?? AppColors.primary)
-        : (iconColor ?? AppColors.primary);
+    final Color finalIconColor =
+        active == true
+            ? (activeColor ?? AppColors.primary)
+            : (iconColor ?? AppColors.primary);
     final double actualButtonSize = buttonSize ?? 40.0;
     final double actualIconSize = iconSize ?? 24.0;
 
@@ -41,16 +42,12 @@ class IconButtonTwoWidget extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: onTap,
-        icon: SvgPicture.asset(
-          icon,
-          height: actualIconSize,
-          width: actualIconSize,
-          colorFilter: ColorFilter.mode(finalIconColor, BlendMode.srcIn),
+        icon: RenderSvgIcon(
+          assetName: icon,
+          size: actualIconSize,
+          color: finalIconColor,
         ),
       ),
     );
   }
 }
-
-
-

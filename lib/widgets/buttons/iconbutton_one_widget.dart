@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
 
 class IconButtonOneWidget extends StatelessWidget {
   final String icon;
@@ -37,14 +37,10 @@ class IconButtonOneWidget extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: onTap,
-        icon: SvgPicture.asset(
-          icon,
-          height: actualIconSize,
-          width: actualIconSize,
-          colorFilter: ColorFilter.mode(
-            iconColor ?? AppColors.textLight,
-            BlendMode.srcIn,
-          ),
+        icon: RenderSvgIcon(
+          assetName: icon,
+          size: actualIconSize,
+          color: iconColor ?? AppColors.textLight,
         ),
       ),
     );

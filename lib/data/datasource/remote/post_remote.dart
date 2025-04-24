@@ -1,19 +1,16 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:takeout/data/models/post_model.dart';
- 
-class PostRemoteDataSource {
-  final http.Client client;
 
-  PostRemoteDataSource(this.client);
+class PostRemoteDataSource {
+  final Dio dio;
+
+  PostRemoteDataSource(this.dio);
 
   Future<List<PostModel>> fetchPosts() async {
-    final response = await client.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-    if (response.statusCode == 200) {
-      final List<dynamic> postJson = json.decode(response.body);
-      return postJson.map((json) => PostModel.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load posts');
-    }
+    final response = await dio.get(
+      'https://jsonplaceholder.typicode.com/posts',
+    );
+    final List<dynamic> data = response.data;
+    return data.map((json) => PostModel.fromJson(json)).toList();
   }
 }

@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/bloc/language/bloc.dart';
@@ -10,6 +9,7 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -20,25 +20,30 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _allowedLocation = true;
   List<Map<String, dynamic>> languages = [
-    {"id": 'en', "label": "English (US)", "icon": "assets/icons/eng.png"},
-    {"id": 'zh', "label": "Chinese", "icon": "assets/icons/cn.png"},
+    {"id": 'en', "label": "English", "icon": "🇺🇸"},
+    {"id": 'zh', "label": "Chinese", "icon": "🇨🇳"},
+    {"id": 'my', "label": "Myanmar", "icon": "🇲🇲"},
+    {"id": 'th', "label": "Thai", "icon": "🇹🇭"},
   ];
 
-  Future<bool> _onWillPop() async {
+  void _handleCustomPop() {
     Navigator.pushNamed(
       context,
       AppRoutes.appNavigation,
       arguments: {'initialIndex': 2},
     );
-    return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          _handleCustomPop();
+        }
+      },
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           final selectedLang = languages.firstWhere(
@@ -48,67 +53,65 @@ class _SettingsPageState extends State<SettingsPage> {
           return Scaffold(
             appBar: AppBarWidget(
               title: 'profile.setting'.tr(),
-              onBackTap: _onWillPop,
+              onBackTap: _handleCustomPop,
             ),
             body: SafeArea(
               child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 children: [
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 12),
                   _buildSectionTitle("profile.profile".tr()),
-                  const SizedBox(height: 8),
-
-                  // SettingsTile(
-                  //   title: "Location",
-                  //   trailing: CupertinoSwitch(
-                  //     activeColor: AppColors.primary,
-                  //     value: _allowedLocation,
-                  //     onChanged:
-                  //         (value) => setState(() => _allowedLocation = value),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 8),
+                  const SizedBox(height: 5),
                   SettingsTile(
                     title: "profile.language".tr(),
-                    onTap:
-                        () => _showChangeLanguageSheet(
-                          context,
-                          state.selectedLanguageId,
-                        ),
+                    onTap: () => _showChangeLanguageSheet(
+                      context,
+                      state.selectedLanguageId,
+                    ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          selectedLang['label'],
-                          style: const TextStyle(
-                            fontSize: FontSizes.body,
-                            color: AppColors.neutral100,
-                          ),
+                        SubText(
+                          text: selectedLang['label'],
+                          fontSize: FontSizes.body,
                         ),
-                        const Icon(Icons.chevron_right_rounded),
+                        const SizedBox(width: 15),
+                        RenderSvgIcon(
+                          assetName: "assets/icons/chevron_right.svg",
+                          color: AppColors.neutral90,
+                          size: 12,
+                        ),
                       ],
                     ),
                   ),
-
-                  const SizedBox(height: 66),
+                  const SizedBox(height: 20),
                   _buildSectionTitle("profile.other".tr()),
-                  const SizedBox(height: 8),
-
+                  const SizedBox(height: 5),
                   SettingsTile(
                     title: "profile.aboutTicket".tr(),
-                    trailing: Icon(Icons.chevron_right_rounded),
+                    trailing: RenderSvgIcon(
+                      assetName: "assets/icons/chevron_right.svg",
+                      color: AppColors.neutral90,
+                      size: 12,
+                    ),
                   ),
-                  const SizedBox(height: 8),
-
+                  const SizedBox(height: 5),
                   SettingsTile(
                     title: "profile.privacyPolicy",
-                    trailing: Icon(Icons.chevron_right_rounded),
+                    trailing: RenderSvgIcon(
+                      assetName: "assets/icons/chevron_right.svg",
+                      color: AppColors.neutral90,
+                      size: 12,
+                    ),
                   ),
-                  const SizedBox(height: 8),
-
+                  const SizedBox(height: 5),
                   SettingsTile(
                     title: "profile.termsConditions",
-                    trailing: Icon(Icons.chevron_right_rounded),
+                    trailing: RenderSvgIcon(
+                      assetName: "assets/icons/chevron_right.svg",
+                      color: AppColors.neutral90,
+                      size: 12,
+                    ),
                   ),
                 ],
               ),
@@ -132,52 +135,55 @@ class _SettingsPageState extends State<SettingsPage> {
   void _showChangeLanguageSheet(BuildContext context, String selectedId) {
     showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
       backgroundColor: AppColors.neutral10,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TitleText(
-                text: "Select Language",
-                fontSize: FontSizes.heading2,
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.6,
+          minChildSize: 0.3,
+          maxChildSize: 0.9,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              padding: const EdgeInsets.all(25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TitleText(
+                    text: "Select Language",
+                    fontSize: FontSizes.heading2,
+                  ),
+                  const SizedBox(height: 16),
+                  ...languages.map((lang) {
+                    return LanguageTile(
+                      icon: lang['icon'],
+                      label: lang['label'],
+                      isSelected: selectedId == lang['id'],
+                      onTap: () {
+                        context.setLocale(Locale(lang['id']));
+                        context.read<LanguageBloc>().add(
+                          SetLanguageEvent(lang['id']),
+                        );
+                        Navigator.pop(context);
+                      },
+                    );
+                  }),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomPrimaryButton(
+                      text: "Close",
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              ListView.builder(
-                itemCount: languages.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final lang = languages[index];
-                  return LanguageTile(
-                    iconPath: lang['icon'],
-                    label: lang['label'],
-                    isSelected: selectedId == lang['id'],
-                    onTap: () {
-                      context.setLocale(Locale(lang['id']));
-                      context.read<LanguageBloc>().add(
-                        SetLanguageEvent(lang['id']),
-                      );
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: CustomPrimaryButton(
-                  text: "Close",
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
@@ -185,14 +191,14 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 class LanguageTile extends StatelessWidget {
-  final String iconPath;
+  final String icon;
   final String label;
   final bool? isSelected;
   final VoidCallback? onTap;
 
   const LanguageTile({
     super.key,
-    required this.iconPath,
+    required this.icon,
     required this.label,
     this.isSelected = false,
     this.onTap,
@@ -221,7 +227,7 @@ class LanguageTile extends StatelessWidget {
                 color: AppColors.surface,
                 shape: BoxShape.circle,
               ),
-              child: Image.asset(iconPath, width: 24, height: 24),
+              child: TitleText(text: icon, fontSize: FontSizes.heading3,),
             ),
             const SizedBox(width: 16),
             Text(
@@ -233,10 +239,9 @@ class LanguageTile extends StatelessWidget {
             ),
           ],
         ),
-        trailing:
-            isSelected == true
-                ? const Icon(Icons.check_circle, color: AppColors.primary)
-                : null,
+        trailing: isSelected == true
+            ? const Icon(Icons.check_circle, color: AppColors.primary)
+            : null,
         onTap: onTap,
       ),
     );
@@ -263,7 +268,7 @@ class SettingsTile extends StatelessWidget {
         title.tr(),
         style: const TextStyle(
           fontSize: FontSizes.body,
-          color: AppColors.neutral100,
+          color: AppColors.textPrimary,
         ),
       ),
       trailing: trailing,
