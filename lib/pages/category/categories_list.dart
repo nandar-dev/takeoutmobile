@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:takeout/models/category_model.dart';
@@ -34,7 +35,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   Widget build(BuildContext context) {
-    const String title = "Categories";
+    final title = "title.category".tr();
 
     return Scaffold(
       appBar: AppBarWidget(title: title, borderedBack: false),

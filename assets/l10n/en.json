@@ -10,7 +10,6 @@
         "skip": "Skip"
     },
     "profile": {
-        "profileSetting": "Profile Setting",
         "setting": "Setting",
         "profile": "Profile",
         "language": "Language",
@@ -18,6 +17,90 @@
         "aboutTicket": "About Ticket",
         "privacyPolicy": "Privacy Policy",
         "termsConditions":"Terms and Conditions"
-
+    },
+    "title": {
+        "category": "Categories List",
+        "product": "Products List",
+        "merchant_product": "Merchant Products",
+        "cart": "My Cart",
+        "payment": "Select Payment Method",
+        "profileSetting": "Profile Setting",
+        "refill": "Refill Wallet"
+    },
+    "button": {
+        "see_all": "See all",
+        "add_cart": "Add to cart",
+        "change_location": "Change Location",
+        "proceed_payment": "Proceed to payment",
+        "view_all": "View all",
+        "refill": "Refill",
+        "signout": "Sign Out",
+        "signin": "Sign In",
+        "signup": "Sign Up",
+        "save": "Save",
+        "refill_wallet": "Refill wallet",
+        "pay_history": "Payment History",
+        "add_more": "Add More Items",
+        "place_order": "Place Order",
+        "payment_history": "Payment History"
+    },
+    "input": {
+        "search_product": "Search product"
+    },
+    "status": {
+        "free": "Free",
+        "pending": "Pending",
+        "completed": "Completed"
+    },
+    "home": {
+        "location_label": "Your Location",
+        "category_title": "Find by category",
+        "shop_title": "Nearby shops",
+        "open": "Open",
+        "closed": "Closed"
+    },
+    "product": {
+        "description": "Description",
+        "recommend": "Recommended for you",
+        "search": "Search product"
+    },
+    "cart": {
+        "location_label": "Delivery Location",
+        "payment_label": "Payment Summary",
+        "item": "Total Items",
+        "deli": "Delivery Fee",
+        "total": "Total",
+        "order_label": "Order Summary",
+        "wallet_balance": "Wallet Balance",
+        "current_balance": "Current Balance",
+        "methods": "Payment Methods",
+        "wallet": "Wallet",
+        "cash": "Cash on delivery",
+        "wallet_warning": "Insufficient balance warning",
+        "cash_description": "Pay when you receive your order"
+    },
+    "refill": {
+        "title": "Refill your wallet",
+        "description": "Add funds to your wallet to make quick and easy payments",
+        "amount_label": "Amount",
+        "amount_placeholder": "Enter Amount",
+        "payment_label": "Payment Method",
+        "payment_placeholder": "Select Payment Method",
+        "payment_description": "Select a payment method to see account details for your transfer",
+        "transaction_label": "Transaction ID",
+        "transaction_placeholder": "Enter Transaction ID",
+        "ss_label": "Transaction Screenshot",
+        "ss_placeholder": "Drag and drop a file here, or click to select \nSupported format: image/*",
+        "ss_description": "Upload a screenshot of your transaction (JPEG, PNG, max 5MB)",
+        "remark_label": "Remark (Optional)",
+        "remark_placeholder": "Add any additional information",
+        "note": "Your refill request will be processed within 24 hours. You will receive a notification once completed.",
+        "topup": "Wallet Top Up"
+    },
+    "message": {
+        "no_file_selected": "No file selected.",
+        "file_error": "Error picking file: {error}",
+        "tap_to_select": "Tap to select an image",
+        "error_loading_preview": "Error loading preview"
     }
 }

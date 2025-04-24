@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -32,17 +33,17 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const borderRadius = BorderRadius.all(Radius.circular(10));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label.isNotEmpty)
-          Text(
-            label,
-            style: const TextStyle(
-              color: AppColors.neutral100,
-              fontSize: FontSizes.body,
-              fontWeight: FontWeight.w500,
-            ),
+          SubText(
+            text: label,
+            color: AppColors.neutral100,
+            fontSize: FontSizes.body,
+            fontWeight: FontWeight.w500,
           ),
         if (label.isNotEmpty) const SizedBox(height: 8),
         TextFormField(
@@ -51,32 +52,46 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText,
           keyboardType: keyboardType,
           validator: validator,
-          style: TextStyle(fontSize: FontSizes.body),
+          style: const TextStyle(fontSize: FontSizes.body),
           decoration: InputDecoration(
             isDense: isDense,
-            contentPadding: contentPadding ?? const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            contentPadding:
+                contentPadding ??
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             prefixIcon: prefixIcon,
+            prefixIconConstraints: const BoxConstraints(
+              minWidth: 32,
+              minHeight: 32,
+            ),
             suffixIcon: suffixIcon,
+            suffixIconConstraints: const BoxConstraints(
+              minWidth: 32,
+              minHeight: 32,
+            ),
             suffixIconColor: AppColors.neutral100,
             iconColor: AppColors.neutral100,
             hintText: hint,
-            errorStyle: TextStyle(
+            errorStyle: const TextStyle(
               color: AppColors.neutral60,
               fontSize: FontSizes.body,
             ),
             enabledBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.textfieldborder),
             ),
             focusedBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.primary),
             ),
             errorBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.danger),
             ),
             focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.danger),
             ),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            border: const OutlineInputBorder(borderRadius: borderRadius),
           ),
         ),
       ],

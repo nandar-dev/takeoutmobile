@@ -24,53 +24,58 @@ class CustomDropdownFormField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const borderRadius = BorderRadius.all(Radius.circular(10));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: AppColors.neutral100,
-            fontSize: FontSizes.body,
-            fontWeight: FontWeight.w500,
+        if (label.isNotEmpty)
+          Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.neutral100,
+              fontSize: FontSizes.body,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
+        if (label.isNotEmpty) const SizedBox(height: 8),
         DropdownButtonFormField<T>(
           value: value,
           validator: validator,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: FontSizes.body,
             color: AppColors.neutral100,
           ),
           decoration: InputDecoration(
+            isDense: true,
+            contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             hintText: hintText ?? 'Select an option',
             enabledBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.textfieldborder),
             ),
             focusedBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.primary),
             ),
             errorBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.danger),
             ),
             focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: borderRadius,
               borderSide: BorderSide(color: AppColors.danger),
             ),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+            border: const OutlineInputBorder(borderRadius: borderRadius),
           ),
-          isDense: true,
-          items:
-              items.map((T value) {
-                return DropdownMenuItem<T>(
-                  value: value,
-                  child: Text(
-                    itemToString != null
-                        ? itemToString!(value)
-                        : value.toString(),
-                  ),
-                );
-              }).toList(),
+          items: items.map((T value) {
+            return DropdownMenuItem<T>(
+              value: value,
+              child: Text(
+                itemToString != null ? itemToString!(value) : value.toString(),
+              ),
+            );
+          }).toList(),
           onChanged: onChanged,
         ),
       ],

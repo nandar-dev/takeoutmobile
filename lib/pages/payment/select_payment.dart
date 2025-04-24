@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:takeout/bloc/cart/bloc.dart';
 import 'package:takeout/bloc/cart/state.dart';
+import 'package:takeout/pages/cart/my_cart.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
@@ -44,7 +46,10 @@ class _SelectpaymentState extends State<Selectpayment> {
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withValues(alpha: .05) : AppColors.background,
+          color:
+              isSelected
+                  ? AppColors.primary.withValues(alpha: .05)
+                  : AppColors.background,
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.neutral30,
             width: 1,
@@ -72,21 +77,21 @@ class _SelectpaymentState extends State<Selectpayment> {
                       fontSize: FontSizes.md,
                     ),
                     if (subtitle.isNotEmpty)
-                      SubText(
-                        text: subtitle,
-                        fontSize: FontSizes.sm,
-                      ),
+                      SubText(text: subtitle, fontSize: FontSizes.sm),
                   ],
-                )
+                ),
               ],
             ),
-            if(isSelected == true)
-            SvgPicture.asset(
-              "assets/icons/check_circle.svg",
-              height: 20,
-              width: 20,
-              colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
-            ),
+            if (isSelected == true)
+              SvgPicture.asset(
+                "assets/icons/check_circle.svg",
+                height: 20,
+                width: 20,
+                colorFilter: ColorFilter.mode(
+                  AppColors.primary,
+                  BlendMode.srcIn,
+                ),
+              ),
           ],
         ),
       ),
@@ -95,21 +100,40 @@ class _SelectpaymentState extends State<Selectpayment> {
 
   @override
   Widget build(BuildContext context) {
+    final title = "title.payment".tr();
+    final orderSummary = "cart.order_label".tr();
+    final walletBal = "cart.wallet_balance".tr();
+    final currentBal = "cart.current_balance".tr();
+    final refillWal = "button.refill_wallet".tr();
+    final paymentMethodLabel = "cart.methods".tr();
+    final wallet = "cart.wallet".tr();
+    final cash = "cart.cash".tr();
+    final btnLabel = "button.place_order".tr();
+    final walletSubtitle = "cart.wallet_warning".tr();
+    final cashSubtitle = "cart.cash_description".tr();
+
+
     return Scaffold(
-      appBar: AppBarWidget(title: "Select Payment Method"),
+      appBar: AppBarWidget(
+        title: title,
+        onBackTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyCart()),
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         child: SingleChildScrollView(
           child: Column(
             children: [
               Align(
                 alignment: Alignment.centerLeft,
                 child: TitleText(
-                  text: "Order summary",
-                  fontSize: FontSizes.heading3,
+                  text: orderSummary,
+                  fontSize: FontSizes.md,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
                   if (state is CartLoaded) {
@@ -122,15 +146,12 @@ class _SelectpaymentState extends State<Selectpayment> {
                   return const SizedBox.shrink();
                 },
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 24),
               Align(
                 alignment: Alignment.centerLeft,
-                child: TitleText(
-                  text: "Wallet Balance",
-                  fontSize: FontSizes.heading3,
-                ),
+                child: TitleText(text: walletBal, fontSize: FontSizes.md),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
@@ -152,16 +173,16 @@ class _SelectpaymentState extends State<Selectpayment> {
                               bgColor: AppColors.background,
                             ),
                             const SizedBox(width: 5),
-                            const SubText(text: "Current Balance"),
+                            SubText(text: currentBal),
                           ],
                         ),
                         TitleText(
                           text: "\$ 0.00",
-                          fontSize: FontSizes.heading3,
+                          fontSize: FontSizes.md,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
                       child: CustomOutlinedButton(
@@ -170,47 +191,48 @@ class _SelectpaymentState extends State<Selectpayment> {
                         borderColor: AppColors.primary,
                         svgAssetPath: "assets/icons/refresh_icon.svg",
                         borderRadius: 5,
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          AppRoutes.refillwallet,
-                        ),
-                        text: "Refill Wallet",
+                        onPressed:
+                            () => Navigator.pushNamed(
+                              context,
+                              AppRoutes.refillwallet,
+                            ),
+                        text: refillWal,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 24),
               Align(
                 alignment: Alignment.centerLeft,
                 child: TitleText(
-                  text: "Payment Methods",
-                  fontSize: FontSizes.heading3,
+                  text: paymentMethodLabel,
+                  fontSize: FontSizes.md,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               _buildPaymentOption(
                 methodKey: 'wallet',
                 iconPath: "assets/icons/wallet_icon.svg",
-                title: "Wallet",
-                subtitle: "Insufficient balance warning",
+                title: wallet,
+                subtitle: walletSubtitle,
               ),
               _buildPaymentOption(
                 methodKey: 'cash',
                 iconPath: "assets/icons/cash_icon.svg",
-                title: "Cash on delivery",
-                subtitle: "Pay when you receive your order",
+                title: cash,
+                subtitle: cashSubtitle,
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
               SizedBox(
                 width: double.infinity,
                 child: CustomPrimaryButton(
-                  text: "Place Order",
+                  text: btnLabel,
                   onPressed: () {
                     // Handle placing the order
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

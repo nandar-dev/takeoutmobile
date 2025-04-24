@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/widgets/home/category_section.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
@@ -22,9 +23,9 @@ class _HomePageState extends State<HomePage> {
     final searchIcon = 'assets/icons/search.svg';
     final bgImg = 'assets/images/home_bg.png';
     final screenHeight = MediaQuery.of(context).size.height;
-    final categorySectionTitle = "Find by category";
-    final nearbyTitle = "Nearby shops";
-    final seeBtnLabel = "See all";
+    final categorySectionTitle = "home.category_title".tr();
+    final nearbyTitle = "home.shop_title".tr();
+    final seeBtnLabel = "button.see_all".tr();
 
     return Scaffold(
       body: Column(

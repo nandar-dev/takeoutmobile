@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
@@ -11,7 +12,11 @@ class RelatedProducts extends StatefulWidget {
   final int productId;
   final int merchantId;
 
-  const RelatedProducts({super.key, required this.productId, required this.merchantId});
+  const RelatedProducts({
+    super.key,
+    required this.productId,
+    required this.merchantId,
+  });
 
   @override
   State<RelatedProducts> createState() => _RelatedProductsState();
@@ -48,13 +53,16 @@ class _RelatedProductsState extends State<RelatedProducts> {
 
   @override
   Widget build(BuildContext context) {
+    final title = "product.recommend".tr();
+    final btnLabel = "button.see_all".tr();
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SubText(
-              text: "Recommended For You",
+              text: title,
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w500,
               fontSize: FontSizes.md,
@@ -67,7 +75,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
                     arguments: {'merchantId': widget.merchantId},
                   ),
               child: SubText(
-                text: "See All",
+                text: btnLabel,
                 color: AppColors.primary,
                 fontSize: FontSizes.body,
               ),
