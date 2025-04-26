@@ -7,6 +7,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   final app = await initializeApp();
 
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('zh')],

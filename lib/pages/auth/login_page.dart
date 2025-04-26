@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takeout/bloc/auth/bloc.dart';
-import 'package:takeout/bloc/auth/state.dart';
+import 'package:takeout/cubit/auth/auth_cubit.dart';
+import 'package:takeout/cubit/auth/auth_state.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
+import 'package:takeout/widgets/loading/loading_screen.dart';
+import 'package:takeout/widgets/toast_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,17 +23,25 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  login() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    context.read<AuthCubit>().login(email, password);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
-          // Optional: show a loader dialog or snack
-        } else if (state is AuthFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.error)));
-        } else if (state is AuthSuccess) {
+          LoadingScreen.instance().show(context: context);
+        } else {
+          LoadingScreen.instance().hide();
+        }
+
+        if (state is AuthError) {
+          showToast(message: state.message);
+        } else if (state is Authenticated) {
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.appNavigation,
@@ -69,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 32),
 
-                              // Email field
                               CustomTextField(
                                 label: "Email Address",
                                 hint: "Enter Email",
@@ -78,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 14),
 
-                              // Password field
                               CustomTextField(
                                 label: "Password",
                                 hint: "Enter Password",
@@ -114,14 +122,9 @@ class _LoginPageState extends State<LoginPage> {
                                       state is AuthLoading
                                           ? "Signing in..."
                                           : "Sign In",
-                                  onPressed: () {},
-                                  // onPressed: state is AuthLoading
-                                  //     ? null
-                                  //     : () {
-                                  //         final email = _emailController.text.trim();
-                                  //         final password = _passwordController.text.trim();
-                                  //         context.read<AuthBloc>().add(LoginRequested(email, password));
-                                  //       },
+                                  onPressed: () {
+                                    if (state is! AuthLoading) login();
+                                  },
                                 ),
                               ),
 
@@ -158,12 +161,12 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                         recognizer:
                                             TapGestureRecognizer()
-                                          ..onTap = () {
+                                              ..onTap = () {
                                                 Navigator.pushNamed(
                                                   context,
                                                   AppRoutes.signup,
                                                 );
-                                          },
+                                              },
                                       ),
                                     ],
                                   ),

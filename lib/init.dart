@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:takeout/app.dart';
@@ -27,9 +28,12 @@ Future<Widget> initializeApp() async {
     box: authBox,
   );
 
-  // Return the app widget
-  return MyApp(
-    authRepository: authRepository,
-    postRepository: postRepository,
-  );
+  // Load environment variables
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    throw Exception('Error loading .env file: $e');
+  }
+
+  return MyApp(authRepository: authRepository, postRepository: postRepository);
 }

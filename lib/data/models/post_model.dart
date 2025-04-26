@@ -1,9 +1,11 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:takeout/domain/entities/post.dart';
 
 part 'post_model.g.dart';
 
 @HiveType(typeId: 0)
+@JsonSerializable()
 class PostModel extends HiveObject {
   @HiveField(0)
   final int? userId;
@@ -19,19 +21,11 @@ class PostModel extends HiveObject {
 
   PostModel({this.userId, this.id, this.title, this.body});
 
-  factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-    userId: json['userId'],
-    id: json['id'],
-    title: json['title'],
-    body: json['body'],
-  );
+  factory PostModel.fromJson(Map<String, dynamic> json) =>
+      _$PostModelFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-    'userId': userId,
-    'id': id,
-    'title': title,
-    'body': body,
-  };
+  Map<String, dynamic> toJson() => _$PostModelToJson(this);
+
   Post toEntity() => Post(userId: userId, id: id, title: title, body: body);
 
   static PostModel fromEntity(Post post) => PostModel(

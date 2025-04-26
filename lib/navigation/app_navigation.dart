@@ -6,6 +6,7 @@ import 'package:takeout/pages/profile/profile_page.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:takeout/widgets/toast_widget.dart';
 
 class AppNavigation extends StatefulWidget {
   final int initialIndex;
@@ -56,15 +57,7 @@ class _AppNavigationState extends State<AppNavigation> {
     if (_lastPressed == null ||
         now.difference(_lastPressed!) > const Duration(seconds: 2)) {
       _lastPressed = now;
-      Fluttertoast.showToast(
-        msg: "Press again to exit",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: AppColors.primary,
-        textColor: Colors.white,
-        fontSize: FontSizes.body,
-      );
+      showToast(message: 'Press again to exit');
       return false;
     }
     SystemNavigator.pop();

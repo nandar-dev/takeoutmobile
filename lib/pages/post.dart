@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takeout/cubit/post_cubit.dart';
+import 'package:takeout/cubit/post/post_cubit.dart';
+import 'package:takeout/cubit/post/post_state.dart';
 
 
 class PostPage extends StatelessWidget {
