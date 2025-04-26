@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
           context.setLocale(Locale(locale.selectedLanguageId));
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            // initialRoute: AppRoutes.landing,
-            initialRoute: AppRoutes.login,
+            initialRoute: AppRoutes.landing,
+            // initialRoute: AppRoutes.login,
             onGenerateRoute: AppRoutes.onGenerateRoute,
             theme: ThemeData(
               appBarTheme: const AppBarTheme(

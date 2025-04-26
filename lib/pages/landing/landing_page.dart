@@ -30,11 +30,11 @@ class _LandingPageState extends State<LandingPage> {
   ];
 
   void _toHomePage() {
-    // Navigator.pushNamed(context, AppRoutes.appNavigation);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PostPage()),
-    );
+    Navigator.pushNamed(context, AppRoutes.appNavigation);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => PostPage()),
+    // );
   }
 
   void _nextPage() {
