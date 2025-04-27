@@ -17,11 +17,13 @@ import 'package:easy_localization/easy_localization.dart';
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
   final PostRepository postRepository;
+  final String initialRoute;
 
   const MyApp({
     super.key,
     required this.authRepository,
     required this.postRepository,
+    required this.initialRoute
   });
 
   @override
@@ -39,8 +41,9 @@ class MyApp extends StatelessWidget {
           context.setLocale(Locale(locale.selectedLanguageId));
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.landing,
+            // initialRoute: AppRoutes.landing,
             // initialRoute: AppRoutes.login,
+            initialRoute: initialRoute,
             onGenerateRoute: AppRoutes.onGenerateRoute,
             theme: ThemeData(
               appBarTheme: const AppBarTheme(

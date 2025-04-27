@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:takeout/utils/token_service.dart';
 
 class AppInterceptors extends Interceptor {
   @override
@@ -8,9 +8,13 @@ class AppInterceptors extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    // Get token from secure storage (flutter_secure_storage or Hive)
-    const token = 'your_token'; // Replace with actual token fetch logic
-    options.headers['Authorization'] = 'Bearer $token';
+    final token = await TokenStorage.getToken();
+    // final token = 'token123';
+
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    }
+
     print('➡️ ${options.method} ${options.uri}');
     return handler.next(options);
   }
