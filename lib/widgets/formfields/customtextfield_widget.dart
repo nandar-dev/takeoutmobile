@@ -68,8 +68,8 @@ class CustomTextField extends StatelessWidget {
               minWidth: 32,
               minHeight: 32,
             ),
-            suffixIconColor: AppColors.neutral100,
-            iconColor: AppColors.neutral100,
+            suffixIconColor: AppColors.neutral70,
+            iconColor: AppColors.neutral70,
             hintText: hint,
             errorStyle: const TextStyle(
               color: AppColors.neutral60,

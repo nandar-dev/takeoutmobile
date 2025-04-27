@@ -143,13 +143,14 @@ class _SettingsPageState extends State<SettingsPage> {
       builder: (BuildContext context) {
         return DraggableScrollableSheet(
           expand: false,
-          initialChildSize: 0.6,
+          initialChildSize: 0.55,
           minChildSize: 0.3,
           maxChildSize: 0.9,
           builder: (context, scrollController) {
             return SingleChildScrollView(
               controller: scrollController,
-              padding: const EdgeInsets.all(25),
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -172,7 +173,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                     );
                   }),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
                   SizedBox(
                     width: double.infinity,
                     child: CustomPrimaryButton(
@@ -188,6 +189,7 @@ class _SettingsPageState extends State<SettingsPage> {
       },
     );
   }
+  
 }
 
 class LanguageTile extends StatelessWidget {
@@ -230,12 +232,11 @@ class LanguageTile extends StatelessWidget {
               child: TitleText(text: icon, fontSize: FontSizes.heading3,),
             ),
             const SizedBox(width: 16),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: FontSizes.body,
-                fontWeight: FontWeight.w600,
-              ),
+            SubText(
+              text: label,
+              fontSize: FontSizes.body,
+              color: AppColors.neutral70,
+              fontWeight: FontWeight.w600,
             ),
           ],
         ),

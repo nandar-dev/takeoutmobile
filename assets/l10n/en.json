@@ -16,7 +16,14 @@
         "other": "Other",
         "aboutTicket": "About Ticket",
         "privacyPolicy": "Privacy Policy",
-        "termsConditions":"Terms and Conditions"
+        "termsConditions":"Terms and Conditions",
+        "balance": "Your balance",
+        "available": "Available Balance",
+        "orders": "Your Orders",
+        "order_id": "Order ID",
+        "personal": "Personal Data",
+        "support": "Support",
+        "help": "Help Center"
     },
     "title": {
         "category": "Categories List",
@@ -34,7 +41,7 @@
         "proceed_payment": "Proceed to payment",
         "view_all": "View all",
         "refill": "Refill",
-        "signout": "Sign Out",
+        "signout": "Log Out",
         "signin": "Sign In",
         "signup": "Sign Up",
         "save": "Save",
@@ -42,7 +49,12 @@
         "pay_history": "Payment History",
         "add_more": "Add More Items",
         "place_order": "Place Order",
-        "payment_history": "Payment History"
+        "payment_history": "Payment History",
+        "cancel": "Cancel",
+        "register": "Register",
+        "continue": "Continue",
+        "resend": "Resend",
+        "verify_acc": "Verify Account"
     },
     "input": {
         "search_product": "Search product"
@@ -50,7 +62,8 @@
     "status": {
         "free": "Free",
         "pending": "Pending",
-        "completed": "Completed"
+        "completed": "Completed",
+        "progress": "In Progress"
     },
     "home": {
         "location_label": "Your Location",
@@ -101,6 +114,32 @@
         "no_file_selected": "No file selected.",
         "file_error": "Error picking file: {error}",
         "tap_to_select": "Tap to select an image",
-        "error_loading_preview": "Error loading preview"
+        "error_loading_preview": "Error loading preview",
+        "logout_warning": "Do you want to log out?"
+    },
+    "login": {
+        "title": "Login to your account.",
+        "description": "Please sign in to your account.",
+        "email": "Email Address",
+        "email_placeholder": "Enter email",
+        "password": "Password",
+        "password_placeholder": "Enter Password",
+        "forgot": "Forgot Password",
+        "or": "Or sign in with",
+        "no_acc": "Don't have an account?",
+        "forgot_description": "Create an account to start looking for the food you like."
+    },
+    "email_verification": {
+        "title": "Email Verification",
+        "description": "Enter the verification code we send you on:",
+        "no_receive": "Didn't receive code?"
+    },
+    "reset_password": {
+        "title": "Reset password",
+        "description": "Your new password must be different from the previously used password.",
+        "new_pass_label": "New Password",
+        "new_pass_placeholder": "Enter New Password",
+        "confirm_pass_label": "Confirm Password",
+        "confirm_pass_placeholder": "Enter Confirm Password"
     }
 }

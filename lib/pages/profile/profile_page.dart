@@ -12,14 +12,22 @@ import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final title = "title.profileSetting".tr();
+    final balance = "profile.balance".tr();
+    final available = "profile.available".tr();
+    final orders = "profile.orders".tr();
+    final orderId = "profile.order_id".tr();
+    final profile = "profile.profile".tr();
+    final personal = "profile.personal".tr();
+    final setting = "profile.setting".tr();
+    final support = "profile.support".tr();
+    final help = "profile.help".tr();
+
     return Scaffold(
-      appBar: AppBarWidget(
-        title: title,
-        showBackNavigator: false,
-      ),
+      appBar: AppBarWidget(title: title, showBackNavigator: false),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -28,20 +36,13 @@ class ProfilePage extends StatelessWidget {
             Center(
               child: Stack(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                     width: 100,
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       backgroundImage: AssetImage('assets/images/person.png'),
                       radius: 48,
                       backgroundColor: AppColors.surface,
-                      // child: Text(
-                      //   "Z",
-                      //   style: TextStyle(
-                      //     fontSize: FontSizes.heading1,
-                      // fontWeight: FontWeight.w600,
-                      //   ),
-                      // ),
                     ),
                   ),
                   Positioned(
@@ -67,26 +68,22 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(height: 12),
+
             const Center(
-              child: Text(
-                "Customer 001",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: FontSizes.body,
-                ),
+              child: SubText(
+                text: "Customer 001",
+                fontWeight: FontWeight.w600,
+                fontSize: FontSizes.body,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 4),
-
             const Center(
-              child: Text(
-                "customer001@gmail.com",
-                style: TextStyle(
-                  color: AppColors.neutral60,
-                  fontSize: FontSizes.body,
-                ),
+              child: SubText(
+                text: "customer001@gmail.com",
+                color: AppColors.neutral60,
+                fontSize: FontSizes.body,
               ),
             ),
             const SizedBox(height: 24),
@@ -110,37 +107,31 @@ class ProfilePage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Your balance",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: FontSizes.md,
-                          ),
+                      children: [
+                        SubText(
+                          text: balance,
+                          fontWeight: FontWeight.w600,
+                          fontSize: FontSizes.md,
+                          color: AppColors.textPrimary,
                         ),
                         SizedBox(height: 4),
-                        Text(
-                          "\$0.00",
-                          style: TextStyle(
-                            fontSize: FontSizes.heading2,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        TitleText(
+                          text: "\$0.00",
+                          fontSize: FontSizes.heading2,
+                          fontWeight: FontWeight.w600,
                         ),
-                        Text(
-                          "Available Balance",
-                          style: TextStyle(
-                            color: AppColors.neutral70,
-                            fontSize: FontSizes.body,
-                          ),
+                        SubText(
+                          text: available,
+                          color: AppColors.neutral70,
+                          fontSize: FontSizes.body,
                         ),
                       ],
                     ),
                   ),
-
                   CustomPrimaryButton(
                     height: 30,
                     padding: EdgeInsets.only(left: 8, right: 8),
-                    text: "Refill",
+                    text: "button.refill".tr(),
                     onPressed: () {
                       Navigator.pushNamed(context, AppRoutes.refillwallet);
                     },
@@ -172,165 +163,126 @@ class ProfilePage extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "My Orders",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: FontSizes.md,
-                        ),
+                    children: [
+                      SubText(
+                        text: orders,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                        fontSize: FontSizes.md,
                       ),
-                      Text(
-                        "View All",
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: FontSizes.body,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      SubText(
+                        text: "button.view_all".tr(),
+                        color: AppColors.primary,
+                        fontSize: FontSizes.body,
+                        fontWeight: FontWeight.w600,
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 16),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Order ID ",
-                            style: TextStyle(
-                              color: AppColors.neutral70,
-                              fontSize: FontSizes.sm,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: '888333777',
-                                style: const TextStyle(
-                                  color: AppColors.neutral100,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: SubText(
+                          text: "$orderId 888333777",
+                          color: AppColors.neutral100,
+                          fontSize: FontSizes.sm,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-
                       Badge(
                         padding: EdgeInsets.symmetric(
                           vertical: 5,
                           horizontal: 8,
                         ),
-                        label: Text(
-                          "In progress",
-                          style: TextStyle(fontSize: FontSizes.body),
+                        label: SubText(
+                          text: "status.progress".tr(),
+                          fontSize: FontSizes.xs,
+                          color: Colors.white,
                         ),
                         backgroundColor: AppColors.primary,
                       ),
                     ],
                   ),
 
-                  SizedBox(height: 12),
-
+                  const SizedBox(height: 12),
                   const Divider(thickness: 2, color: AppColors.neutral30),
 
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Image.asset('assets/images/order_burger.png'),
-                    title: Text(
-                      "Burger With Meat",
-                      style: TextStyle(
-                        fontSize: FontSizes.body,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.neutral100,
-                      ),
+                    title: const SubText(
+                      text: "Burger With Meat",
+                      fontSize: FontSizes.body,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.neutral100,
                     ),
-                    subtitle: Text(
-                      "\$ 12,230",
-                      style: TextStyle(
-                        fontSize: FontSizes.body,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
-                      ),
+                    subtitle: const SubText(
+                      text: "\$ 12,230",
+                      fontSize: FontSizes.body,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
                     ),
-                    trailing: Text(
-                      "14 items",
-                      style: TextStyle(
-                        fontSize: FontSizes.sm,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.neutral100,
-                      ),
+                    trailing: const SubText(
+                      text: "14 items",
+                      fontSize: FontSizes.sm,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.neutral100,
                     ),
                   ),
-
-                  // const Padding(
-                  //   padding: EdgeInsets.symmetric(vertical: 8),
-                  //   child: Text(
-                  //     "No order found",
-                  //     style: TextStyle(
-                  //       color: AppColors.neutral70,
-                  //       fontSize: FontSizes.body,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
-            SizedBox(height: 24),
+
+            const SizedBox(height: 24),
             const Divider(thickness: 2, color: AppColors.neutral30),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-            const Text(
-              "Profile",
-              style: TextStyle(
-                color: AppColors.neutral70,
-                fontSize: FontSizes.sm,
-              ),
+            SubText(
+              text: profile,
+              color: AppColors.neutral70,
+              fontSize: FontSizes.sm,
             ),
-
             const SizedBox(height: 8),
-            _buildMenuItem("assets/icons/user.svg", "Personal Data", () {
+            _buildMenuItem("assets/icons/user.svg", personal, () {
               Navigator.pushNamed(context, AppRoutes.personaldata);
             }),
             const SizedBox(height: 8),
-            _buildMenuItem("assets/icons/setting.svg", "Settings", () {
+            _buildMenuItem("assets/icons/setting.svg", setting, () {
               Navigator.pushNamed(context, AppRoutes.settingspage);
             }),
 
             const SizedBox(height: 16),
-            const Text(
-              "Support",
-              style: TextStyle(
-                color: AppColors.neutral70,
-                fontSize: FontSizes.sm,
-              ),
+            SubText(
+              text: support,
+              color: AppColors.neutral70,
+              fontSize: FontSizes.sm,
             ),
             const SizedBox(height: 8),
-            _buildMenuItem("assets/icons/info.svg", "Help Center", () {
+            _buildMenuItem("assets/icons/info.svg", help, () {
               Navigator.pushNamed(context, AppRoutes.personaldata);
             }),
-            const SizedBox(height: 16),
 
+            const SizedBox(height: 16),
             SizedBox(
               width: 150,
               child: CustomOutlinedButton(
                 onPressed: () {
                   showCustomAlertDialog(
                     context: context,
-                    title: 'Sign Out',
-                    message: 'Do you want to log out?',
-                    confirmText: 'Log Out',
-                    cancelText: 'Cancel',
+                    title: 'button.signout'.tr(),
+                    message: "message.logout_warning".tr(),
+                    confirmText: "button.signout".tr(),
+                    cancelText: "button.cancel".tr(),
                     onConfirm: () {
                       Navigator.pushNamed(context, AppRoutes.login);
                     },
                   );
                 },
                 icon: Icons.logout,
-                text: "Sign Out",
+                text: "button.signout".tr(),
                 iconColor: AppColors.danger,
                 textColor: AppColors.danger,
                 borderColor: AppColors.danger,
@@ -349,7 +301,7 @@ class ProfilePage extends StatelessWidget {
       leading: Container(
         decoration: BoxDecoration(
           color: AppColors.surface,
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         padding: const EdgeInsets.all(8),
         child: RenderSvgIcon(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
@@ -21,6 +22,7 @@ class _SignupPageState extends State<SignupPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        appBar: AppBarWidget(title: ""),
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
@@ -37,7 +39,7 @@ class _SignupPageState extends State<SignupPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 32),
+                          const SizedBox(height: 8),
                           const TitleText(text: "Create your new account"),
                           const SizedBox(height: 8),
                           const SubText(
@@ -88,6 +90,7 @@ class _SignupPageState extends State<SignupPage> {
                                 text: TextSpan(
                                   text: "I Agree with ",
                                   style: const TextStyle(
+                                    fontSize: FontSizes.sm,
                                     color: AppColors.neutral100,
                                   ),
                                   children: [
@@ -95,6 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                                       text: 'Terms of Service',
                                       style: const TextStyle(
                                         color: AppColors.primary,
+                                        fontSize: FontSizes.sm,
                                         fontWeight: FontWeight.w500,
                                       ),
                                       recognizer:
@@ -103,12 +107,14 @@ class _SignupPageState extends State<SignupPage> {
                                     TextSpan(
                                       text: ' and ',
                                       style: const TextStyle(
+                                        fontSize: FontSizes.sm,
                                         color: AppColors.neutral100,
                                       ),
                                     ),
                                     TextSpan(
                                       text: 'Privacy Policy',
                                       style: const TextStyle(
+                                        fontSize: FontSizes.sm,
                                         color: AppColors.primary,
                                         fontWeight: FontWeight.w500,
                                       ),

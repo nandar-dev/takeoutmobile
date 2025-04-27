@@ -16,7 +16,14 @@
     "other": "อื่นๆ",
     "aboutTicket": "เกี่ยวกับตั๋ว",
     "privacyPolicy": "นโยบายความเป็นส่วนตัว",
-    "termsConditions": "ข้อกำหนดและเงื่อนไข"
+    "termsConditions": "ข้อกำหนดและเงื่อนไข",
+    "balance": "ยอดเงินของคุณ",
+    "available": "ยอดเงินคงเหลือ",
+    "orders": "คำสั่งซื้อของคุณ",
+    "order_id": "รหัสคำสั่งซื้อ",
+    "personal": "ข้อมูลส่วนบุคคล",
+    "support": "สนับสนุน",
+    "help": "ศูนย์ช่วยเหลือ"
   },
 
   "title": {
@@ -43,7 +50,12 @@
     "pay_history": "ประวัติการชำระเงิน",
     "add_more": "เพิ่มสินค้าเพิ่มเติม",
     "place_order": "สั่งซื้อ",
-    "payment_history": "ประวัติการชำระเงิน"
+    "payment_history": "ประวัติการชำระเงิน",
+    "cancel": "ยกเลิก",
+    "register": "สมัครสมาชิก",
+    "continue": "ดำเนินการต่อ",
+    "resend": "ส่งอีกครั้ง",
+    "verify_acc": "ยืนยันบัญชี"
   },
   "input": {
     "search_product": "ค้นหาสินค้า"
@@ -51,7 +63,8 @@
   "status": {
     "free": "ว่าง",
     "pending": "รอดำเนินการ",
-    "completed": "เสร็จสิ้น"
+    "completed": "เสร็จสิ้น",
+    "progress": "อยู่ระหว่างดำเนินการ"
   },
   "home": {
     "location_label": "ตำแหน่งของคุณ",
@@ -102,6 +115,32 @@
     "no_file_selected": "ไม่ได้เลือกไฟล์",
     "file_error": "เกิดข้อผิดพลาดในการเลือกไฟล์: {error}",
     "tap_to_select": "แตะเพื่อเลือกรูปภาพ",
-    "error_loading_preview": "เกิดข้อผิดพลาดในการโหลดตัวอย่าง"
+    "error_loading_preview": "เกิดข้อผิดพลาดในการโหลดตัวอย่าง",
+    "logout_warning": "คุณต้องการออกจากระบบใช่ไหม?"
+  },
+  "login": {
+    "title": "เข้าสู่ระบบบัญชีของคุณ",
+    "description": "กรุณาเข้าสู่ระบบบัญชีของคุณ",
+    "email": "อีเมล",
+    "email_placeholder": "กรอกอีเมล",
+    "password": "รหัสผ่าน",
+    "password_placeholder": "กรอกรหัสผ่าน",
+    "forgot": "ลืมรหัสผ่าน",
+    "or": "หรือเข้าสู่ระบบด้วย",
+    "no_acc": "ยังไม่มีบัญชี?",
+    "forgot_description": "สร้างบัญชีเพื่อเริ่มต้นค้นหาอาหารที่คุณชอบ"
+  },
+  "email_verification": {
+    "title": "การยืนยันอีเมล",
+    "description": "กรอกรหัสยืนยันที่เราส่งไปยัง:",
+    "no_receive": "ไม่ได้รับรหัส?"
+  },
+  "reset_password": {
+    "title": "รีเซ็ตรหัสผ่าน",
+    "description": "รหัสผ่านใหม่ของคุณจะต้องแตกต่างจากรหัสผ่านที่ใช้ก่อนหน้านี้",
+    "new_pass_label": "รหัสผ่านใหม่",
+    "new_pass_placeholder": "กรอกรหัสผ่านใหม่",
+    "confirm_pass_label": "ยืนยันรหัสผ่าน",
+    "confirm_pass_placeholder": "กรอกรหัสผ่านอีกครั้ง"
   }
 }
