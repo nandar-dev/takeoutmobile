@@ -15,6 +15,12 @@ class AuthRepository {
     return userModel;
   }
 
+  Future<UserModel> register(String name, String email, String password) async {
+    final userModel = await remote.register(name, email, password);
+    await box.put('user', userModel);
+    return userModel;
+  }
+
   UserModel? getLoggedInUser() {
     final UserModel? userModel = box.get('user');
     return userModel;

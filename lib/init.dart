@@ -27,7 +27,6 @@ Future<Widget> initializeApp() async {
   final postBox = await Hive.openBox<PostModel>('postsBox');
   final authBox = await Hive.openBox<UserModel>('authBox');
 
-
   // Create repositories
   final postRepository = PostRepository(
     remote: PostRemoteDataSource(Dio()),

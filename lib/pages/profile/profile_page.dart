@@ -297,7 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       confirmText: "button.signout".tr(),
                       cancelText: "button.cancel".tr(),
                       onConfirm: () {
-                        Navigator.pushNamed(context, AppRoutes.login);
+                        context.read<AuthCubit>().logout();
                       },
                     );
                   },
