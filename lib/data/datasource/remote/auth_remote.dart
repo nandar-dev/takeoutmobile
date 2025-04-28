@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:takeout/api/api_service.dart';
 import 'package:takeout/data/models/user_model.dart';

@@ -29,7 +29,7 @@
 //   }
 // }
 
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+// import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:takeout/data/datasource/local/post_local.dart';
 import 'package:takeout/data/datasource/remote/post_remote.dart';
 import 'package:takeout/data/models/post_model.dart';
@@ -41,8 +41,8 @@ class PostRepository {
   PostRepository({required this.remote, required this.local});
 
   Future<List<PostModel>> getPosts() async {
-    final bool isConnected =
-        await InternetConnectionChecker.instance.hasConnection;
+    // final bool isConnected =
+    //     await InternetConnectionChecker.instance.hasConnection;
     // if (isConnected) {
       final remotePosts = await remote.fetchPosts();
       await local.cachePosts(remotePosts);

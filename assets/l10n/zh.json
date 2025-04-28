@@ -55,7 +55,8 @@
     "register": "注册",
     "continue": "继续",
     "resend": "重新发送",
-    "verify_acc": "验证账户"
+    "verify_acc": "验证账户",
+    "register_driver": "注册新司机"
   },
   "input": {
     "search_product": "搜索商品"
@@ -142,5 +143,19 @@
     "new_pass_placeholder": "输入新密码",
     "confirm_pass_label": "确认密码",
     "confirm_pass_placeholder": "再次输入密码"
+  },
+  "merchant_home": {
+    "title": "钱包余额",
+    "description": "在一个地方管理您的资金并跟踪您的收入和支出。",
+    "withdraw": "提现记录",
+    "running_order": "进行中的订单",
+    "order_req": "订单请求",
+    "deli_title": "配送管理",
+    "driver_title": "管理配送司机",
+    "driver_des": "注册新司机或管理您现有的配送团队",
+    "revenue_title": "总收入",
+    "weekly": "每周",
+    "no_revenue": "无收入数据",
+    "no_revenue_des": "当您完成订单后，收入数据将显示在此处。"
   }
 }

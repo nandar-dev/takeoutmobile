@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:takeout/bloc/cart/bloc.dart';
 import 'package:takeout/bloc/cart/state.dart';
-import 'package:takeout/pages/cart/my_cart.dart';
+import 'package:takeout/pages/user/my_cart.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';

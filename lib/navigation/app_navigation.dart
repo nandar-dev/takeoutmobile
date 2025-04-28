@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:takeout/pages/cart/my_cart.dart';
-import 'package:takeout/pages/home/home_page.dart';
+import 'package:takeout/pages/user/my_cart.dart';
+import 'package:takeout/pages/user/home_page.dart';
+import 'package:takeout/pages/merchant/merchant_home_page.dart';
+import 'package:takeout/pages/merchant/merchant_payment.dart';
 import 'package:takeout/pages/profile/profile_page.dart';
+import 'package:takeout/pages/merchant/merchant_shop.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:takeout/widgets/toast_widget.dart';
+import 'package:takeout/utils/get_user_type.dart';
 
 class AppNavigation extends StatefulWidget {
   final int initialIndex;
@@ -19,31 +22,24 @@ class AppNavigation extends StatefulWidget {
 
 class _AppNavigationState extends State<AppNavigation> {
   late int _selectedIndex;
-
-  static const List<BottomNavigationBarItem> _navBarItems = [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
-      activeIcon: Icon(Icons.home),
-      label: 'Home',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.shopping_bag_outlined),
-      activeIcon: Icon(Icons.shopping_bag),
-      label: 'Cart',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person_outline),
-      activeIcon: Icon(Icons.person),
-      label: 'Profile',
-    ),
-  ];
-
-  final List<Widget> _pages = const [HomePage(), MyCart(), ProfilePage()];
+  bool isMerchant = false;
 
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.initialIndex;
+    _loadUserType();
+  }
+
+  Future<void> _loadUserType() async {
+    try {
+      final status = await GetUserType.isMerchantUser(context);
+      setState(() {
+        isMerchant = status;
+      });
+    } catch (e) {
+      debugPrint("Error loading user type: $e");
+    }
   }
 
   void _onItemTapped(int index) {
@@ -61,15 +57,72 @@ class _AppNavigationState extends State<AppNavigation> {
       return false;
     }
     SystemNavigator.pop();
-    return false;
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    final List<Map<String, dynamic>> bottomNavItems =
+        isMerchant
+            ? [
+              {
+                "icon": Icons.home_outlined,
+                "activeIcon": Icons.home,
+                "label": "Home",
+              },
+              {
+                "icon": Icons.credit_card_outlined,
+                "activeIcon": Icons.credit_card,
+                "label": "Payment",
+              },
+              {
+                "icon": Icons.store_outlined,
+                "activeIcon": Icons.store,
+                "label": "Shop",
+              },
+              {
+                "icon": Icons.person_outline,
+                "activeIcon": Icons.person,
+                "label": "Profile",
+              },
+            ]
+            : [
+              {
+                "icon": Icons.home_outlined,
+                "activeIcon": Icons.home,
+                "label": "Home",
+              },
+              {
+                "icon": Icons.shopping_bag_outlined,
+                "activeIcon": Icons.shopping_bag,
+                "label": "Cart",
+              },
+              {
+                "icon": Icons.person_outline,
+                "activeIcon": Icons.person,
+                "label": "Profile",
+              },
+            ];
+
+    final List<Widget> pages =
+        isMerchant
+            ? [
+              const MerchantHomePage(),
+              const MerchantPayment(),
+              const Merchantshop(),
+              const ProfilePage(),
+            ]
+            : [const HomePage(), const MyCart(), const ProfilePage()];
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          _onWillPop();
+        }
+      },
       child: Scaffold(
-        body: _pages[_selectedIndex],
+        body: IndexedStack(index: _selectedIndex, children: pages),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -83,7 +136,14 @@ class _AppNavigationState extends State<AppNavigation> {
             fontWeight: FontWeight.w500,
             fontSize: FontSizes.sm,
           ),
-          items: _navBarItems,
+          items:
+              bottomNavItems.map((item) {
+                return BottomNavigationBarItem(
+                  icon: Icon(item['icon'] as IconData),
+                  activeIcon: Icon(item['activeIcon'] as IconData),
+                  label: item['label'] as String,
+                );
+              }).toList(),
         ),
       ),
     );

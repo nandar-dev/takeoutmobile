@@ -296,7 +296,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       message: "message.logout_warning".tr(),
                       confirmText: "button.signout".tr(),
                       cancelText: "button.cancel".tr(),
-                      onConfirm: () {
+                      onConfirm: () async {
+                        // Call the logout method from AuthCubit
+                        await context.read<AuthCubit>().repository.logout();
+
+                        // Navigate to the login screen after successful logout
                         Navigator.pushNamed(context, AppRoutes.login);
                       },
                     );
