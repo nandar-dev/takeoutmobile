@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -13,6 +14,10 @@ class OtpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final title = "email_verification.title".tr();
+    final des = "email_verification.description".tr();
+    final noReceive = "email_verification.no_receive".tr();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -30,12 +35,9 @@ class OtpPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const TitleText(text: "Email verification"),
+                  TitleText(text: title, fontSize: FontSizes.heading2,),
                   const SizedBox(height: 8),
-                  const SubText(
-                    text:
-                        "Enter the verification code we send you on: customer******@gmail.com",
-                  ),
+                  SubText(text: des, fontSize: FontSizes.sm,),
                   const SizedBox(height: 32),
 
                   _otpBox(),
@@ -44,11 +46,11 @@ class OtpPage extends StatelessWidget {
                   Center(
                     child: RichText(
                       text: TextSpan(
-                        text: "Didn’t receive code? ",
+                        text: noReceive,
                         style: const TextStyle(color: AppColors.textSecondary),
                         children: [
                           TextSpan(
-                            text: 'Resend',
+                            text: "button.resend".tr(),
                             style: const TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.w500,
@@ -81,7 +83,7 @@ class OtpPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: CustomPrimaryButton(
-                      text: "Continue",
+                      text: "button.continue".tr(),
                       onPressed:
                           () => {
                             Navigator.pushNamed(context, AppRoutes.resetpass),

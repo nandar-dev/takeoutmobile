@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/cubit/auth/auth_cubit.dart';
@@ -31,6 +32,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final title = "login.title".tr();
+    final des = "login.description".tr();
+    final email = "login.email".tr();
+    final emailPlaceholder = "login.email_placeholder".tr();
+    final password = "login.password".tr();
+    final passwordPlaceholder = "login.password_placeholder".tr();
+    final forgot = "login.forgot".tr();
+    final noAcc = "login.no_acc".tr();
+
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
@@ -72,24 +82,22 @@ class _LoginPageState extends State<LoginPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 32),
-                              const TitleText(text: "Login to your account."),
+                              TitleText(text: title, fontSize: FontSizes.heading2,),
                               const SizedBox(height: 8),
-                              const SubText(
-                                text: "Please sign in to your account",
-                              ),
+                              SubText(text: des, fontSize: FontSizes.sm,),
                               const SizedBox(height: 32),
 
                               CustomTextField(
-                                label: "Email Address",
-                                hint: "Enter Email",
+                                label: email,
+                                hint: emailPlaceholder,
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                               ),
                               const SizedBox(height: 14),
 
                               CustomTextField(
-                                label: "Password",
-                                hint: "Enter Password",
+                                label: password,
+                                hint: passwordPlaceholder,
                                 controller: _passwordController,
                                 obscureText: true,
                                 suffixIcon: const Icon(Icons.visibility_off),
@@ -103,8 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   onPressed:
                                       () => _showForgotPasswordSheet(context),
-                                  child: const Text(
-                                    'Forgot password?',
+                                  child: Text(
+                                    forgot,
                                     style: TextStyle(
                                       color: AppColors.primary,
                                       fontSize: FontSizes.body,
@@ -121,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                   text:
                                       state is AuthLoading
                                           ? "Signing in..."
-                                          : "Sign In",
+                                          : "button.signin".tr(),
                                   onPressed: () {
                                     if (state is! AuthLoading) login();
                                   },
@@ -148,13 +156,13 @@ class _LoginPageState extends State<LoginPage> {
                               Center(
                                 child: RichText(
                                   text: TextSpan(
-                                    text: "Don't have an account? ",
+                                    text: noAcc,
                                     style: const TextStyle(
                                       color: AppColors.neutral100,
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: 'Register',
+                                        text: "button.register".tr(),
                                         style: const TextStyle(
                                           color: AppColors.primary,
                                           fontWeight: FontWeight.w500,
@@ -196,6 +204,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _showForgotPasswordSheet(BuildContext context) {
+    final forgot = "login.forgot".tr();
+    final forgotDes = "login.forgot_description".tr();
+
     showModalBottomSheet<void>(
       backgroundColor: AppColors.neutral10,
       context: context,
@@ -207,18 +218,17 @@ class _LoginPageState extends State<LoginPage> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                const TitleText(
-                  text: "Forgot password?",
+                TitleText(
+                  text: forgot,
                   fontSize: FontSizes.heading2,
                 ),
                 const SizedBox(height: 8),
-                const SubText(
-                  text:
-                      "Create an account to start looking for the food you like",
+                SubText(
+                  text: forgotDes,
                 ),
                 const SizedBox(height: 30),
                 CustomPrimaryButton(
-                  text: "Continue",
+                  text: "button.continue".tr(),
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.forgotpass);
                   },
@@ -236,15 +246,13 @@ class DividerRow extends StatelessWidget {
   const DividerRow({super.key});
   @override
   Widget build(BuildContext context) {
+    final or = "login.or".tr();
     return Row(
-      children: const [
+      children: [
         Expanded(child: Divider(thickness: 1)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            'Or sign in with',
-            style: TextStyle(fontSize: FontSizes.body),
-          ),
+          child: Text(or, style: TextStyle(fontSize: FontSizes.body)),
         ),
         Expanded(child: Divider(thickness: 1)),
       ],

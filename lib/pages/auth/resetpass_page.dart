@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
@@ -29,11 +31,18 @@ class _ResetpassPageState extends State<ResetpassPage> {
 
   @override
   Widget build(BuildContext context) {
+    final title = "reset_password.title".tr();
+    final description = "reset_password.description".tr();
+    final newPasswordLabel = "reset_password.new_pass_label".tr();
+    final newPasswordPlaceholder = "reset_password.new_pass_placeholder".tr();
+    final confirmPasswordLabel = "reset_password.confirm_pass_label".tr();
+    final confirmPasswordPlaceholder = "reset_password.confirm_pass_placeholder".tr();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBarWidget(
-          title: "Reset Password",
+          title: "",
           onBackTap: () {
             Navigator.pushNamed(context, AppRoutes.otp);
           },
@@ -56,17 +65,14 @@ class _ResetpassPageState extends State<ResetpassPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const TitleText(text: "Reset Password"),
+                            TitleText(text: title, fontSize: FontSizes.heading3,),
                             const SizedBox(height: 8),
-                            const SubText(
-                              text:
-                                  "Your new password must be different from the previously used password",
-                            ),
+                            SubText(text: description, fontSize: FontSizes.sm,),
                             const SizedBox(height: 32),
 
                             CustomTextField(
-                              label: "New Password",
-                              hint: "Enter New Password",
+                              label: newPasswordLabel,
+                              hint: newPasswordPlaceholder,
                               obscureText: true,
                               controller: _newPasswordController,
                               suffixIcon: const Icon(Icons.visibility_off),
@@ -82,8 +88,8 @@ class _ResetpassPageState extends State<ResetpassPage> {
                             const SizedBox(height: 14),
 
                             CustomTextField(
-                              label: "Confirm Password",
-                              hint: "Enter Confirm Password",
+                              label: confirmPasswordLabel,
+                              hint: confirmPasswordPlaceholder,
                               obscureText: true,
                               controller: _confirmPasswordController,
                               suffixIcon: const Icon(Icons.visibility_off),
@@ -103,7 +109,7 @@ class _ResetpassPageState extends State<ResetpassPage> {
                             SizedBox(
                               width: double.infinity,
                               child: CustomPrimaryButton(
-                                text: "Verify Account",
+                                text: "button.verify_acc".tr(),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _showpasswordChangedSheet(context);

@@ -16,7 +16,14 @@
     "other": "其他",
     "aboutTicket": "关于票务",
     "privacyPolicy": "隐私政策",
-    "termsConditions": "条款和条件"
+    "termsConditions": "条款和条件",
+    "balance": "您的余额",
+    "available": "可用余额",
+    "orders": "您的订单",
+    "order_id": "订单编号",
+    "personal": "个人资料",
+    "support": "支持",
+    "help": "帮助中心"
   },
 
   "title": {
@@ -43,7 +50,12 @@
     "pay_history": "支付记录",
     "add_more": "添加更多商品",
     "place_order": "提交订单",
-    "payment_history": "支付记录"
+    "payment_history": "支付记录",
+    "cancel": "取消",
+    "register": "注册",
+    "continue": "继续",
+    "resend": "重新发送",
+    "verify_acc": "验证账户"
   },
   "input": {
     "search_product": "搜索商品"
@@ -51,7 +63,8 @@
   "status": {
     "free": "空闲",
     "pending": "待处理",
-    "completed": "已完成"
+    "completed": "已完成",
+    "progress": "进行中"
   },
   "home": {
     "location_label": "您的位置",
@@ -102,6 +115,32 @@
     "no_file_selected": "未选择文件",
     "file_error": "选择文件时出错：{error}",
     "tap_to_select": "点击选择图片",
-    "error_loading_preview": "加载预览时出错"
+    "error_loading_preview": "加载预览时出错",
+    "logout_warning": "您要退出吗？"
+  },
+  "login": {
+    "title": "登录您的账户",
+    "description": "请登录您的账户",
+    "email": "电子邮件地址",
+    "email_placeholder": "输入电子邮件",
+    "password": "密码",
+    "password_placeholder": "输入密码",
+    "forgot": "忘记密码",
+    "or": "或通过以下方式登录",
+    "no_acc": "没有账户？",
+    "forgot_description": "创建一个帐户开始寻找您喜欢的食物。"
+  },
+  "email_verification": {
+    "title": "邮箱验证",
+    "description": "输入我们发送到以下邮箱的验证码：",
+    "no_receive": "没有收到验证码？"
+  },
+  "reset_password": {
+    "title": "重设密码",
+    "description": "您的新密码必须与之前使用的密码不同",
+    "new_pass_label": "新密码",
+    "new_pass_placeholder": "输入新密码",
+    "confirm_pass_label": "确认密码",
+    "confirm_pass_placeholder": "再次输入密码"
   }
 }
