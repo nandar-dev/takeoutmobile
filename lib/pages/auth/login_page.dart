@@ -21,6 +21,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -78,109 +79,131 @@ class _LoginPageState extends State<LoginPage> {
                             horizontal: 24,
                             vertical: 12,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 32),
-                              TitleText(text: title, fontSize: FontSizes.heading2,),
-                              const SizedBox(height: 8),
-                              SubText(text: des, fontSize: FontSizes.sm,),
-                              const SizedBox(height: 32),
-
-                              CustomTextField(
-                                label: email,
-                                hint: emailPlaceholder,
-                                controller: _emailController,
-                                keyboardType: TextInputType.emailAddress,
-                              ),
-                              const SizedBox(height: 14),
-
-                              CustomTextField(
-                                label: password,
-                                hint: passwordPlaceholder,
-                                controller: _passwordController,
-                                obscureText: true,
-                                suffixIcon: const Icon(Icons.visibility_off),
-                              ),
-
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    overlayColor: Colors.transparent,
-                                  ),
-                                  onPressed:
-                                      () => _showForgotPasswordSheet(context),
-                                  child: Text(
-                                    forgot,
-                                    style: TextStyle(
-                                      color: AppColors.primary,
-                                      fontSize: FontSizes.body,
-                                    ),
-                                  ),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 32),
+                                TitleText(
+                                  text: title,
+                                  fontSize: FontSizes.heading2,
                                 ),
-                              ),
+                                const SizedBox(height: 8),
+                                SubText(text: des, fontSize: FontSizes.sm),
+                                const SizedBox(height: 32),
 
-                              const SizedBox(height: 8),
-
-                              SizedBox(
-                                width: double.infinity,
-                                child: CustomPrimaryButton(
-                                  text:
-                                      state is AuthLoading
-                                          ? "Signing in..."
-                                          : "button.signin".tr(),
-                                  onPressed: () {
-                                    if (state is! AuthLoading) login();
+                                CustomTextField(
+                                  label: email,
+                                  hint: emailPlaceholder,
+                                  controller: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Email is required';
+                                    } else if (!value.contains('@')) {
+                                      return 'Please enter a valid email';
+                                    }
+                                    return null;
                                   },
                                 ),
-                              ),
+                                const SizedBox(height: 14),
 
-                              const SizedBox(height: 24),
-                              const DividerRow(),
-                              const SizedBox(height: 24),
+                                CustomTextField(
+                                  label: password,
+                                  hint: passwordPlaceholder,
+                                  controller: _passwordController,
+                                  obscureText: true,
+                                  suffixIcon: const Icon(Icons.visibility_off),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Password is required';
+                                    }
+                                    return null;
+                                  },
+                                ),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _socialIcon('assets/icons/google.png'),
-                                  const SizedBox(width: 16),
-                                  _socialIcon('assets/icons/facebook.png'),
-                                  const SizedBox(width: 16),
-                                  _socialIcon('assets/icons/apple.png'),
-                                ],
-                              ),
-
-                              const SizedBox(height: 32),
-
-                              Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: noAcc,
-                                    style: const TextStyle(
-                                      color: AppColors.neutral100,
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      overlayColor: Colors.transparent,
                                     ),
-                                    children: [
-                                      TextSpan(
-                                        text: "button.register".tr(),
-                                        style: const TextStyle(
-                                          color: AppColors.primary,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                        recognizer:
-                                            TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  AppRoutes.signup,
-                                                );
-                                              },
+                                    onPressed:
+                                        () => _showForgotPasswordSheet(context),
+                                    child: Text(
+                                      forgot,
+                                      style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontSize: FontSizes.body,
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+
+                                const SizedBox(height: 8),
+
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: CustomPrimaryButton(
+                                    text:
+                                        state is AuthLoading
+                                            ? "Signing in..."
+                                            : "button.signin".tr(),
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        if (state is! AuthLoading) login();
+                                      }
+                                    },
+                                  ),
+                                ),
+
+                                const SizedBox(height: 24),
+                                const DividerRow(),
+                                const SizedBox(height: 24),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    _socialIcon('assets/icons/google.png'),
+                                    const SizedBox(width: 16),
+                                    _socialIcon('assets/icons/facebook.png'),
+                                    const SizedBox(width: 16),
+                                    _socialIcon('assets/icons/apple.png'),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 32),
+
+                                Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: noAcc,
+                                      style: const TextStyle(
+                                        color: AppColors.neutral100,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: "button.register".tr(),
+                                          style: const TextStyle(
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          recognizer:
+                                              TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    AppRoutes.signup,
+                                                  );
+                                                },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -218,14 +241,9 @@ class _LoginPageState extends State<LoginPage> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                TitleText(
-                  text: forgot,
-                  fontSize: FontSizes.heading2,
-                ),
+                TitleText(text: forgot, fontSize: FontSizes.heading2),
                 const SizedBox(height: 8),
-                SubText(
-                  text: forgotDes,
-                ),
+                SubText(text: forgotDes),
                 const SizedBox(height: 30),
                 CustomPrimaryButton(
                   text: "button.continue".tr(),

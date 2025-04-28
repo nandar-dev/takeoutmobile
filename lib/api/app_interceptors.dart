@@ -9,8 +9,6 @@ class AppInterceptors extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final token = await TokenStorage.getToken();
-    // final token = 'token123';
-
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }

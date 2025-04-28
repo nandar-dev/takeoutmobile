@@ -19,4 +19,19 @@ class AuthRemoteDataSource {
     await TokenStorage.saveToken(token);
     return UserModel.fromJson(data);
   }
+
+  Future<UserModel> register(String name, String email, String password) async {
+    final response = await APIService.request(
+      '/user/register',
+      DioMethod.post,
+      data: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'confirm_password': password,
+      },
+    );
+    final data = response.data;
+    return UserModel.fromJson(data);
+  }
 }

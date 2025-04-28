@@ -9,6 +9,7 @@ import 'package:takeout/cubit/auth/auth_cubit.dart';
 import 'package:takeout/cubit/post/post_cubit.dart';
 import 'package:takeout/data/repositories/auth_repository.dart';
 import 'package:takeout/data/repositories/post_repository.dart';
+import 'package:takeout/pages/auth/auth_gate.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/cart_service.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.authRepository,
     required this.postRepository,
-    required this.initialRoute
+    required this.initialRoute,
   });
 
   @override
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => LanguageBloc()),
         BlocProvider(create: (_) => CartBloc(CartService())..add(LoadCart())),
         BlocProvider(create: (_) => PostCubit(postRepository)..loadPosts()),
-        BlocProvider(create: (_) => AuthCubit(authRepository)),
+        BlocProvider(create: (_) => AuthCubit(authRepository)..checkAuth()),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, locale) {
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // initialRoute: AppRoutes.landing,
             // initialRoute: AppRoutes.login,
-            initialRoute: initialRoute,
+            // initialRoute: initialRoute,
+            home: AuthGate(),
             onGenerateRoute: AppRoutes.onGenerateRoute,
             theme: ThemeData(
               appBarTheme: const AppBarTheme(
