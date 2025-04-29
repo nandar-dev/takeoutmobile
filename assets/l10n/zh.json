@@ -29,11 +29,14 @@
   "title": {
     "category": "分类列表",
     "product": "产品列表",
+    "shop": "店铺列表",
     "merchant_product": "商家商品",
     "cart": "我的购物车",
     "payment": "选择支付方式",
     "profileSetting": "个人资料设置",
-    "refill": "钱包充值"
+    "refill": "钱包充值",
+    "merchant_shop": "每一笔订单都让您的业务增长!",
+    "merchant_payment": "支付"
   },
   "button": {
     "see_all": "查看全部",
@@ -66,7 +69,9 @@
     "free": "空闲",
     "pending": "待处理",
     "completed": "已完成",
-    "progress": "进行中"
+    "progress": "进行中",
+    "active": "活跃",
+    "inactive": "未活跃"
   },
   "home": {
     "location_label": "您的位置",
@@ -160,5 +165,13 @@
     "no_revenue_des": "当您完成订单后，收入数据将显示在此处。",
     "shop_title": "您的商店",
     "product_title": "现有产品"
+  },
+  "merchant_payment": {
+    "label1": "付款方式",
+    "placeholder1": "选择付款方式",
+    "label2": "账号",
+    "placeholder2": "请输入账号",
+    "label3": "账户名称",
+    "placeholder3": "请输入账户名称"
   }
 }

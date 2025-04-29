@@ -15,12 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final chevronDownIcon = 'assets/icons/chevron_down.svg';
     final chevronRightIcon = 'assets/icons/chevron_right.svg';
     final chevronLeftIcon = 'assets/icons/chevron_left.svg';
-    final locationIcon = 'assets/icons/location.svg';
-    final notiIcon = 'assets/icons/noti.svg';
-    final searchIcon = 'assets/icons/search.svg';
     final bgImg = 'assets/images/home_bg.png';
     final screenHeight = MediaQuery.of(context).size.height;
     final categorySectionTitle = "home.category_title".tr();
@@ -32,11 +28,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           HeroSection(
             screenHeight: screenHeight,
-            bgImg: bgImg,
-            chevronDownIcon: chevronDownIcon,
-            locationIcon: locationIcon,
-            searchIcon: searchIcon,
-            notiIcon: notiIcon,
+            bgImg: bgImg
           ),
 
           Expanded(
