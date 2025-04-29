@@ -10,6 +10,7 @@ class CustomDropdownFormField<T> extends StatelessWidget {
   final String? Function(T?)? validator;
   final void Function(T?) onChanged;
   final String Function(T)? itemToString;
+  final bool hideBorder;
 
   const CustomDropdownFormField({
     super.key,
@@ -20,6 +21,7 @@ class CustomDropdownFormField<T> extends StatelessWidget {
     this.hintText,
     this.validator,
     this.itemToString,
+    this.hideBorder = false,
   });
 
   @override
@@ -29,7 +31,7 @@ class CustomDropdownFormField<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label.isNotEmpty)
+        if (label.isNotEmpty) ...[
           Text(
             label,
             style: const TextStyle(
@@ -38,8 +40,10 @@ class CustomDropdownFormField<T> extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-        if (label.isNotEmpty) const SizedBox(height: 8),
+          const SizedBox(height: 8),
+        ],
         DropdownButtonFormField<T>(
+          isExpanded: true,
           value: value,
           validator: validator,
           style: const TextStyle(
@@ -50,29 +54,40 @@ class CustomDropdownFormField<T> extends StatelessWidget {
             isDense: true,
             contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             hintText: hintText ?? 'Select an option',
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide: BorderSide(color: AppColors.textfieldborder),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide: BorderSide(color: AppColors.primary),
-            ),
-            errorBorder: const OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide: BorderSide(color: AppColors.danger),
-            ),
-            focusedErrorBorder: const OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide: BorderSide(color: AppColors.danger),
-            ),
-            border: const OutlineInputBorder(borderRadius: borderRadius),
+            enabledBorder: hideBorder
+                ? InputBorder.none
+                : const OutlineInputBorder(
+                    borderRadius: borderRadius,
+                    borderSide: BorderSide(color: AppColors.textfieldborder),
+                  ),
+            focusedBorder: hideBorder
+                ? InputBorder.none
+                : const OutlineInputBorder(
+                    borderRadius: borderRadius,
+                    borderSide: BorderSide(color: AppColors.primary),
+                  ),
+            errorBorder: hideBorder
+                ? InputBorder.none
+                : const OutlineInputBorder(
+                    borderRadius: borderRadius,
+                    borderSide: BorderSide(color: AppColors.danger),
+                  ),
+            focusedErrorBorder: hideBorder
+                ? InputBorder.none
+                : const OutlineInputBorder(
+                    borderRadius: borderRadius,
+                    borderSide: BorderSide(color: AppColors.danger),
+                  ),
+            border: hideBorder
+                ? InputBorder.none
+                : const OutlineInputBorder(borderRadius: borderRadius),
           ),
           items: items.map((T value) {
             return DropdownMenuItem<T>(
               value: value,
               child: Text(
                 itemToString != null ? itemToString!(value) : value.toString(),
+                overflow: TextOverflow.ellipsis,
               ),
             );
           }).toList(),

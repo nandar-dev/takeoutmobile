@@ -54,7 +54,8 @@
         "register": "Register",
         "continue": "Continue",
         "resend": "Resend",
-        "verify_acc": "Verify Account"
+        "verify_acc": "Verify Account",
+        "register_driver": "Register New Driver"
     },
     "input": {
         "search_product": "Search product"
@@ -141,5 +142,19 @@
         "new_pass_placeholder": "Enter New Password",
         "confirm_pass_label": "Confirm Password",
         "confirm_pass_placeholder": "Enter Confirm Password"
+    },
+    "merchant_home": {
+        "title": "Wallet Balance",
+        "description": "Manage your funds and track your earnings and expenses in one place.",
+        "withdraw": "Withdraw History",
+        "running_order": "Running Order",
+        "order_req": "Order Requests",
+        "deli_title": "Delivery Management",
+        "driver_title": "Manage Delivery Drivers",
+        "driver_des": "Register new drivers or manage your existing delivery team",
+        "revenue_title": "Total Revenue",
+        "weekly": "Weekly",
+        "no_revenue": "No revenue data available",
+        "no_revenue_des": "Revenue data will appear here once you have completed orders."
     }
 }
