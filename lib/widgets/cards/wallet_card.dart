@@ -19,7 +19,7 @@ class WalletCard extends StatelessWidget {
       elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
-        side: BorderSide(color: AppColors.primary.withValues(alpha: .5),),
+        side: BorderSide(color: AppColors.primaryDark.withValues(alpha: .5),),
       ),
 
       child: Padding(
@@ -33,7 +33,7 @@ class WalletCard extends StatelessWidget {
               children: [
                 RenderSvgIcon(
                   assetName: walletIconSvg,
-                  color: AppColors.primary,
+                  color: AppColors.primaryDark,
                 ),
                 SizedBox(width: 12),
                 Padding(

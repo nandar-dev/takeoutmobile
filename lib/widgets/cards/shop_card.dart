@@ -12,64 +12,90 @@ class ShopCard extends StatelessWidget {
     required this.name,
     required this.status,
     required this.onTap,
+    this.showStatus = true,
+    this.width = 140,
+    this.imageHeight = 100,
   });
 
   final String status;
   final String imageUrl;
   final String name;
   final VoidCallback onTap;
+  final bool? showStatus;
+  final double width;
+  final double imageHeight;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        elevation: 0.1,
-        color: AppColors.background,
-        borderOnForeground: false,
-        margin: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: RenderCustomImage(
-                imageUrl: imageUrl,
-                height: 100,
-                width: 100,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, bottom: 8),
-              child: Row(
-                children: [
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: status == "Open" ? AppColors.success : AppColors.danger,
-                      shape: BoxShape.circle,
-                    ),
+      child: Container(
+        width: width,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+        child: Card(
+          elevation: 0.5,
+          color: AppColors.background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image Section
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: RenderCustomImage(
+                    imageUrl: imageUrl,
+                    width: width,
+                    height: imageHeight,
+                    rounded: 0,
                   ),
-                  SizedBox(width: 5),
-                  SubText(
-                    text: "home.${status.toLowerCase()}".tr(),
-                    color: AppColors.textSecondary,
-                    fontSize: FontSizes.body,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+
+              const SizedBox(height: 4),
+
+              // Shop name
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+
+              // Shop status
+              if (showStatus == true)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: status == "Open" ? AppColors.success : AppColors.danger,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      SubText(
+                        text: "home.${status.toLowerCase()}".tr(),
+                        color: AppColors.textSecondary,
+                        fontSize: FontSizes.body,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
-import 'package:takeout/theme/app_colors.dart';
-import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/cards/product_card.dart';
-
-import '../typography_widgets.dart';
 
 class ProductSection extends StatefulWidget {
   const ProductSection({super.key, required this.seeBtnLabel});
@@ -54,18 +51,14 @@ class _ProductSectionState extends State<ProductSection> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            GestureDetector(
-              onTap:
+            CustomTextButton(
+              btnLabel: widget.seeBtnLabel,
+              onTapCallback:
                   () => Navigator.pushNamed(
                     context,
                     AppRoutes.products,
                     arguments: {'categoryId': null},
                   ),
-              child: SubText(
-                text: widget.seeBtnLabel,
-                color: AppColors.primary,
-                fontSize: FontSizes.body,
-              ),
             ),
           ],
         ),

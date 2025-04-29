@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/widgets/cards/available_products_card.dart';
 import 'package:takeout/widgets/cards/deli_management_card.dart';
 import 'package:takeout/widgets/cards/merchant_revenue.dart';
+import 'package:takeout/widgets/cards/merchant_shops_card.dart';
 import 'package:takeout/widgets/cards/order_card.dart';
 import 'package:takeout/widgets/cards/wallet_card.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
@@ -15,11 +18,13 @@ class MerchantHomePage extends StatelessWidget {
     final locationIcon = 'assets/icons/location.svg';
     final notiIcon = 'assets/icons/noti.svg';
     final searchIcon = 'assets/icons/search.svg';
+    final orderLabelOne = "merchant_home.running_order".tr();
+    final orderLabelTwo = "merchant_home.order_req".tr();
 
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 32,),
+          SizedBox(height: 32),
           HeroSection(
             chevronDownIcon: chevronDownIcon,
             locationIcon: locationIcon,
@@ -44,16 +49,16 @@ class MerchantHomePage extends StatelessWidget {
                       Flexible(
                         child: OrderCard(
                           orderCount: "00",
-                          label: "Running Orders",
-                          bgColor: AppColors.primary.withAlpha(25),
-                          mainColor: AppColors.danger,
+                          label: orderLabelOne,
+                          bgColor: AppColors.primaryDark.withAlpha(25),
+                          mainColor: AppColors.primaryDark,
                         ),
                       ),
                       const SizedBox(width: 12),
                       Flexible(
                         child: OrderCard(
                           orderCount: "00",
-                          label: "Order Requests",
+                          label: orderLabelTwo,
                           bgColor: Colors.blueAccent.withAlpha(25),
                           mainColor: Colors.blueAccent,
                         ),
@@ -64,6 +69,10 @@ class MerchantHomePage extends StatelessWidget {
                   const DeliManagementCard(),
                   const SizedBox(height: 12),
                   MerchantRevenue(),
+                  const SizedBox(height: 12),
+                  MerchantShopsCard(),
+                  const SizedBox(height: 12),
+                  AvailableProductsCard(),
                   const SizedBox(height: 20),
                 ],
               ),

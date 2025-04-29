@@ -3,15 +3,15 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
-class NoRevenue extends StatelessWidget {
-  const NoRevenue({
+class NoData extends StatelessWidget {
+  const NoData({
     super.key,
-    required this.noRevenue,
-    required this.noRevenueDes,
+    required this.noData,
+    required this.noDataDes,
   });
 
-  final String noRevenue;
-  final String noRevenueDes;
+  final String noData;
+  final String noDataDes;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,16 @@ class NoRevenue extends StatelessWidget {
       ),
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.calendar_month_outlined, color: AppColors.neutral50),
               SizedBox(height: 12),
-              SubText(text: noRevenue),
+              SubText(text: noData),
               SizedBox(height: 8),
               SubText(
-                text: noRevenueDes,
+                text: noDataDes,
                 fontSize: FontSizes.sm,
                 textAlign: TextAlign.center,
               ),
