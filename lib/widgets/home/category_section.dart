@@ -4,6 +4,7 @@ import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/category_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/cards/category_card.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
@@ -53,13 +54,10 @@ class _CategorySectionState extends State<CategorySection> {
               fontWeight: FontWeight.w500,
               fontSize: FontSizes.md,
             ),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.categories),
-              child: SubText(
-                text: widget.seeBtnLabel,
-                color: AppColors.primary,
-                fontSize: FontSizes.body,
-              ),
+            CustomTextButton(
+              btnLabel: widget.seeBtnLabel,
+              onTapCallback:
+                  () => Navigator.pushNamed(context, AppRoutes.categories),
             ),
           ],
         ),

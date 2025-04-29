@@ -8,6 +8,7 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/alertbox_widget.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
+import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/render_svg_icon.dart';
@@ -190,12 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: AppColors.textPrimary,
                           fontSize: FontSizes.md,
                         ),
-                        SubText(
-                          text: "button.view_all".tr(),
-                          color: AppColors.primary,
-                          fontSize: FontSizes.body,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        CustomTextButton(btnLabel: "button.view_all".tr(), onTapCallback: (){})
                       ],
                     ),
                     const SizedBox(height: 16),

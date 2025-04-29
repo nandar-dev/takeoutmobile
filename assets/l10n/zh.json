@@ -56,7 +56,8 @@
     "continue": "继续",
     "resend": "重新发送",
     "verify_acc": "验证账户",
-    "register_driver": "注册新司机"
+    "register_driver": "注册新司机",
+    "add_new": "添加新项"
   },
   "input": {
     "search_product": "搜索商品"
@@ -156,6 +157,8 @@
     "revenue_title": "总收入",
     "weekly": "每周",
     "no_revenue": "无收入数据",
-    "no_revenue_des": "当您完成订单后，收入数据将显示在此处。"
+    "no_revenue_des": "当您完成订单后，收入数据将显示在此处。",
+    "shop_title": "您的商店",
+    "product_title": "现有产品"
   }
 }

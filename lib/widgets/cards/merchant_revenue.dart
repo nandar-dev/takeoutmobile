@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/cards/no_revenue.dart';
+import 'package:takeout/widgets/cards/no_data.dart';
 import 'package:takeout/widgets/formfields/customdropdownfield_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
@@ -117,7 +117,7 @@ class _MerchantRevenueState extends State<MerchantRevenue> {
               ),
               const SizedBox(height: 12),
               // No revenue container with dashed border
-              NoRevenue(noRevenue: noRevenue, noRevenueDes: noRevenueDes),
+              NoData(noData: noRevenue, noDataDes: noRevenueDes),
             ],
           ),
         ),

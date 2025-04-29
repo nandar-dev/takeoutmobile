@@ -55,7 +55,8 @@
         "continue": "Continue",
         "resend": "Resend",
         "verify_acc": "Verify Account",
-        "register_driver": "Register New Driver"
+        "register_driver": "Register New Driver",
+        "add_new": "Add New"
     },
     "input": {
         "search_product": "Search product"
@@ -155,6 +156,8 @@
         "revenue_title": "Total Revenue",
         "weekly": "Weekly",
         "no_revenue": "No revenue data available",
-        "no_revenue_des": "Revenue data will appear here once you have completed orders."
+        "no_revenue_des": "Revenue data will appear here once you have completed orders.",
+        "shop_title": "Your shops",
+        "product_title": "Available Products"
     }
 }
