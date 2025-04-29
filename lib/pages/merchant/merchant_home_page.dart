@@ -14,22 +14,18 @@ class MerchantHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chevronDownIcon = 'assets/icons/chevron_down.svg';
-    final locationIcon = 'assets/icons/location.svg';
-    final notiIcon = 'assets/icons/noti.svg';
-    final searchIcon = 'assets/icons/search.svg';
     final orderLabelOne = "merchant_home.running_order".tr();
     final orderLabelTwo = "merchant_home.order_req".tr();
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        surfaceTintColor: AppColors.background,
+        toolbarHeight: 10,
+      ),
       body: Column(
         children: [
-          SizedBox(height: 32),
           HeroSection(
-            chevronDownIcon: chevronDownIcon,
-            locationIcon: locationIcon,
-            searchIcon: searchIcon,
-            notiIcon: notiIcon,
             bgColor: AppColors.background,
             textColor: AppColors.textPrimary,
             iconColor: AppColors.textPrimary,

@@ -27,12 +27,15 @@
     },
     "title": {
         "category": "Categories List",
+        "shop": "Shops List",
         "product": "Products List",
         "merchant_product": "Merchant Products",
         "cart": "My Cart",
         "payment": "Select Payment Method",
         "profileSetting": "Profile Setting",
-        "refill": "Refill Wallet"
+        "refill": "Refill Wallet",
+        "merchant_shop": "Grow Your Business with Every Order!",
+        "merchant_payment": "Payment"
     },
     "button": {
         "see_all": "See all",
@@ -65,7 +68,9 @@
         "free": "Free",
         "pending": "Pending",
         "completed": "Completed",
-        "progress": "In Progress"
+        "progress": "In Progress",
+        "active": "Active",
+        "inactive": "Inactive"
     },
     "home": {
         "location_label": "Your Location",
@@ -159,5 +164,13 @@
         "no_revenue_des": "Revenue data will appear here once you have completed orders.",
         "shop_title": "Your shops",
         "product_title": "Available Products"
+    },
+    "merchant_payment": {
+        "label1": "Payment Method",
+        "placeholder1": "Choose Method",
+        "label2": "Account Number",
+        "placeholder2": "Account Number",
+        "label3": "Account Name",
+        "placeholder3": "Account Name"
     }
 }
