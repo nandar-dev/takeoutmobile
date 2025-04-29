@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool isDense;
+  final bool readOnly;
   final EdgeInsetsGeometry? contentPadding;
 
   const CustomTextField({
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.validator,
     this.isDense = false,
+    this.readOnly = false,
     this.contentPadding,
   });
 
@@ -48,6 +50,7 @@ class CustomTextField extends StatelessWidget {
         if (label.isNotEmpty) const SizedBox(height: 8),
         TextFormField(
           maxLines: maxLines,
+          readOnly: readOnly,
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,

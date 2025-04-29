@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:takeout/cubit/auth/auth_cubit.dart';
+import 'package:takeout/cubit/user/user_cubit.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/buttons/iconbutton_one_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
@@ -35,7 +35,7 @@ class HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.read<AuthCubit>().repository.getLoggedInUser()!;
+    final user = context.read<UserCubit>().repository.getLoggedInUser()!;
     final String locTitle = "home.location_label".tr();
     final Color resolvedTextColor = textColor ?? AppColors.textLight;
     final Color resolvedIconColor = iconColor ?? AppColors.textLight;

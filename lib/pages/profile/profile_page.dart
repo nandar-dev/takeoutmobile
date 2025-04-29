@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takeout/cubit/auth/auth_cubit.dart';
-import 'package:takeout/cubit/auth/auth_state.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:takeout/cubit/user/user_cubit.dart';
+import 'package:takeout/cubit/user/user_state.dart';
+import 'package:takeout/data/models/user_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
@@ -12,6 +16,7 @@ import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/render_svg_icon.dart';
+import 'package:takeout/widgets/toast_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -22,10 +27,37 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  UserModel? user;
+  PlatformFile? _pickedFile;
+
+  Future<void> _pickFile() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        setState(() {
+          _pickedFile = result.files.first;
+        });
+        context.read<UserCubit>().updateProfileImage(_pickedFile!);
+      }
+    } catch (e) {
+      if (mounted) {
+        showToast(message: 'Error picking file: $e');
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    user = context.read<UserCubit>().repository.getLoggedInUser()!;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = context.read<AuthCubit>().repository.getLoggedInUser()!;
-
     final title = "title.profileSetting".tr();
     final balance = "profile.balance".tr();
     final available = "profile.available".tr();
@@ -39,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBarWidget(title: title, showBackNavigator: false),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state is Unauthenticated) {
             Navigator.pushNamedAndRemoveUntil(
@@ -54,46 +86,14 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             children: [
               const SizedBox(height: 32),
-              Center(
-                child: Stack(
-                  children: [
-                    const SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/person.png'),
-                        radius: 48,
-                        backgroundColor: AppColors.surface,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.surface,
-                          border: Border.all(
-                            color: AppColors.neutral10,
-                            width: 2,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.camera_alt,
-                          color: AppColors.primary,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
+              GestureDetector(onTap: _pickFile, child: _buildPreview()),
+
               const SizedBox(height: 12),
 
               Center(
                 child: SubText(
-                  text: user.name,
+                  text: user!.name!,
                   fontWeight: FontWeight.w600,
                   fontSize: FontSizes.body,
                   color: AppColors.textPrimary,
@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 4),
               Center(
                 child: SubText(
-                  text: user.email,
+                  text: user!.email!,
                   color: AppColors.neutral60,
                   fontSize: FontSizes.body,
                 ),
@@ -137,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 4),
                           TitleText(
-                            text: "\$0.00",
+                            text: "\$${user!.walletAmount}",
                             fontSize: FontSizes.heading2,
                             fontWeight: FontWeight.w600,
                           ),
@@ -191,7 +191,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: AppColors.textPrimary,
                           fontSize: FontSizes.md,
                         ),
-                        CustomTextButton(btnLabel: "button.view_all".tr(), onTapCallback: (){})
+                        CustomTextButton(
+                          btnLabel: "button.view_all".tr(),
+                          onTapCallback: () {},
+                        ),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -293,7 +296,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       confirmText: "button.signout".tr(),
                       cancelText: "button.cancel".tr(),
                       onConfirm: () {
-                        context.read<AuthCubit>().logout();
+                        context.read<UserCubit>().logout();
                       },
                     );
                   },
@@ -341,4 +344,90 @@ class _ProfilePageState extends State<ProfilePage> {
       onTap: onTap,
     );
   }
+
+  Widget _buildPreview() {
+    if (_pickedFile != null) {
+      final String? filePath = _pickedFile!.path;
+      return Center(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: 100,
+              width: 100,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(48),
+                child: Image.file(
+                  File(filePath!),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Text(
+                        'Error loading preview',
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            _buildCameraIcon(),
+          ],
+        ),
+      );
+    } else if (user?.image?.isNotEmpty == true) {
+      return _buildImagePreview(NetworkImage(user!.image!));
+    } else {
+      return _buildInitialAvatar(user!.name ?? '');
+    }
+  }
+
+  Widget _buildImagePreview(ImageProvider image) => Center(
+    child: Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(48),
+          child: Image(
+            image: image,
+            height: 100,
+            width: 100,
+            fit: BoxFit.cover,
+          ),
+        ),
+        _buildCameraIcon(),
+      ],
+    ),
+  );
+
+  Widget _buildInitialAvatar(String name) => Center(
+    child: Stack(
+      children: [
+        CircleAvatar(
+          radius: 48,
+          backgroundColor: AppColors.surface,
+          child: Text(
+            name.isNotEmpty ? name[0].toUpperCase() : '',
+            style: const TextStyle(
+              fontSize: FontSizes.heading1,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        _buildCameraIcon(),
+      ],
+    ),
+  );
+
+  Widget _buildCameraIcon() => Positioned(
+    bottom: 0,
+    right: 0,
+    child: Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: AppColors.surface,
+        border: Border.all(color: AppColors.neutral10, width: 2),
+      ),
+      child: const Icon(Icons.camera_alt, color: AppColors.primary, size: 20),
+    ),
+  );
 }

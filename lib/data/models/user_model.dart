@@ -5,99 +5,103 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class UserModel extends HiveObject {
   @HiveField(0)
-  final int id;
+  final int? id;
 
   @HiveField(1)
-  final String name;
+  final String? name;
 
   @HiveField(2)
-  final String email;
+  final String? email;
 
   @HiveField(3)
   final String? emailVerifiedAt;
 
   @HiveField(4)
-  final String createdAt;
+  final String? createdAt;
 
   @HiveField(5)
-  final String updatedAt;
+  final String? updatedAt;
 
   @HiveField(6)
-  final int phoneCode;
+  final int? phoneCode;
 
   @HiveField(7)
-  final String phone;
+  final String? phone;
 
   @HiveField(8)
   final String? postalCode;
 
   @HiveField(9)
-  final String address;
+  final String? address;
 
   @HiveField(10)
-  final String countryId;
+  final String? countryId;
 
   @HiveField(11)
-  final String stateId;
+  final String? stateId;
 
   @HiveField(12)
-  final String cityId;
+  final String? cityId;
 
   @HiveField(13)
-  final int roles;
+  final int? roles;
 
   @HiveField(14)
   final String? image;
 
   @HiveField(15)
-  final String latlong;
+  final String? latlong;
 
   @HiveField(16)
   final String? gender;
 
   @HiveField(17)
-  final String walletAmount;
+  final String? walletAmount;
 
   @HiveField(18)
-  final int status;
+  final int? status;
 
   @HiveField(19)
-  final int merchantId;
+  final int? merchantId;
 
   @HiveField(20)
-  final int driverId;
+  final int? driverId;
 
   @HiveField(21)
-  final String role;
+  final String? role;
 
   UserModel({
-    required this.id,
-    required this.name,
-    required this.email,
+    this.id,
+    this.name,
+    this.email,
     this.emailVerifiedAt,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.phoneCode,
-    required this.phone,
+    this.createdAt,
+    this.updatedAt,
+    this.phoneCode,
+    this.phone,
     this.postalCode,
-    required this.address,
-    required this.countryId,
-    required this.stateId,
-    required this.cityId,
-    required this.roles,
+    this.address,
+    this.countryId,
+    this.stateId,
+    this.cityId,
+    this.roles,
     this.image,
-    required this.latlong,
+    this.latlong,
     this.gender,
-    required this.walletAmount,
-    required this.status,
-    required this.merchantId,
-    required this.driverId,
-    required this.role,
+    this.walletAmount,
+    this.status,
+    this.merchantId,
+    this.driverId,
+    this.role,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     final data = json['data'];
-    final user = data['user'];
+    // final user = data['user'];
+    final user =
+        data is Map<String, dynamic> && data.containsKey('user')
+            ? data['user']
+            : data;
 
     return UserModel(
       id: user['id'] ?? 0,
@@ -117,7 +121,7 @@ class UserModel extends HiveObject {
       image: user['image'],
       latlong: user['latlong'] ?? '',
       gender: user['gender'],
-      walletAmount: user['wallet_amount'] ?? '',
+      walletAmount: user['wallet_amount'] ?? '0',
       status: user['status'] ?? 0,
       merchantId: user['merchant_id'] ?? 0,
       driverId: user['driver_id'] ?? 0,

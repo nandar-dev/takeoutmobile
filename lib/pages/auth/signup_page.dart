@@ -10,8 +10,8 @@ import 'package:takeout/widgets/loading/loading_screen.dart';
 import 'package:takeout/widgets/toast_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takeout/cubit/auth/auth_cubit.dart';
-import 'package:takeout/cubit/auth/auth_state.dart';
+import 'package:takeout/cubit/user/user_cubit.dart';
+import 'package:takeout/cubit/user/user_state.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -29,54 +29,32 @@ class _SignupPageState extends State<SignupPage> {
       TextEditingController();
   bool isAgreetoTerms = false;
 
-  bool isPasswordValid(String password) {
+  bool _isPasswordValid(String password) {
     final passwordRegex = RegExp(
       r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~])[A-Za-z\d!@#\$&*~]{6,}$',
     );
     return passwordRegex.hasMatch(password);
   }
 
-  bool doPasswordsMatch() {
+  bool _doPasswordsMatch() {
     return _passwordController.text.trim() ==
         _confirmPasswordController.text.trim();
   }
 
-  void register() {
-    final email = _emailController.text.trim();
-    final username = _usernameController.text.trim();
-    final password = _passwordController.text.trim();
-    // final confirmPassword = _confirmPasswordController.text.trim();
-
-    // if (email.isEmpty ||
-    //     username.isEmpty ||
-    //     password.isEmpty ||
-    //     confirmPassword.isEmpty ||
-    //     !isAgreetoTerms) {
-    //   showToast(message: 'Please fill all fields and accept terms.');
-    //   return;
-    // }
-
-    // if (!isPasswordValid(password)) {
-    //   showToast(
-    //     message:
-    //         'Password must be at least 6 characters, include an uppercase letter, a number, and a special character.',
-    //   );
-    //   return;
-    // }
-
-    // if (!doPasswordsMatch()) {
-    //   showToast(message: 'Passwords do not match.');
-    //   return;
-    // }
-
-    context.read<AuthCubit>().register(username, email, password);
+  void _register() {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text.trim();
+      final username = _usernameController.text.trim();
+      final password = _passwordController.text.trim();
+      context.read<UserCubit>().register(username, email, password);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is AuthLoading) {
+        if (state is UserLoading) {
           LoadingScreen.instance().show(context: context);
         } else {
           LoadingScreen.instance().hide();
@@ -88,7 +66,7 @@ class _SignupPageState extends State<SignupPage> {
             AppRoutes.login,
             (route) => false,
           );
-        } else if (state is AuthError) {
+        } else if (state is UserError) {
           showToast(message: state.message);
         }
       },
@@ -167,7 +145,7 @@ class _SignupPageState extends State<SignupPage> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'New password is required';
-                                    } else if (!isPasswordValid(
+                                    } else if (!_isPasswordValid(
                                       _passwordController.text.trim(),
                                     )) {
                                       return 'Password must be at least 6 characters, include an uppercase letter, a number, and a special character.';
@@ -187,7 +165,7 @@ class _SignupPageState extends State<SignupPage> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Confirm password is required';
-                                    } else if (!doPasswordsMatch()) {
+                                    } else if (!_doPasswordsMatch()) {
                                       return 'Passwords do not match.';
                                     }
                                     return null;
@@ -257,13 +235,11 @@ class _SignupPageState extends State<SignupPage> {
                                   width: double.infinity,
                                   child: CustomPrimaryButton(
                                     text:
-                                        state is AuthLoading
+                                        state is UserLoading
                                             ? "Registering..."
                                             : "Register",
                                     onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        if (state is! AuthLoading) register();
-                                      }
+                                      if (state is! UserLoading) _register();
                                     },
                                   ),
                                 ),

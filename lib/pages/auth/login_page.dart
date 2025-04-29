@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takeout/cubit/auth/auth_cubit.dart';
-import 'package:takeout/cubit/auth/auth_state.dart';
+import 'package:takeout/cubit/user/user_cubit.dart';
+import 'package:takeout/cubit/user/user_state.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
@@ -25,10 +25,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  login() {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-    context.read<AuthCubit>().login(email, password);
+  _login() {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      context.read<UserCubit>().login(email, password);
+    }
   }
 
   @override
@@ -42,15 +44,15 @@ class _LoginPageState extends State<LoginPage> {
     final forgot = "login.forgot".tr();
     final noAcc = "login.no_acc".tr();
 
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is AuthLoading) {
+        if (state is UserLoading) {
           LoadingScreen.instance().show(context: context);
         } else {
           LoadingScreen.instance().hide();
         }
 
-        if (state is AuthError) {
+        if (state is UserError) {
           showToast(message: state.message);
         } else if (state is Authenticated) {
           Navigator.pushNamedAndRemoveUntil(
@@ -147,13 +149,11 @@ class _LoginPageState extends State<LoginPage> {
                                   width: double.infinity,
                                   child: CustomPrimaryButton(
                                     text:
-                                        state is AuthLoading
+                                        state is UserLoading
                                             ? "Signing in..."
                                             : "button.signin".tr(),
                                     onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        if (state is! AuthLoading) login();
-                                      }
+                                      if (state is! UserLoading) _login();
                                     },
                                   ),
                                 ),

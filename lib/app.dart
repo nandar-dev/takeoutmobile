@@ -5,9 +5,9 @@ import 'package:takeout/bloc/cart/event.dart';
 import 'package:takeout/bloc/language/bloc.dart';
 import 'package:takeout/bloc/language/state.dart';
 import 'package:takeout/bloc/product_filters/bloc.dart';
-import 'package:takeout/cubit/auth/auth_cubit.dart';
+import 'package:takeout/cubit/user/user_cubit.dart';
 import 'package:takeout/cubit/post/post_cubit.dart';
-import 'package:takeout/data/repositories/auth_repository.dart';
+import 'package:takeout/data/repositories/user_repository.dart';
 import 'package:takeout/data/repositories/post_repository.dart';
 import 'package:takeout/pages/auth/auth_gate.dart';
 import 'package:takeout/pages/routing/routes.dart';
@@ -16,15 +16,13 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MyApp extends StatelessWidget {
-  final AuthRepository authRepository;
+  final UserRepository userRepository;
   final PostRepository postRepository;
-  final String initialRoute;
 
   const MyApp({
     super.key,
-    required this.authRepository,
+    required this.userRepository,
     required this.postRepository,
-    required this.initialRoute,
   });
 
   @override
@@ -35,16 +33,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => LanguageBloc()),
         BlocProvider(create: (_) => CartBloc(CartService())..add(LoadCart())),
         BlocProvider(create: (_) => PostCubit(postRepository)..loadPosts()),
-        BlocProvider(create: (_) => AuthCubit(authRepository)..checkAuth()),
+        BlocProvider(create: (_) => UserCubit(userRepository)..checkAuth()),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, locale) {
           context.setLocale(Locale(locale.selectedLanguageId));
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            // initialRoute: AppRoutes.landing,
-            // initialRoute: AppRoutes.login,
-            // initialRoute: initialRoute,
             home: AuthGate(),
             onGenerateRoute: AppRoutes.onGenerateRoute,
             theme: ThemeData(
