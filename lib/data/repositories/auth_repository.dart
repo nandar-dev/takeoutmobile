@@ -27,6 +27,7 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
+    await remote.logout();
     TokenStorage.deleteToken();
     await box.delete('user');
   }

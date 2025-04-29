@@ -34,4 +34,10 @@ class AuthRemoteDataSource {
     final data = response.data;
     return UserModel.fromJson(data);
   }
+
+  Future logout() async {
+    final response = await APIService.request('/user/logout', DioMethod.post);
+    final data = response.data;
+    return data;
+  }
 }

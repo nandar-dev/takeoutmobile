@@ -36,8 +36,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void logout() {
-    repository.logout();
+  Future<void> logout() async {
+    try {
+      emit(AuthLoading());
+      await repository.logout();
+      emit(Unauthenticated());
+    } on DioException catch (e) {
+      final message =
+          e.error is String
+              ? e.error
+              : 'An unexpected error occurred during logout.';
+      emit(AuthError(message.toString()));
+    }
     emit(Unauthenticated());
   }
 
