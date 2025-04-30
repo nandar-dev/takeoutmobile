@@ -13,6 +13,7 @@ import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:takeout/widgets/loading/loading_screen.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/toast_widget.dart';
 
 class PersonalDataPage extends StatefulWidget {
@@ -103,7 +104,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         if (state is UserError) {
           showToast(message: state.message);
         } else if (state is Authenticated) {
-          Navigator.pushNamed(context, AppRoutes.profile);
+          showToast(message: 'Profile updated');
+          // Navigator.pushNamed(context, AppRoutes.profile);
         }
       },
       builder: (context, snapshot) {
@@ -232,22 +234,22 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         ),
       );
     } else if (user?.image?.isNotEmpty == true) {
-      return _buildImagePreview(NetworkImage(user!.image!));
+      return _buildImagePreview(user!.image!);
     } else {
       return _buildInitialAvatar(user!.name ?? '');
     }
   }
 
-  Widget _buildImagePreview(ImageProvider image) => Center(
+  Widget _buildImagePreview(String image) => Center(
     child: Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(48),
-          child: Image(
-            image: image,
-            height: 100,
+          child: RenderCustomImage(
+            imageUrl: image,
             width: 100,
-            fit: BoxFit.cover,
+            height: 100,
+            rounded: 0,
           ),
         ),
         _buildCameraIcon(),

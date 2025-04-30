@@ -16,7 +16,7 @@ void showToast({
     toastLength: length,
     gravity: gravity,
     timeInSecForIosWeb: 1,
-    backgroundColor: backgroundColor ?? AppColors.primary,
+    backgroundColor: backgroundColor ?? AppColors.neutral100.withOpacity(0.4),
     textColor: textColor ?? Colors.white,
     fontSize: fontSize ?? FontSizes.body,
   );

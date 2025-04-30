@@ -15,6 +15,7 @@ import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
+import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/render_svg_icon.dart';
 import 'package:takeout/widgets/toast_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
@@ -375,22 +376,22 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
     } else if (user?.image?.isNotEmpty == true) {
-      return _buildImagePreview(NetworkImage(user!.image!));
+      return _buildImagePreview(user!.image!);
     } else {
       return _buildInitialAvatar(user!.name ?? '');
     }
   }
 
-  Widget _buildImagePreview(ImageProvider image) => Center(
+  Widget _buildImagePreview(String image) => Center(
     child: Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(48),
-          child: Image(
-            image: image,
-            height: 100,
+          child: RenderCustomImage(
+            imageUrl: image,
             width: 100,
-            fit: BoxFit.cover,
+            height: 100,
+            rounded: 0,
           ),
         ),
         _buildCameraIcon(),
