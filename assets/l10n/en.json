@@ -154,7 +154,7 @@
     "merchant_home": {
         "title": "Wallet Balance",
         "description": "Manage your funds and track your earnings and expenses in one place.",
-        "withdraw": "Withdraw History",
+        "withdraw": "Withdrawl History",
         "running_order": "Running Order",
         "order_req": "Order Requests",
         "deli_title": "Delivery Management",
@@ -174,5 +174,10 @@
         "placeholder2": "Account Number",
         "label3": "Account Name",
         "placeholder3": "Account Name"
+    },
+    "withdrawl": {
+        "description": "View all your withdrawal transactions",
+        "no_data_title": "No withdrawal history found.",
+        "no_data_description": "No withdrawal data available."
     }
 }

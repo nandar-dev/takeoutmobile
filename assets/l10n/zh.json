@@ -175,5 +175,10 @@
     "placeholder2": "请输入账号",
     "label3": "账户名称",
     "placeholder3": "请输入账户名称"
+  },
+  "withdrawl": {
+    "description": "查看您的所有提款交易记录",
+    "no_data_title": "未找到提款历史记录",
+    "no_data_description": "暂无提款数据"
   }
 }

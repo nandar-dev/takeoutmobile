@@ -5,6 +5,7 @@ import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/auth/otp_page.dart';
 import 'package:takeout/pages/auth/resetpass_page.dart';
 import 'package:takeout/pages/auth/signup_page.dart';
+import 'package:takeout/pages/merchant/merchant_withdrawl.dart';
 import 'package:takeout/pages/user/categories_list.dart';
 import 'package:takeout/pages/user/home_page.dart';
 import 'package:takeout/pages/landing/landing_page.dart';
@@ -37,6 +38,7 @@ class AppRoutes {
   static const String refillwallet = '/refillwallet';
   static const String transactionhistory = '/transactionhistory';
   static const String selectPayment = '/select-payment';
+  static const String merchantWithdrawlHistory = '/merchant-withdrawl-history';
 
   static Route<dynamic> _buildRoute(Widget page) {
     return MaterialPageRoute(builder: (_) => page);
@@ -62,6 +64,8 @@ class AppRoutes {
         return _buildRoute(const ProfilePage());
       case categories:
         return _buildRoute(const CategoriesList());
+      case merchantWithdrawlHistory:
+        return _buildRoute(const MerchantWithdrawl());
       case products:
         final args = settings.arguments as Map<String, dynamic>;
         final categoryId = args['categoryId'];
