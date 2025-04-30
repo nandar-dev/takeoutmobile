@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:takeout/domain/entities/post.dart';
-
 part 'post_model.g.dart';
 
 @HiveType(typeId: 0)

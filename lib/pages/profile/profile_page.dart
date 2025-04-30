@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    user = context.read<UserCubit>().repository.getLoggedInUser()!;
+    user = context.read<UserCubit>().repository.getLoggedInUser();
   }
 
   @override
@@ -103,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 4),
               Center(
                 child: SubText(
-                  text: user!.email!,
+                  text: user!.email ?? '',
                   color: AppColors.neutral60,
                   fontSize: FontSizes.body,
                 ),
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 4),
                           TitleText(
-                            text: "\$${user!.walletAmount}",
+                            text: "\$${user!.walletAmount ?? '0'}",
                             fontSize: FontSizes.heading2,
                             fontWeight: FontWeight.w600,
                           ),

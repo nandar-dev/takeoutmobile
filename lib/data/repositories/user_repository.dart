@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:takeout/data/datasource/remote/user_remote.dart';
@@ -41,14 +39,33 @@ class UserRepository {
     String phone,
     String address,
   ) async {
-    final userModel = await remote.updateProfile(name, email, phone, address);
-    await box.put('user', userModel);
-    return userModel;
+    final oldUser = box.get('user') as UserModel;
+    final updatedPartialUser = await remote.updateProfile(
+      name,
+      email,
+      phone,
+      address,
+    );
+
+    final mergedUser = oldUser.copyWith(
+      name: updatedPartialUser.name,
+      email: updatedPartialUser.email,
+      phone: updatedPartialUser.phone,
+      address: updatedPartialUser.address,
+    );
+
+    await box.put('user', mergedUser);
+
+    return mergedUser;
   }
 
-    Future<UserModel> updateProfileImage(PlatformFile imageFile) async {
+  Future<UserModel> updateProfileImage(PlatformFile imageFile) async {
+    final oldUser = box.get('user') as UserModel;
     final userModel = await remote.updateProfileImage(imageFile);
-    await box.put('user', userModel);
+
+    final mergedUser = oldUser.copyWith(image: userModel.image);
+
+    await box.put('user', mergedUser);
     return userModel;
   }
 }
