@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
     final chevronRightIcon = 'assets/icons/chevron_right.svg';
     final chevronLeftIcon = 'assets/icons/chevron_left.svg';
     final bgImg = 'assets/images/home_bg.png';
-    final screenHeight = MediaQuery.of(context).size.height;
     final categorySectionTitle = "home.category_title".tr();
     final nearbyTitle = "home.shop_title".tr();
     final seeBtnLabel = "button.see_all".tr();
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           HeroSection(
-            screenHeight: screenHeight,
+            sectionHeight: 200,
             bgImg: bgImg
           ),
 

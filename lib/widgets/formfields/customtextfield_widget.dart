@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
             fontSize: FontSizes.body,
             fontWeight: FontWeight.w500,
           ),
-        if (label.isNotEmpty) const SizedBox(height: 8),
+        if (label.isNotEmpty) const SizedBox(height: 4),
         TextFormField(
           maxLines: maxLines,
           controller: controller,

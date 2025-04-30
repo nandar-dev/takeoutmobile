@@ -18,14 +18,10 @@ class MerchantHomePage extends StatelessWidget {
     final orderLabelTwo = "merchant_home.order_req".tr();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        surfaceTintColor: AppColors.background,
-        toolbarHeight: 10,
-      ),
       body: Column(
         children: [
           HeroSection(
+            sectionHeight: 120,
             bgColor: AppColors.background,
             textColor: AppColors.textPrimary,
             iconColor: AppColors.textPrimary,

@@ -60,7 +60,9 @@
     "resend": "重新发送",
     "verify_acc": "验证账户",
     "register_driver": "注册新司机",
-    "add_new": "添加新项"
+    "add_new": "添加新项",
+    "confirm": "确认",
+    "edit": "编辑"
   },
   "input": {
     "search_product": "搜索商品"

@@ -59,7 +59,9 @@
         "resend": "Resend",
         "verify_acc": "Verify Account",
         "register_driver": "Register New Driver",
-        "add_new": "Add New"
+        "add_new": "Add New",
+        "confirm": "Confirm",
+        "edit": "Edit"
     },
     "input": {
         "search_product": "Search product"

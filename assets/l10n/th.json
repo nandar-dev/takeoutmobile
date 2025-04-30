@@ -60,7 +60,9 @@
     "resend": "ส่งอีกครั้ง",
     "verify_acc": "ยืนยันบัญชี",
     "register_driver": "ลงทะเบียนคนขับใหม่",
-    "add_new": "เพิ่มใหม่"
+    "add_new": "เพิ่มใหม่",
+    "confirm": "ยืนยัน",
+    "edit": "แก้ไข"
   },
   "input": {
     "search_product": "ค้นหาสินค้า"

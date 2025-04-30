@@ -105,7 +105,7 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
               const Center(child: CircularProgressIndicator())
             else
               SizedBox(
-                height: 220,
+                height: 200,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -114,8 +114,10 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
                           return Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: SizedBox(
-                              width: 200,
-                              child: ProductCard(product: product),
+                              width: 180,
+                              child: ProductCard(
+                                product: product,
+                              ),
                             ),
                           );
                         }).toList(),
