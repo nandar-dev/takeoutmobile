@@ -18,20 +18,12 @@ class MerchantShopList extends StatefulWidget {
 }
 
 class _MerchantShopListState extends State<MerchantShopList> {
-  List<Shop> shops = [];
-  bool isLoading = true;
+  Future<List<Shop>> _shopsFuture = ShopService.loadShops();
 
   @override
   void initState() {
     super.initState();
-    loadShops();
-  }
-
-  Future<void> loadShops() async {
-    shops = await ShopService.loadShops();
-    setState(() {
-      isLoading = false;
-    });
+    _shopsFuture = ShopService.loadShops();
   }
 
   @override
@@ -42,23 +34,14 @@ class _MerchantShopListState extends State<MerchantShopList> {
 
     return Scaffold(
       backgroundColor: AppColors.primary,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        surfaceTintColor: AppColors.primary,
-        toolbarHeight: 10,
-        elevation: 0,
-      ),
       body: Column(
         children: [
-          SizedBox(
-            height: 200,
-            child: HeroSection(
-              sectionHeight: 220,
-              bgColor: AppColors.primary,
-              textColor: AppColors.textLight,
-              iconColor: AppColors.textLight,
-              title: poweredTitle,
-            ),
+          HeroSection(
+            sectionHeight: 220,
+            bgColor: AppColors.primary,
+            textColor: AppColors.textLight,
+            iconColor: AppColors.textLight,
+            title: poweredTitle,
           ),
           Expanded(
             child: Container(
@@ -69,14 +52,17 @@ class _MerchantShopListState extends State<MerchantShopList> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+                    padding: const EdgeInsets.all(20),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TitleText(text: title, fontSize: FontSizes.heading2),
                         IconButtonTwoWidget(
                           icon: plusIcon,
-                          onTap: () {},
+                          onTap: () {
+                            // Add shop logic here
+                          },
                           bgColor: AppColors.primary,
                           iconColor: AppColors.textLight,
                           iconSize: 15,
@@ -85,42 +71,41 @@ class _MerchantShopListState extends State<MerchantShopList> {
                     ),
                   ),
                   Expanded(
-                    child:
-                        isLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : shops.isEmpty
-                            ? const Center(child: Text("No shops found."))
-                            : GridView.builder(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                              ),
-                              itemCount: shops.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 1,
-                                    crossAxisSpacing: 1,
-                                    childAspectRatio: 1.08,
-                                  ),
-                              itemBuilder: (context, index) {
-                                final shop = shops[index];
-                                final status = checkShopStatus(
-                                  shop.openingTime,
-                                  shop.closingTime,
-                                );
+                    child: FutureBuilder<List<Shop>>(
+                      future: _shopsFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(child: Text("${'error.loading_shops'.tr()}: ${snapshot.error}"));
+                        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                          return const Center(child: Text("No shops found."));
+                        }
 
-                                return ShopCard(
-                                  name: shop.name,
-                                  imageUrl: shop.imageUrl,
-                                  width: double.infinity,
-                                  status: status,
-                                  onTap: () {
-                                    debugPrint("Clicked ${shop.name}");
-                                  },
-                                  showStatus: false,
-                                );
-                              },
-                            ),
+                        final shops = snapshot.data!;
+                        return GridView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          itemCount: shops.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 3 / 2.7,
+                          ),
+                          itemBuilder: (context, index) {
+                            final shop = shops[index];
+                            final status = checkShopStatus(shop.openingTime, shop.closingTime);
+
+                            return ShopCard(
+                              name: shop.name,
+                              imageUrl: shop.imageUrl,
+                              width: double.infinity,
+                              status: status,
+                              onTap: () => debugPrint("Clicked ${shop.name}"),
+                              showStatus: false,
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

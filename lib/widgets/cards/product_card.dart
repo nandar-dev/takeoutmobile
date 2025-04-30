@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
-import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/iconbutton_two_widget.dart';
@@ -8,9 +7,10 @@ import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, this.onTapCallback});
 
   final Product product;
+  final VoidCallback? onTapCallback;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -31,12 +31,7 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:
-          () => Navigator.pushNamed(
-            context,
-            AppRoutes.product,
-            arguments: {'product': widget.product},
-          ),
+      onTap: widget.onTapCallback ?? (){},
       child: Card(
         elevation: .5,
         color: AppColors.background,

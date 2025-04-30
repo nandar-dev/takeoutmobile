@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/render_svg_icon.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
@@ -61,15 +63,12 @@ class WalletCard extends StatelessWidget {
               fontSize: FontSizes.body,
             ),
             SizedBox(height: 12),
-            Text(
-              withdraw,
-              style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: FontSizes.md,
-                decoration: TextDecoration.underline,
-                decorationColor: Colors.blueAccent,
-              ),
-            ),
+            CustomTextButton(
+              btnLabel: withdraw,
+              onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.merchantWithdrawlHistory),
+              textColor: Colors.blueAccent,
+              iconColor: Colors.blueAccent,
+            )
           ],
         ),
       ),

@@ -87,7 +87,7 @@ class _MerchantShopsCardState extends State<MerchantShopsCard> {
                   ),
                 )
                 : SizedBox(
-                  height: 170,
+                  height: 160,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: shops.length,

@@ -11,6 +11,11 @@ class CustomDropdownFormField<T> extends StatelessWidget {
   final void Function(T?) onChanged;
   final String Function(T)? itemToString;
   final bool hideBorder;
+  final bool showLabelAbove;
+  final IconData? prefixIcon;
+  final Color? fillColor;
+  final double elevation;
+  final bool showShadow;
 
   const CustomDropdownFormField({
     super.key,
@@ -22,76 +27,143 @@ class CustomDropdownFormField<T> extends StatelessWidget {
     this.validator,
     this.itemToString,
     this.hideBorder = false,
+    this.showLabelAbove = true,
+    this.prefixIcon,
+    this.fillColor,
+    this.elevation = 0,
+    this.showShadow = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    const borderRadius = BorderRadius.all(Radius.circular(10));
+    final borderRadius = BorderRadius.circular(12);
+    final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label.isNotEmpty) ...[
-          Text(
-            label,
-            style: const TextStyle(
-              color: AppColors.neutral100,
+        if (label.isNotEmpty && showLabelAbove) ...[
+          Padding(
+            padding: const EdgeInsets.only(left: 4.0),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: FontSizes.body,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+        ],
+        Material(
+          elevation: showShadow ? 1 : 0,
+          shadowColor: showShadow ? AppColors.neutral50 : Colors.transparent,
+          borderRadius: borderRadius,
+          child: DropdownButtonFormField<T>(
+            isExpanded: true,
+            value: value,
+            validator: validator,
+            style: TextStyle(
               fontSize: FontSizes.body,
               fontWeight: FontWeight.w500,
             ),
-          ),
-          const SizedBox(height: 8),
-        ],
-        DropdownButtonFormField<T>(
-          isExpanded: true,
-          value: value,
-          validator: validator,
-          style: const TextStyle(
-            fontSize: FontSizes.body,
-            color: AppColors.neutral100,
-          ),
-          decoration: InputDecoration(
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            hintText: hintText ?? 'Select an option',
-            enabledBorder: hideBorder
-                ? InputBorder.none
-                : const OutlineInputBorder(
-                    borderRadius: borderRadius,
-                    borderSide: BorderSide(color: AppColors.textfieldborder),
-                  ),
-            focusedBorder: hideBorder
-                ? InputBorder.none
-                : const OutlineInputBorder(
-                    borderRadius: borderRadius,
-                    borderSide: BorderSide(color: AppColors.primary),
-                  ),
-            errorBorder: hideBorder
-                ? InputBorder.none
-                : const OutlineInputBorder(
-                    borderRadius: borderRadius,
-                    borderSide: BorderSide(color: AppColors.danger),
-                  ),
-            focusedErrorBorder: hideBorder
-                ? InputBorder.none
-                : const OutlineInputBorder(
-                    borderRadius: borderRadius,
-                    borderSide: BorderSide(color: AppColors.danger),
-                  ),
-            border: hideBorder
-                ? InputBorder.none
-                : const OutlineInputBorder(borderRadius: borderRadius),
-          ),
-          items: items.map((T value) {
-            return DropdownMenuItem<T>(
-              value: value,
-              child: Text(
-                itemToString != null ? itemToString!(value) : value.toString(),
-                overflow: TextOverflow.ellipsis,
+            dropdownColor: fillColor ?? AppColors.background,
+            borderRadius: BorderRadius.circular(12),
+            icon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
+            decoration: InputDecoration(
+              filled: fillColor != null,
+              fillColor: fillColor,
+              isDense: true,
+              contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              hintText: hintText ?? 'Select an option',
+              hintStyle: TextStyle(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                fontSize: FontSizes.body,
               ),
-            );
-          }).toList(),
-          onChanged: onChanged,
+              prefixIcon: prefixIcon != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 12, right: 8),
+                      child: Icon(
+                        prefixIcon,
+                        size: 20,
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                    )
+                  : null,
+              enabledBorder: hideBorder
+                  ? InputBorder.none
+                  : OutlineInputBorder(
+                      borderRadius: borderRadius,
+                      borderSide: BorderSide(
+                        color: AppColors.neutral30,
+                        width: 1,
+                      ),
+                    ),
+              focusedBorder: hideBorder
+                  ? InputBorder.none
+                  : OutlineInputBorder(
+                      borderRadius: borderRadius,
+                      borderSide: BorderSide(
+                        color: theme.colorScheme.primary,
+                        width: 1.5,
+                      ),
+                    ),
+              errorBorder: hideBorder
+                  ? InputBorder.none
+                  : OutlineInputBorder(
+                      borderRadius: borderRadius,
+                      borderSide: BorderSide(
+                        color: theme.colorScheme.error,
+                        width: 1.5,
+                      ),
+                    ),
+              focusedErrorBorder: hideBorder
+                  ? InputBorder.none
+                  : OutlineInputBorder(
+                      borderRadius: borderRadius,
+                      borderSide: BorderSide(
+                        color: theme.colorScheme.error,
+                        width: 1.5,
+                      ),
+                    ),
+              border: hideBorder
+                  ? InputBorder.none
+                  : OutlineInputBorder(borderRadius: borderRadius),
+            ),
+            items: items.map((T value) {
+              return DropdownMenuItem<T>(
+                value: value,
+                child: Text(
+                  itemToString != null ? itemToString!(value) : value.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: FontSizes.body,
+                    color: theme.colorScheme.onSurface,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: onChanged,
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((T item) {
+                return Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    itemToString != null ? itemToString!(item) : item.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: FontSizes.body,
+                      color: theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+          ),
         ),
       ],
     );

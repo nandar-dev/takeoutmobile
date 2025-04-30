@@ -116,8 +116,8 @@ class _MerchantRevenueState extends State<MerchantRevenue> {
                 ],
               ),
               const SizedBox(height: 12),
-              // No revenue container with dashed border
-              NoData(noData: noRevenue, noDataDes: noRevenueDes),
+              // No revenue container
+              NoData(noData: noRevenue, noDataDes: noRevenueDes, icon: Icons.calendar_month_outlined,),
             ],
           ),
         ),

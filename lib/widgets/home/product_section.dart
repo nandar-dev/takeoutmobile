@@ -82,7 +82,15 @@ class _ProductSectionState extends State<ProductSection> {
             ),
             itemBuilder: (context, index) {
               final product = products[index];
-              return ProductCard(product: product);
+              return ProductCard(
+                product: product,
+                onTapCallback:
+                    () => Navigator.pushNamed(
+                      context,
+                      AppRoutes.product,
+                      arguments: {'product': product},
+                    ),
+              );
             },
           ),
       ],

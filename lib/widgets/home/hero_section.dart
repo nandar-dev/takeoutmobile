@@ -68,7 +68,7 @@ class HeroSection extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 50),
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 80),
                 child: Text(
                   title!,
                   textAlign: TextAlign.center,
@@ -86,7 +86,7 @@ class HeroSection extends StatelessWidget {
         // Top Content (Location + Icons)
         Positioned.fill(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 50, bottom: 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,

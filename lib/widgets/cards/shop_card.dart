@@ -41,7 +41,6 @@ class ShopCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Section
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                 child: ClipRRect(
@@ -54,24 +53,18 @@ class ShopCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 4),
-
-              // Shop name
+              const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  name,
-                  maxLines: 2,
+                child: SubText(
+                  text: name,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                  color: AppColors.textPrimary,
                 ),
               ),
-
-              // Shop status
               if (showStatus == true)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
