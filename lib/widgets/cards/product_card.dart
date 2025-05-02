@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/models/product_model.dart';
+import 'package:takeout/data/models/product_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/iconbutton_two_widget.dart';
@@ -9,7 +9,7 @@ import 'package:takeout/widgets/typography_widgets.dart';
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.product, this.onTapCallback});
 
-  final Product product;
+  final ProductModel product;
   final VoidCallback? onTapCallback;
 
   @override
@@ -25,13 +25,13 @@ class _ProductCardState extends State<ProductCard> {
     setState(() {
       isLoved = !isLoved;
     });
-    debugPrint('${isLoved ? 'Loved' : 'Unloved'}: ${widget.product.name}');
+    debugPrint('${isLoved ? 'Loved' : 'Unloved'}: ${widget.product.pName}');
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTapCallback ?? (){},
+      onTap: widget.onTapCallback ?? () {},
       child: Card(
         elevation: .5,
         color: AppColors.background,
@@ -44,7 +44,7 @@ class _ProductCardState extends State<ProductCard> {
               Stack(
                 children: [
                   RenderCustomImage(
-                    imageUrl: widget.product.imageUrl,
+                    imageUrl: widget.product.pImage,
                     height: 110,
                     width: double.infinity,
                     rounded: 8,
@@ -73,13 +73,13 @@ class _ProductCardState extends State<ProductCard> {
                 children: [
                   const SizedBox(height: 3),
                   SubText(
-                    text: widget.product.name,
+                    text: widget.product.pName,
                     color: AppColors.textPrimary,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SubText(
-                    text: widget.product.shop.name,
+                    text: widget.product.shopName,
                     fontSize: FontSizes.body,
                     color: AppColors.textSecondary,
                     maxLines: 1,
@@ -87,7 +87,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   const SizedBox(height: 3),
                   SubText(
-                    text: "\$${widget.product.price.toStringAsFixed(2)}",
+                    text: "\$${widget.product.pPrice}",
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                     maxLines: 1,

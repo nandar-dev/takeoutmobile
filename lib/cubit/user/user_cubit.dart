@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/cubit/user/user_state.dart';
+import 'package:takeout/data/models/user_model.dart';
 import 'package:takeout/data/repositories/user_repository.dart';
 import 'package:takeout/utils/token_service.dart';
 

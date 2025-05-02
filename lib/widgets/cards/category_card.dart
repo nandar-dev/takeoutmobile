@@ -45,7 +45,7 @@ class CategoryCard extends StatelessWidget {
                     height: 30,
                     width: 30,
                     child: RenderCustomImage(
-                      imageUrl: category.image!,
+                      imageUrl: category.image,
                       height: 20,
                       width: 20,
                     ),
@@ -61,7 +61,7 @@ class CategoryCard extends StatelessWidget {
                               : AppColors.textSecondary,
                     ),
                     child: Text(
-                      category.name!,
+                      category.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,

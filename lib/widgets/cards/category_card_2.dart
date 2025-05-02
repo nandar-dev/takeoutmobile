@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/models/category_model.dart';
+import 'package:takeout/data/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
-class CategoryCard2 extends StatelessWidget {
-  const CategoryCard2({
-    super.key,
-    required this.category,
-  });
+class CategoryCard2 extends StatefulWidget {
+  const CategoryCard2({super.key, required this.category});
 
-  final Category category;
+  final CategoryModel category;
 
+  @override
+  State<CategoryCard2> createState() => _CategoryCard2State();
+}
+
+class _CategoryCard2State extends State<CategoryCard2> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -23,10 +25,7 @@ class CategoryCard2 extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.neutral30,
-            width: 1,
-          ),
+          border: Border.all(color: AppColors.neutral30, width: 1),
           borderRadius: BorderRadius.circular(12),
         ),
         padding: const EdgeInsets.all(8),
@@ -47,7 +46,7 @@ class CategoryCard2 extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: RenderCustomImage(
-                  imageUrl: category.imageUrl,
+                  imageUrl: widget.category.image,
                   height: 50,
                   width: 50,
                 ),
@@ -56,7 +55,7 @@ class CategoryCard2 extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: SubText(
-                text: category.name,
+                text: widget.category.name,
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: FontSizes.md,

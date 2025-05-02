@@ -35,7 +35,8 @@ class HeroSection extends StatelessWidget {
     final notiIcon = 'assets/icons/noti.svg';
     final searchIcon = 'assets/icons/search.svg';
 
-    final user = context.read<UserCubit>().repository.getLoggedInUser()!;
+    final userRole =
+        context.read<UserCubit>().repository.getLoggedInUser() ?? 'user';
     final String locTitle = "home.location_label".tr();
 
     final Color resolvedTextColor = textColor ?? AppColors.textLight;
@@ -86,7 +87,12 @@ class HeroSection extends StatelessWidget {
         // Top Content (Location + Icons)
         Positioned.fill(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 50, bottom: 0),
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 50,
+              bottom: 0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +138,7 @@ class HeroSection extends StatelessWidget {
                 // Action Icons
                 Row(
                   children: [
-                    if (user.role != "merchant") ...[
+                    if (userRole != "merchant") ...[
                       IconButtonOneWidget(
                         icon: searchIcon,
                         iconColor: resolvedIconColor,
@@ -151,7 +157,7 @@ class HeroSection extends StatelessWidget {
                         debugPrint("noti button clicked");
                       },
                     ),
-                    if (user.role == "merchant") ...[
+                    if (userRole == "merchant") ...[
                       const SizedBox(width: 15),
                       CircleAvatar(
                         backgroundColor: AppColors.neutral30,

@@ -159,6 +159,22 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
 
                                 const SizedBox(height: 24),
+
+                                Center(
+                                  child: CustomPrimaryButton(
+                                    text: "Skip",
+                                    borderRadius: 10,
+                                    height: 35,
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        AppRoutes.appNavigation,
+                                      );
+                                    },
+                                  ),
+                                ),
+
+                                const SizedBox(height: 24),
                                 const DividerRow(),
                                 const SizedBox(height: 24),
 

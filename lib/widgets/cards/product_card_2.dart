@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:takeout/models/product_model.dart';
+import 'package:takeout/data/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
-class ProductCard2 extends StatelessWidget {
+class ProductCard2 extends StatefulWidget {
   const ProductCard2({super.key, required this.product});
 
-  final Product product;
+  final ProductModel product;
 
+  @override
+  State<ProductCard2> createState() => _ProductCard2State();
+}
+
+class _ProductCard2State extends State<ProductCard2> {
   // Reusable TextStyle for SubText
   TextStyle get subTextStyle => TextStyle(
     fontSize: FontSizes.md,
@@ -27,7 +32,7 @@ class ProductCard2 extends StatelessWidget {
           () => Navigator.pushNamed(
             context,
             AppRoutes.product,
-            arguments: {'product': product},
+            arguments: {'product': widget.product},
           ),
       borderRadius: BorderRadius.circular(12),
       child: Container(
@@ -52,7 +57,7 @@ class ProductCard2 extends StatelessWidget {
                 ],
               ),
               child: RenderCustomImage(
-                imageUrl: product.imageUrl,
+                imageUrl: widget.product.pImage,
                 height: 100,
                 width: 100,
               ),
@@ -70,7 +75,7 @@ class ProductCard2 extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SubText(
-                        text: product.name,
+                        text: widget.product.pName,
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.bold,
                         fontSize: FontSizes.md,
@@ -79,7 +84,7 @@ class ProductCard2 extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       SubText(
-                        text: product.shop.name,
+                        text: widget.product.shopName,
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.bold,
                         fontSize: FontSizes.md,
@@ -92,7 +97,7 @@ class ProductCard2 extends StatelessWidget {
 
                   // Product Price
                   SubText(
-                    text: "\$${product.price.toString()}",
+                    text: "\$${widget.product.pPrice.toString()}",
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                     fontSize: FontSizes.heading3,

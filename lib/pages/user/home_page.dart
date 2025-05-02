@@ -25,10 +25,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          HeroSection(
-            sectionHeight: 200,
-            bgImg: bgImg
-          ),
+          HeroSection(sectionHeight: 200, bgImg: bgImg),
 
           Expanded(
             child: Container(
@@ -42,9 +39,13 @@ class _HomePageState extends State<HomePage> {
                     // category section
                     CategorySection(
                       categorySectionTitle: categorySectionTitle,
-                      seeBtnLabel: seeBtnLabel
+                      seeBtnLabel: seeBtnLabel,
                     ),
-                    NearbyShopsSection(sectionTitle: nearbyTitle, chevronLeftIcon: chevronLeftIcon, chevronRightIcon: chevronRightIcon),
+                    NearbyShopsSection(
+                      sectionTitle: nearbyTitle,
+                      chevronLeftIcon: chevronLeftIcon,
+                      chevronRightIcon: chevronRightIcon,
+                    ),
                     ProductSection(seeBtnLabel: seeBtnLabel),
                   ],
                 ),

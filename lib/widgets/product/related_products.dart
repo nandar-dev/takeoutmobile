@@ -93,7 +93,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: SizedBox(
                           width: 180,
-                          child: ProductCard(product: product),
+                          // child: ProductCard(product: product),
                         ),
                       );
                     }).toList(),

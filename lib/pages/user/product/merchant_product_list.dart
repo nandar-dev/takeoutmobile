@@ -110,9 +110,10 @@ class _MerchantProductListState extends State<MerchantProductList> {
                                       childAspectRatio: 3 / 3.5,
                                     ),
                                 itemBuilder: (context, index) {
-                                  return ProductCard(
-                                    product: _filteredProducts[index],
-                                  );
+                                  return Text('');
+                                  // ProductCard(
+                                  //   product: _filteredProducts[index],
+                                  // );
                                 },
                               ),
                             ),

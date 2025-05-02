@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:takeout/cubit/post/post_cubit.dart';
-import 'package:takeout/models/category_model.dart' show Category;
+import 'package:takeout/cubit/category/category_cubit.dart';
+import 'package:takeout/models/category_model.dart';
 import 'package:takeout/models/shop_model.dart';
 import 'package:takeout/services/shop_service.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -39,7 +39,8 @@ class _FilterModalState extends State<FilterModal> {
     switch (widget.filterType) {
       case FilterType.category:
         // categories = await CategoryService.loadCategories();
-        categories = context.read<PostCubit>().loadPosts() as List<Category>;
+        categories =
+            context.read<CategoryCubit>().loadCategories() as List<Category>;
         title = "Select Category";
         break;
       case FilterType.shop:

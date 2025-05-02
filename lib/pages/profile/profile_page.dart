@@ -52,13 +52,31 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    user = context.read<UserCubit>().repository.getLoggedInUser();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    user = context.read<UserCubit>().repository.getLoggedInUser();
+
+    if (user == null) {
+      return Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              width: double.infinity,
+              child: CustomPrimaryButton(
+                text: 'Login',
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoutes.login,
+                    (route) => false,
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     final title = "title.profileSetting".tr();
     final balance = "profile.balance".tr();
     final available = "profile.available".tr();

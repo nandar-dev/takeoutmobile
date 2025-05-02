@@ -23,12 +23,12 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
       mmDescription: fields[3] as String?,
       thDescription: fields[4] as String?,
       cnDescription: fields[5] as String?,
-      isAvailable: fields[7] as int?,
-      image: fields[8] as String?,
-      shopTypeId: fields[9] as int?,
-      createdAt: fields[10] as String?,
-      updatedAt: fields[11] as String?,
-      sortingOrder: fields[12] as String?,
+      isAvailable: fields[6] as int?,
+      image: fields[7] as String?,
+      shopTypeId: fields[8] as int?,
+      createdAt: fields[9] as String?,
+      updatedAt: fields[10] as String?,
+      sortingOrder: fields[11] as int?,
     );
   }
 
@@ -48,17 +48,17 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
       ..write(obj.thDescription)
       ..writeByte(5)
       ..write(obj.cnDescription)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.isAvailable)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.image)
-      ..writeByte(9)
+      ..writeByte(8)
       ..write(obj.shopTypeId)
-      ..writeByte(10)
+      ..writeByte(9)
       ..write(obj.createdAt)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.updatedAt)
-      ..writeByte(12)
+      ..writeByte(11)
       ..write(obj.sortingOrder);
   }
 
@@ -81,30 +81,30 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
     CategoryModel(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
-      enDescription: json['enDescription'] as String?,
-      mmDescription: json['mmDescription'] as String?,
-      thDescription: json['thDescription'] as String?,
-      cnDescription: json['cnDescription'] as String?,
-      isAvailable: (json['isAvailable'] as num?)?.toInt(),
+      enDescription: json['en_description'] as String?,
+      mmDescription: json['mm_description'] as String?,
+      thDescription: json['th_description'] as String?,
+      cnDescription: json['cn_description'] as String?,
+      isAvailable: (json['is_available'] as num?)?.toInt(),
       image: json['image'] as String?,
-      shopTypeId: (json['shopTypeId'] as num?)?.toInt(),
-      createdAt: json['createdAt'] as String?,
-      updatedAt: json['updatedAt'] as String?,
-      sortingOrder: json['sortingOrder'] as String?,
+      shopTypeId: (json['shop_type_id'] as num?)?.toInt(),
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      sortingOrder: (json['sorting_order'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CategoryModelToJson(CategoryModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'enDescription': instance.enDescription,
-      'mmDescription': instance.mmDescription,
-      'thDescription': instance.thDescription,
-      'cnDescription': instance.cnDescription,
-      'isAvailable': instance.isAvailable,
+      'en_description': instance.enDescription,
+      'mm_description': instance.mmDescription,
+      'th_description': instance.thDescription,
+      'cn_description': instance.cnDescription,
+      'is_available': instance.isAvailable,
       'image': instance.image,
-      'shopTypeId': instance.shopTypeId,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
-      'sortingOrder': instance.sortingOrder,
+      'shop_type_id': instance.shopTypeId,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'sorting_order': instance.sortingOrder,
     };

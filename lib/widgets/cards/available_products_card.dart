@@ -115,9 +115,10 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
                             padding: const EdgeInsets.only(right: 10),
                             child: SizedBox(
                               width: 180,
-                              child: ProductCard(
-                                product: product,
-                              ),
+                              // child:
+                              //  ProductCard(
+                              //   product: product,
+                              // ),
                             ),
                           );
                         }).toList(),

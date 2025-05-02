@@ -6,11 +6,11 @@ import 'package:takeout/bloc/language/bloc.dart';
 import 'package:takeout/bloc/language/state.dart';
 import 'package:takeout/bloc/product_filters/bloc.dart';
 import 'package:takeout/cubit/category/category_cubit.dart';
+import 'package:takeout/cubit/product/product_cubit.dart';
 import 'package:takeout/cubit/user/user_cubit.dart';
-import 'package:takeout/cubit/post/post_cubit.dart';
 import 'package:takeout/data/repositories/category_repository.dart';
+import 'package:takeout/data/repositories/product_repository.dart';
 import 'package:takeout/data/repositories/user_repository.dart';
-import 'package:takeout/data/repositories/post_repository.dart';
 import 'package:takeout/pages/auth/auth_gate.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/cart_service.dart';
@@ -19,14 +19,14 @@ import 'package:easy_localization/easy_localization.dart';
 
 class MyApp extends StatelessWidget {
   final UserRepository userRepository;
-  final PostRepository postRepository;
   final CategoryRepository categoryRepository;
+  final ProductRepository productRepository;
 
   const MyApp({
     super.key,
     required this.userRepository,
-    required this.postRepository,
     required this.categoryRepository,
+    required this.productRepository,
   });
 
   @override
@@ -37,10 +37,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => LanguageBloc()),
         BlocProvider(create: (_) => CartBloc(CartService())..add(LoadCart())),
         BlocProvider(create: (_) => UserCubit(userRepository)..checkAuth()),
-        BlocProvider(create: (_) => PostCubit(postRepository)..loadPosts()),
-        BlocProvider(
-          create: (_) => CategoryCubit(categoryRepository)..loadCategories(),
-        ),
+        BlocProvider(create: (_) => CategoryCubit(categoryRepository)),
+        BlocProvider(create: (_) => ProductCubit(productRepository)),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, locale) {
