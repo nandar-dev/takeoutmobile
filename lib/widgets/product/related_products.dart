@@ -71,7 +71,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
               onTap:
                   () => Navigator.pushNamed(
                     context,
-                    AppRoutes.merchantProducts,
+                    AppRoutes.productsListByMerchant,
                     arguments: {'merchantId': widget.merchantId},
                   ),
               child: SubText(

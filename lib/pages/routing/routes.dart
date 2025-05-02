@@ -5,12 +5,14 @@ import 'package:takeout/pages/auth/login_page.dart';
 import 'package:takeout/pages/auth/otp_page.dart';
 import 'package:takeout/pages/auth/resetpass_page.dart';
 import 'package:takeout/pages/auth/signup_page.dart';
+import 'package:takeout/pages/merchant/add_discount_page.dart';
+import 'package:takeout/pages/merchant/merchant_product_list.dart';
 import 'package:takeout/pages/merchant/merchant_withdrawl.dart';
 import 'package:takeout/pages/user/categories_list.dart';
 import 'package:takeout/pages/user/home_page.dart';
 import 'package:takeout/pages/landing/landing_page.dart';
+import 'package:takeout/pages/user/product/products_by_shop.dart';
 import 'package:takeout/pages/user/select_payment.dart';
-import 'package:takeout/pages/user/product/merchant_product_list.dart';
 import 'package:takeout/pages/user/product/product_detail.dart';
 import 'package:takeout/pages/user/product/product_list.dart';
 import 'package:takeout/pages/profile/personaldata_page.dart';
@@ -30,7 +32,7 @@ class AppRoutes {
   static const String profile = '/profile';
   static const String categories = '/categories-list';
   static const String products = '/products-list';
-  static const String merchantProducts = '/products-by-merchant';
+  static const String productsListByMerchant = '/products-by-merchant';
   static const String product = '/product';
   static const String appNavigation = '/navigation';
   static const String personaldata = '/personaldata';
@@ -39,6 +41,8 @@ class AppRoutes {
   static const String transactionhistory = '/transactionhistory';
   static const String selectPayment = '/select-payment';
   static const String merchantWithdrawlHistory = '/merchant-withdrawl-history';
+  static const String merchantProductList = '/merchant-products-list';
+  static const String addDiscount = '/merchant-add-discount';
 
   static Route<dynamic> _buildRoute(Widget page) {
     return MaterialPageRoute(builder: (_) => page);
@@ -70,10 +74,10 @@ class AppRoutes {
         final args = settings.arguments as Map<String, dynamic>;
         final categoryId = args['categoryId'];
         return _buildRoute(ProductList(categoryId: categoryId));
-      case merchantProducts:
+      case productsListByMerchant:
         final args = settings.arguments as Map<String, dynamic>;
         final merchantId = args['merchantId'];
-        return _buildRoute(MerchantProductList(merchantId: merchantId));
+        return _buildRoute(ProductsByShop(merchantId: merchantId));
       case product:
         final args = settings.arguments as Map<String, dynamic>;
         final product = args['product'];
@@ -93,8 +97,21 @@ class AppRoutes {
         return _buildRoute(const RefillWalletPage());
       case transactionhistory:
         return _buildRoute(const TransactionHistoryPage());
+      case merchantProductList:
+        return _buildRoute(const MerchantProductList());
       case selectPayment:
         return _buildRoute(const Selectpayment());
+      case addDiscount:
+        final args = settings.arguments as Map<String, dynamic>;
+        final productId = args['productId'] as int;
+        final name = args['name'] as String;
+        final price = args['price'] as double;
+
+        return _buildRoute(AddDiscountPage(
+          productId: productId,
+          name: name,
+          price: price,
+        ));
       default:
         return _buildRoute(
           const Scaffold(body: Center(child: Text('Page not found'))),

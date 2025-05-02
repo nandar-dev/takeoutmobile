@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -44,12 +44,13 @@ class CustomOutlinedButton extends StatelessWidget {
       shape: shape is RoundedRectangleBorder ? effectiveShape : shape,
       side: BorderSide(color: borderColor),
       padding: padding,
-      overlayColor: borderColor.withValues(alpha: .1),
+      overlayColor: borderColor.withOpacity(0.1),
     );
 
     final label = Text(
       text,
-      style: textStyle ??
+      style:
+          textStyle ??
           TextStyle(
             color: textColor,
             fontSize: fontSize,
@@ -58,31 +59,23 @@ class CustomOutlinedButton extends StatelessWidget {
     );
 
     Widget? leadingIcon;
-
     if (svgAssetPath != null) {
-      leadingIcon = SvgPicture.asset(
-        svgAssetPath!,
-        colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-        height: iconSize,
-        width: iconSize,
+      leadingIcon = RenderSvgIcon(
+        assetName: svgAssetPath!,
+        size: iconSize,
+        color: iconColor,
       );
     } else if (icon != null) {
       leadingIcon = Icon(icon, color: iconColor, size: iconSize);
     }
 
-    if (leadingIcon != null) {
-      return OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: leadingIcon,
-        label: label,
-        style: style,
-      );
-    }
-
-    return OutlinedButton(
-      onPressed: onPressed,
-      style: style,
-      child: label,
-    );
+    return leadingIcon != null
+        ? OutlinedButton.icon(
+          onPressed: onPressed,
+          icon: leadingIcon,
+          label: label,
+          style: style,
+        )
+        : OutlinedButton(onPressed: onPressed, style: style, child: label);
   }
 }

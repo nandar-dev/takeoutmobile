@@ -27,7 +27,7 @@ class _MerchantPaymentState extends State<MerchantPayment> {
     "CB Pay",
     "AYA Pay",
   ];
-  final List<String> statusOptions = ["active", "inactive"]; // Status options
+  final List<String> statusOptions = ["active", "inactive"];
 
   @override
   Widget build(BuildContext context) {

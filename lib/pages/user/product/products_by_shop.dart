@@ -6,16 +6,16 @@ import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/product_card.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 
-class MerchantProductList extends StatefulWidget {
+class ProductsByShop extends StatefulWidget {
   final int merchantId;
 
-  const MerchantProductList({super.key, required this.merchantId});
+  const ProductsByShop({super.key, required this.merchantId});
 
   @override
-  State<MerchantProductList> createState() => _MerchantProductListState();
+  State<ProductsByShop> createState() => _ProductsByShopState();
 }
 
-class _MerchantProductListState extends State<MerchantProductList> {
+class _ProductsByShopState extends State<ProductsByShop> {
   final TextEditingController _searchController = TextEditingController();
   List<Product> _allProducts = [];
   List<Product> _filteredProducts = [];

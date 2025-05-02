@@ -84,7 +84,8 @@
     "product": {
         "description": "Description",
         "recommend": "Recommended for you",
-        "search": "Search product"
+        "search": "Search product",
+        "merchant_product_description": "Manage Your Product Inventory"
     },
     "cart": {
         "location_label": "Delivery Location",
@@ -179,5 +180,17 @@
         "description": "View all your withdrawal transactions",
         "no_data_title": "No withdrawal history found.",
         "no_data_description": "No withdrawal data available."
+    },
+    "discount": {
+        "title": "Create Discount",
+        "description": "Create a discount for Iced Americano",
+        "product": "Product",
+        "price": "Current Price",
+        "discount_type": "Discount Type",
+        "percent": "Percentage",
+        "fix": "Fixed Amount",
+        "percent_val": "Percentage Value",
+        "s_date": "Start Date",
+        "e_date": "End Date"
     }
 }

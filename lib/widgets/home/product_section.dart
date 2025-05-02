@@ -114,7 +114,7 @@ class _ProductSectionState extends State<ProductSection> {
     final itemCount = products.length + (canLoadMore ? 1 : 0);
 
     return Skeletonizer(
-      enabled: isLoading && products.isEmpty,
+      enabled: isLoading,
       child: Column(
         children: [
           GridView.builder(

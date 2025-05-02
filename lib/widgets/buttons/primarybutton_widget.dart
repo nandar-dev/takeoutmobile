@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
+  final String? svgAssetPath;
   final double height;
   final Color? backgroundColor;
   final Color? textColor;
@@ -14,14 +16,15 @@ class CustomPrimaryButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double borderRadius;
   final double? fontSize;
-  final bool? disabled;
+  final bool disabled;
+  final double iconSize;
 
   const CustomPrimaryButton({
     super.key,
     required this.text,
     required this.onPressed,
-    this.disabled = false,
     this.icon,
+    this.svgAssetPath,
     this.height = 52.0,
     this.backgroundColor,
     this.textColor,
@@ -30,42 +33,36 @@ class CustomPrimaryButton extends StatelessWidget {
     this.padding,
     this.borderRadius = 24.0,
     this.fontSize,
+    this.disabled = false,
+    this.iconSize = 20,
   });
 
   @override
   Widget build(BuildContext context) {
     final effectiveFontSize = fontSize ?? FontSizes.body;
-
-    // Decide on the text and icon color when the button is disabled
     final effectiveTextColor =
-        disabled == true
-            ? AppColors
-                .neutral70 // Darker text color when disabled
-            : textColor ?? AppColors.neutral10;
-
+        disabled ? AppColors.neutral70 : textColor ?? AppColors.neutral10;
     final effectiveIconColor =
-        disabled == true
-            ? AppColors
-                .neutral70 // Darker icon color when disabled
-            : iconColor ?? AppColors.neutral10;
+        disabled ? AppColors.neutral70 : iconColor ?? AppColors.neutral10;
+
+    Widget? leadingIcon;
+    if (svgAssetPath != null) {
+      leadingIcon = RenderSvgIcon(
+        assetName: svgAssetPath!,
+        size: iconSize,
+        color: effectiveIconColor,
+      );
+    } else if (icon != null) {
+      leadingIcon = Icon(icon, color: effectiveIconColor, size: iconSize);
+    }
 
     final btnChild =
-        icon == null
-            ? Text(
-              text,
-              style:
-                  textStyle ??
-                  TextStyle(
-                    color: effectiveTextColor,
-                    fontSize: effectiveFontSize,
-                    fontWeight: FontWeight.w600,
-                  ),
-            )
-            : Row(
+        leadingIcon != null
+            ? Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: effectiveIconColor),
+                leadingIcon,
                 const SizedBox(width: 8),
                 Text(
                   text,
@@ -78,25 +75,35 @@ class CustomPrimaryButton extends StatelessWidget {
                       ),
                 ),
               ],
+            )
+            : Text(
+              text,
+              style:
+                  textStyle ??
+                  TextStyle(
+                    color: effectiveTextColor,
+                    fontSize: effectiveFontSize,
+                    fontWeight: FontWeight.w600,
+                  ),
             );
 
     return SizedBox(
       height: height,
       child: ElevatedButton(
-        onPressed: disabled == true ? null : onPressed,
+        onPressed: disabled ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          padding: padding,
           backgroundColor:
-              disabled == true
+              disabled
                   ? AppColors.neutral10
                   : backgroundColor ?? AppColors.primary,
-          overlayColor: AppColors.neutral70,
+          overlayColor: AppColors.neutral70.withValues(alpha: .1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          elevation: disabled == true ? 0 : 2,
+          padding: padding,
+          elevation: disabled ? 0 : 2,
         ),
-        child: Opacity(opacity: disabled == true ? 0.8 : 1.0, child: btnChild),
+        child: Opacity(opacity: disabled ? 0.8 : 1.0, child: btnChild),
       ),
     );
   }
