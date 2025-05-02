@@ -4,12 +4,20 @@ import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/render_custom_image.dart';
+import 'package:takeout/widgets/render_svg_icon.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class ProductCard2 extends StatelessWidget {
-  const ProductCard2({super.key, required this.product});
+  const ProductCard2({
+    super.key,
+    required this.product,
+    this.addDiscountCallback,
+    this.onTabProduct = false,
+  });
 
   final Product product;
+  final bool? onTabProduct;
+  final VoidCallback? addDiscountCallback;
 
   // Reusable TextStyle for SubText
   TextStyle get subTextStyle => TextStyle(
@@ -23,12 +31,13 @@ class ProductCard2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: AppColors.primary.withValues(alpha: .2),
-      onTap:
-          () => Navigator.pushNamed(
-            context,
-            AppRoutes.product,
-            arguments: {'product': product},
-          ),
+      onTap: onTabProduct == true
+      ? () => Navigator.pushNamed(
+          context,
+          AppRoutes.product,
+          arguments: {'product': product},
+        )
+      : null,
       borderRadius: BorderRadius.circular(12),
       child: Container(
         decoration: BoxDecoration(
@@ -91,18 +100,75 @@ class ProductCard2 extends StatelessWidget {
                   const SizedBox(height: 17),
 
                   // Product Price
-                  SubText(
-                    text: "\$${product.price.toString()}",
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: FontSizes.heading3,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SubText(
+                        text: "\$${product.price.toString()}",
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: FontSizes.heading3,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if(addDiscountCallback != null) DiscountBtn(onTap: addDiscountCallback),
+                    ],
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class DiscountBtn extends StatelessWidget {
+  final VoidCallback? onTap;
+
+  const DiscountBtn({super.key, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      elevation: 0,
+      child: Ink(
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withValues(alpha: .25),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(8),
+          splashColor: AppColors.primaryDark.withValues(alpha: .2),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Row(
+              children: [
+                RenderSvgIcon(
+                  assetName: "assets/icons/discount.svg",
+                  color: AppColors.textLight,
+                  size: 16,
+                ),
+                const SizedBox(width: 4),
+                SubText(
+                  text: "Add Discount",
+                  fontSize: FontSizes.sm,
+                  color: AppColors.textLight,
+                  fontWeight: FontWeight.w600,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

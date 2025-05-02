@@ -85,7 +85,8 @@
   "product": {
     "description": "描述",
     "recommend": "为您推荐",
-    "search": "搜索商品"
+    "search": "搜索商品",
+    "merchant_product_description": "管理您的产品库存"
   },
   "cart": {
     "location_label": "配送地址",
@@ -180,5 +181,17 @@
     "description": "查看您的所有提款交易记录",
     "no_data_title": "未找到提款历史记录",
     "no_data_description": "暂无提款数据"
+  },
+  "discount": {
+    "title": "创建折扣",
+    "description": "为冰美式咖啡创建折扣",
+    "product": "产品",
+    "price": "当前价格",
+    "discount_type": "折扣类型",
+    "percent": "百分比",
+    "fix": "固定金额",
+    "percent_val": "百分比值",
+    "s_date": "开始日期",
+    "e_date": "结束日期"
   }
 }

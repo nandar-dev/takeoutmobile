@@ -85,7 +85,8 @@
   "product": {
     "description": "รายละเอียด",
     "recommend": "แนะนำสำหรับคุณ",
-    "search": "ค้นหาสินค้า"
+    "search": "ค้นหาสินค้า",
+    "merchant_product_description": "จัดการสินค้าคงคลังของคุณ"
   },
   "cart": {
     "location_label": "สถานที่จัดส่ง",
@@ -180,5 +181,17 @@
     "description": "ดูประวัติการถอนเงินทั้งหมดของคุณ",
     "no_data_title": "ไม่พบประวัติการถอนเงิน",
     "no_data_description": "ไม่มีข้อมูลการถอนเงิน"
+  },
+  "discount": {
+    "title": "สร้างส่วนลด",
+    "description": "สร้างส่วนลดสำหรับ Iced Americano",
+    "product": "สินค้า",
+    "price": "ราคาปัจจุบัน",
+    "discount_type": "ประเภทส่วนลด",
+    "percent": "เปอร์เซ็นต์",
+    "fix": "จำนวนเงินที่กำหนด",
+    "percent_val": "ค่าเปอร์เซ็นต์",
+    "s_date": "วันที่เริ่มต้น",
+    "e_date": "วันที่สิ้นสุด"
   }
 }

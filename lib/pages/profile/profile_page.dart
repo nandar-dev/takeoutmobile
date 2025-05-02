@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:takeout/cubit/user/user_cubit.dart';
 import 'package:takeout/cubit/user/user_state.dart';
 import 'package:takeout/data/models/user_model.dart';

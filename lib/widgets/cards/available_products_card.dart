@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
@@ -78,9 +79,7 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
               children: [
                 CustomTextButton(
                   btnLabel: "button.see_all".tr(),
-                  onTapCallback: () {
-                    debugPrint('See all clicked');
-                  },
+                  onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.merchantProductList),
                   textColor: AppColors.primaryDark,
                   iconColor: AppColors.primaryDark,
                   endSvgIcon: chevronRightIcon,

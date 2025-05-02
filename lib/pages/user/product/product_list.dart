@@ -84,6 +84,7 @@ class _ProductListState extends State<ProductList> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: ProductCard2(
+                          onTabProduct: true,
                           product: product,
                         ),
                       );
