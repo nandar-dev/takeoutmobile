@@ -55,7 +55,9 @@ class _CategoryCard2State extends State<CategoryCard2> {
             const SizedBox(width: 12),
             Expanded(
               child: SubText(
-                text: widget.category.name,
+                text: widget.category.name.isEmpty
+                              ? "Unavailable name"
+                              : widget.category.name,
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: FontSizes.md,

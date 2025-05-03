@@ -9,6 +9,12 @@
         "next": "Next",
         "skip": "Skip"
     },
+    "language": {
+        "en": "English",
+        "my": "Myanmar",
+        "zh": "Chinese",
+        "th": "Thai"
+    },
     "profile": {
         "setting": "Setting",
         "profile": "Profile",
@@ -35,7 +41,8 @@
         "profileSetting": "Profile Setting",
         "refill": "Refill Wallet",
         "merchant_shop": "Grow Your Business with Every Order!",
-        "merchant_payment": "Payment"
+        "merchant_payment": "Payment",
+        "merchant_add_shop": "Complete Your Business Profile"
     },
     "button": {
         "see_all": "See all",
@@ -61,7 +68,8 @@
         "register_driver": "Register New Driver",
         "add_new": "Add New",
         "confirm": "Confirm",
-        "edit": "Edit"
+        "edit": "Edit",
+        "register_shop": "Register Shop"
     },
     "input": {
         "search_product": "Search product"
@@ -72,7 +80,9 @@
         "completed": "Completed",
         "progress": "In Progress",
         "active": "Active",
-        "inactive": "Inactive"
+        "inactive": "Inactive",
+        "optional": "Optional",
+        "required": "Required"
     },
     "home": {
         "location_label": "Your Location",
@@ -192,5 +202,30 @@
         "percent_val": "Percentage Value",
         "s_date": "Start Date",
         "e_date": "End Date"
+    },
+    "merchant_shop": {
+        "shop_list_des": "Complete Your Merchant Profile",
+        "shop_info": "Shop Information",
+        "shop_type": "Shop Type",
+        "select_shop": "Select Shop",
+        "name": "Shop Name",
+        "phone": "Business Phone",
+        "link": "Website Link",
+        "logo": "Logo Image",
+        "cover": "Cover Image",
+        "address": "Address",
+        "address_placeholder_en": "Enter Address in En",
+        "address_placeholder_my": "Enter Address in MM",
+        "address_placeholder_zh": "Enter Address in CN",
+        "address_placeholder_th": "Enter Address in TH",
+        "description": "Description",
+        "description_placeholder_en": "Enter Description in En",
+        "description_placeholder_my": "Enter Description in MM",
+        "description_placeholder_zh": "Enter Description in CN",
+        "description_placeholder_th": "Enter Description in TH",
+        "o_time": "Open Time",
+        "s_o_time": "Select Open Time",
+        "c_time": "Close Time",
+        "s_c_time": "Select Close Time"
     }
 }

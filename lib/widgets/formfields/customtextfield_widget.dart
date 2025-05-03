@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final bool isDense;
   final bool readOnly;
   final EdgeInsetsGeometry? contentPadding;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
@@ -31,6 +32,7 @@ class CustomTextField extends StatelessWidget {
     this.isDense = false,
     this.readOnly = false,
     this.contentPadding,
+    this.onChanged,
   });
 
   @override
@@ -55,6 +57,7 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText,
           keyboardType: keyboardType,
           validator: validator,
+          onChanged: onChanged,
           style: const TextStyle(fontSize: FontSizes.body),
           decoration: InputDecoration(
             isDense: isDense,

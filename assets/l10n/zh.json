@@ -9,6 +9,12 @@
     "next": "Next",
     "skip": "Skip"
   },
+  "language": {
+    "en": "英语",
+    "my": "缅甸语",
+    "zh": "中文",
+    "th": "泰语"
+  },
   "profile": {
     "setting": "设置",
     "profile": "个人资料",
@@ -36,7 +42,8 @@
     "profileSetting": "个人资料设置",
     "refill": "钱包充值",
     "merchant_shop": "每一笔订单都让您的业务增长!",
-    "merchant_payment": "支付"
+    "merchant_payment": "支付",
+    "merchant_add_shop": "完善您的商家资料"
   },
   "button": {
     "see_all": "查看全部",
@@ -62,7 +69,8 @@
     "register_driver": "注册新司机",
     "add_new": "添加新项",
     "confirm": "确认",
-    "edit": "编辑"
+    "edit": "编辑",
+    "register_shop": "注册店铺"
   },
   "input": {
     "search_product": "搜索商品"
@@ -73,7 +81,9 @@
     "completed": "已完成",
     "progress": "进行中",
     "active": "活跃",
-    "inactive": "未活跃"
+    "inactive": "未活跃",
+    "optional": "可选",
+    "required": "必需"
   },
   "home": {
     "location_label": "您的位置",
@@ -193,5 +203,30 @@
     "percent_val": "百分比值",
     "s_date": "开始日期",
     "e_date": "结束日期"
+  },
+  "merchant_shop": {
+    "shop_list_des": "完善商家资料",
+    "shop_info": "店铺信息",
+    "shop_type": "店铺类型",
+    "select_shop": "选择店铺",
+    "name": "店铺名称",
+    "phone": "商家电话",
+    "link": "网站链接",
+    "logo": "标志图片",
+    "cover": "封面图片",
+    "address": "地址",
+    "address_placeholder_en": "用英文输入地址",
+    "address_placeholder_my": "用缅甸文输入地址",
+    "address_placeholder_zh": "用中文输入地址",
+    "address_placeholder_th": "用泰文输入地址",
+    "description": "描述",
+    "description_placeholder_en": "用英文输入描述",
+    "description_placeholder_my": "用缅甸文输入描述",
+    "description_placeholder_zh": "用中文输入描述",
+    "description_placeholder_th": "用泰文输入描述",
+    "o_time": "营业时间",
+    "s_o_time": "选择营业时间",
+    "c_time": "关闭时间",
+    "s_c_time": "选择关闭时间"
   }
 }
