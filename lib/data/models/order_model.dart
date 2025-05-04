@@ -1,7 +1,7 @@
 // import 'package:hive_flutter/hive_flutter.dart';
 // part 'category_model.g.dart';
 
-// @HiveType(typeId: 2)
+// @HiveType(typeId: orderModelTypeId)
 // class CategoryModel extends HiveObject {
 //   @HiveField(0)
 //   final int? id;

@@ -9,6 +9,7 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/cards/category_card.dart';
+import 'package:takeout/widgets/toast_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class CategorySection extends StatefulWidget {
@@ -42,9 +43,7 @@ class _CategorySectionState extends State<CategorySection> {
     return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
         if (state is CategoryError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+          showToast(message: state.message);
         }
       },
       builder: (context, state) {

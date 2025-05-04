@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:takeout/utils/hive_type_ids.dart';
 
 part 'category_model.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: categoryModelTypeId)
 @JsonSerializable()
 class CategoryModel extends HiveObject {
   @HiveField(0)
@@ -136,7 +137,7 @@ class CategoryLoader {
   CategoryLoader._internal() {
     loadingCategory = CategoryModel.loading();
   }
-  
+
   List<CategoryModel> getLoadingCategories(int count) {
     return List.generate(count, (_) => CategoryModel.loading());
   }

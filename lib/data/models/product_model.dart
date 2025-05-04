@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:takeout/utils/hive_type_ids.dart';
 
 part 'product_model.g.dart';
 
-@HiveType(typeId: 3)
+@HiveType(typeId: productModelTypeId)
 @JsonSerializable()
 class ProductModel extends HiveObject {
   @HiveField(0)
@@ -151,10 +152,10 @@ class ProductModel extends HiveObject {
 
   // Empty product with loading state defaults
   factory ProductModel.empty() => ProductModel(
-    pName: 'Loading..............',
+    pName: 'Loading..........',
     pPrice: 0.0,
     shopName: "Loading...",
-    productImage: [ProductImageModel.loading()],
+    // productImage: [ProductImageModel.loading()],
   );
 
   // For JSON serialization
@@ -174,7 +175,7 @@ class ProductModel extends HiveObject {
   bool get hasDiscount => discountPercent > 0 || discountAmount > 0;
 }
 
-@HiveType(typeId: 4)
+@HiveType(typeId: productImageModelTypeId)
 @JsonSerializable()
 class ProductImageModel extends HiveObject {
   @HiveField(0)

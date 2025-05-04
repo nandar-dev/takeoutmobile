@@ -40,10 +40,12 @@ class RenderCustomImage extends StatelessWidget {
                         NoImage(width: width, height: height, rounded: rounded),
               )
               : Image.asset(
-                imageUrl,
+                imageUrl.isEmpty
+                    ? 'assets/images/image_placeholder.jpg'
+                    : imageUrl,
                 width: width ?? double.infinity,
                 height: height,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 errorBuilder:
                     (context, error, stackTrace) =>
                         NoImage(width: width, height: height, rounded: rounded),

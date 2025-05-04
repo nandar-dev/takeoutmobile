@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:takeout/utils/hive_type_ids.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
 @freezed
-@HiveType(typeId: 1)
+@HiveType(typeId: userModelTypeId)
 class UserModel with _$UserModel {
   const factory UserModel({
     @HiveField(0) int? id,
