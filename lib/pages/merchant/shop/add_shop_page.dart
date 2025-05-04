@@ -8,7 +8,7 @@ import 'package:takeout/widgets/formfields/customdropdownfield_widget.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 import 'package:takeout/widgets/formfields/image_upload.dart';
 import 'package:takeout/widgets/formfields/time_picker.dart';
-import 'package:takeout/widgets/multilingual_address_description.dart';
+import 'package:takeout/widgets/multilingual_toggler.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class AddShopPage extends StatefulWidget {
@@ -23,17 +23,12 @@ class _AddShopPageState extends State<AddShopPage> {
   PlatformFile? uploadedCover;
   String? selectedType;
   String selectedLanguage = "en";
-
-  // New variables for opening and closing time
   TimeOfDay? openingTime;
   TimeOfDay? closingTime;
 
-  final Map<String, TextEditingController> addressControllers = {};
-  final Map<String, TextEditingController> descriptionControllers = {};
-
   final _formKey = GlobalKey<FormState>();
 
-  List<Map<String, dynamic>> languages = [
+  final List<Map<String, dynamic>> languages = [
     {"label": 'en', "icon": "🇺🇸"},
     {"label": 'zh', "icon": "🇨🇳"},
     {"label": 'my', "icon": "🇲🇲"},
@@ -50,23 +45,26 @@ class _AddShopPageState extends State<AddShopPage> {
     "Book Shops",
   ];
 
+  final List<String> multilingualFields = ['address', 'description'];
+  final Map<String, Map<String, TextEditingController>> multilingualControllers = {};
+
   @override
   void initState() {
     super.initState();
     for (var lang in languages) {
       final code = lang["label"];
-      addressControllers[code] = TextEditingController();
-      descriptionControllers[code] = TextEditingController();
+      multilingualControllers[code] = {
+        for (var field in multilingualFields) field: TextEditingController(),
+      };
     }
   }
 
   @override
   void dispose() {
-    for (var controller in addressControllers.values) {
-      controller.dispose();
-    }
-    for (var controller in descriptionControllers.values) {
-      controller.dispose();
+    for (var langMap in multilingualControllers.values) {
+      for (var controller in langMap.values) {
+        controller.dispose();
+      }
     }
     super.dispose();
   }
@@ -75,15 +73,15 @@ class _AddShopPageState extends State<AddShopPage> {
   Widget build(BuildContext context) {
     final optional = "status.optional".tr();
     final title = "title.merchant_add_shop".tr();
-    final des = "merchant_shop.shop_list_des".tr();
-    final shopInfo = "merchant_shop.shop_info".tr();
-    final label1 = "merchant_shop.shop_type".tr();
-    final label2 = "merchant_shop.logo".tr();
-    final label3 = "merchant_shop.cover".tr();
-    final placeholder1 = "merchant_shop.select_shop".tr();
-    final placeholder2 = "merchant_shop.name".tr();
-    final placeholder3 = "merchant_shop.phone".tr();
-    final placeholder4 = "merchant_shop.link".tr();
+    final des = "title.shop_list_des".tr();
+    final shopInfo = "title.shop_info".tr();
+    final label1 = "input.shop_type".tr();
+    final label2 = "input.logo".tr();
+    final label3 = "input.cover".tr();
+    final placeholder1 = "input.select_shop".tr();
+    final placeholder2 = "input.name".tr();
+    final placeholder3 = "input.phone".tr();
+    final placeholder4 = "input.link".tr();
 
     return Scaffold(
       appBar: AppBarWidget(title: title),
@@ -146,15 +144,13 @@ class _AddShopPageState extends State<AddShopPage> {
                 },
               ),
               const SizedBox(height: 12),
-              // Language selector
-              MultilingualAddressDescription(
+              MultilingualToggler(
                 languages: languages,
                 requiredLangCode: 'en',
-                addressControllers: addressControllers,
-                descriptionControllers: descriptionControllers,
+                fields: multilingualFields,
+                controllers: multilingualControllers,
               ),
               const SizedBox(height: 24),
-              // Opening Time Picker
               TimePicker(
                 label: "Opening Time",
                 selectedTime: openingTime,
@@ -165,7 +161,6 @@ class _AddShopPageState extends State<AddShopPage> {
                 },
               ),
               const SizedBox(height: 24),
-              // Closing Time Picker
               TimePicker(
                 label: "Closing Time",
                 selectedTime: closingTime,
@@ -176,7 +171,17 @@ class _AddShopPageState extends State<AddShopPage> {
                 },
               ),
               const SizedBox(height: 24),
-              SizedBox(width: double.infinity , child: CustomPrimaryButton(text: "button.register_shop".tr(), onPressed: (){})),
+              SizedBox(
+                width: double.infinity,
+                child: CustomPrimaryButton(
+                  text: "button.register_shop".tr(),
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      // Submit logic here
+                    }
+                  },
+                ),
+              ),
               const SizedBox(height: 24),
             ],
           ),

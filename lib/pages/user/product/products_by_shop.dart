@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:takeout/models/product_model.dart';
 import 'package:takeout/services/product_service.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
-import 'package:takeout/widgets/cards/product_card.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 
 class ProductsByShop extends StatefulWidget {

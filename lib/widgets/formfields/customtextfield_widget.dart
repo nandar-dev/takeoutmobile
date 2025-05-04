@@ -3,7 +3,7 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final String hint;
   final bool obscureText;
@@ -36,47 +36,72 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool _isPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
+    final bool isPassword = widget.obscureText;
+
     const borderRadius = BorderRadius.all(Radius.circular(10));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label.isNotEmpty)
+        if (widget.label.isNotEmpty)
           SubText(
-            text: label,
-            color: AppColors.neutral100,
+            text: widget.label,
+            color: AppColors.neutral80,
             fontSize: FontSizes.body,
             fontWeight: FontWeight.w500,
           ),
-        if (label.isNotEmpty) const SizedBox(height: 4),
+        if (widget.label.isNotEmpty) const SizedBox(height: 4),
         TextFormField(
-          maxLines: maxLines,
-          readOnly: readOnly,
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          validator: validator,
-          onChanged: onChanged,
+          maxLines: widget.maxLines,
+          readOnly: widget.readOnly,
+          controller: widget.controller,
+          obscureText: isPassword && !_isPasswordVisible,
+          keyboardType: widget.keyboardType,
+          validator: widget.validator,
+          onChanged: widget.onChanged,
           style: const TextStyle(fontSize: FontSizes.body),
           decoration: InputDecoration(
-            isDense: isDense,
+            isDense: widget.isDense,
             contentPadding:
-                contentPadding ??
+                widget.contentPadding ??
                 const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            prefixIcon: prefixIcon,
+            prefixIcon: widget.prefixIcon,
             prefixIconConstraints: const BoxConstraints(
               minWidth: 32,
               minHeight: 32,
             ),
-            suffixIcon: suffixIcon,
+            suffixIcon:
+                widget.suffixIcon ??
+                (isPassword
+                    ? IconButton(
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColors.neutral70,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    )
+                    : null),
             suffixIconConstraints: const BoxConstraints(
               minWidth: 32,
               minHeight: 32,
             ),
             suffixIconColor: AppColors.neutral70,
-            iconColor: AppColors.neutral70,
-            hintText: hint,
+            hintText: widget.hint,
+            hintStyle: const TextStyle(color: AppColors.neutral60),
             errorStyle: const TextStyle(
               color: AppColors.neutral60,
               fontSize: FontSizes.body,

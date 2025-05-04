@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/models/shop_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/shop_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/check_shop_status.dart';
@@ -63,9 +64,7 @@ class _MerchantShopsCardState extends State<MerchantShopsCard> {
                 ),
                 CustomTextButton(
                   btnLabel: "button.add_new".tr(),
-                  onTapCallback: () {
-                    debugPrint('Add new shop clicked');
-                  },
+                  onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.addShop),
                   textColor: AppColors.primaryDark,
                   iconColor: AppColors.primaryDark,
                   endSvgIcon: chevronRightIcon,

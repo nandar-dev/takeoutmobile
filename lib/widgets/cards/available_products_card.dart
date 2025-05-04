@@ -57,9 +57,7 @@ class AvailableProductsCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 CustomTextButton(
                   btnLabel: "button.add_new".tr(),
-                  onTapCallback: () {
-                    debugPrint('Add new product clicked');
-                  },
+                  onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.addProduct),
                   textColor: AppColors.primaryDark,
                   iconColor: AppColors.primaryDark,
                   endSvgIcon: chevronRightIcon,

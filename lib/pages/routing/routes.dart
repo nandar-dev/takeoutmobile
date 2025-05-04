@@ -6,8 +6,10 @@ import 'package:takeout/pages/auth/otp_page.dart';
 import 'package:takeout/pages/auth/resetpass_page.dart';
 import 'package:takeout/pages/auth/signup_page.dart';
 import 'package:takeout/pages/merchant/add_discount_page.dart';
-import 'package:takeout/pages/merchant/add_shop_page.dart';
-import 'package:takeout/pages/merchant/merchant_product_list.dart';
+import 'package:takeout/pages/merchant/add_driver_page.dart';
+import 'package:takeout/pages/merchant/product/add_product.dart';
+import 'package:takeout/pages/merchant/shop/add_shop_page.dart';
+import 'package:takeout/pages/merchant/product/merchant_product_list.dart';
 import 'package:takeout/pages/merchant/merchant_withdrawl.dart';
 import 'package:takeout/pages/user/categories_list.dart';
 import 'package:takeout/pages/user/home_page.dart';
@@ -45,6 +47,8 @@ class AppRoutes {
   static const String merchantProductList = '/merchant-products-list';
   static const String addDiscount = '/merchant-add-discount';
   static const String addShop = '/merchant-add-shop';
+  static const String addDriver = '/merchant-add-driver';
+  static const String addProduct = '/merchant-add-product';
 
   static Route<dynamic> _buildRoute(Widget page) {
     return MaterialPageRoute(builder: (_) => page);
@@ -74,6 +78,10 @@ class AppRoutes {
         return _buildRoute(const MerchantWithdrawl());
       case addShop:
         return _buildRoute(const AddShopPage());
+      case addDriver:
+        return _buildRoute(const AddDriverPage());
+      case addProduct:
+        return _buildRoute(const AddProduct());
       case products:
         final args = settings.arguments as Map<String, dynamic>;
         final categoryId = args['categoryId'];
