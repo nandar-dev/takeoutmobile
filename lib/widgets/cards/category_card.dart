@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/data/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/render_custom_image.dart';
+import 'package:takeout/widgets/typography_widgets.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     super.key,
     required this.index,
-    required this.isActive,
     required this.category,
     required this.onTap,
   });
 
   final int index;
-  final bool isActive;
   final CategoryModel category;
   final VoidCallback onTap;
 
@@ -27,13 +27,12 @@ class CategoryCard extends StatelessWidget {
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: 75,
-              width: 70,
+              height: 85,
+              width: 80,
               decoration: BoxDecoration(
-                color: isActive ? AppColors.primary : null,
                 border: Border.all(
-                  color: isActive ? AppColors.primary : AppColors.neutral30,
-                  width: isActive ? 0 : 1,
+                  color: AppColors.neutral30,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -55,16 +54,18 @@ class CategoryCard extends StatelessWidget {
                     duration: const Duration(milliseconds: 300),
                     style: TextStyle(
                       fontSize: 12,
-                      color:
-                          isActive
-                              ? AppColors.textLight
-                              : AppColors.textSecondary,
+                      color: AppColors.textSecondary,
                     ),
-                    child: Text(
-                      category.name,
+                    child: SubText(
+                      text:
+                          category.name.isEmpty
+                              ? "Unavailable name"
+                              : category.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      fontSize: FontSizes.sm,
                       textAlign: TextAlign.center,
+                      color: AppColors.textSecondary,
                     ),
                   ),
                 ],

@@ -101,7 +101,7 @@ class CustomPrimaryButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
           padding: padding,
-          elevation: disabled ? 0 : 2,
+          elevation: disabled ? 0 : 1,
         ),
         child: Opacity(opacity: disabled ? 0.8 : 1.0, child: btnChild),
       ),

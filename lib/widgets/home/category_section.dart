@@ -27,7 +27,6 @@ class CategorySection extends StatefulWidget {
 }
 
 class _CategorySectionState extends State<CategorySection> {
-  int _activeIndex = 0;
 
   @override
   void initState() {
@@ -101,7 +100,6 @@ class _CategorySectionState extends State<CategorySection> {
                     final category = categories[index];
                     return CategoryCard(
                       index: index,
-                      isActive: !isLoading && index == _activeIndex,
                       category: category,
                       onTap:
                           () => _handleCategoryTap(isLoading, index, category),
@@ -123,8 +121,6 @@ class _CategorySectionState extends State<CategorySection> {
 
   void _handleCategoryTap(bool isLoading, int index, CategoryModel category) {
     if (isLoading) return;
-
-    setState(() => _activeIndex = index);
     Navigator.pushNamed(
       context,
       AppRoutes.products,

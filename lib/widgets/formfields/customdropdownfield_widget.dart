@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
 
-class CustomDropdownFormField<T> extends StatelessWidget {
+class CustomDropdownFormField<T> extends StatefulWidget {
   final String label;
   final T? value;
   final List<T> items;
@@ -10,12 +11,10 @@ class CustomDropdownFormField<T> extends StatelessWidget {
   final String? Function(T?)? validator;
   final void Function(T?) onChanged;
   final String Function(T)? itemToString;
-  final bool hideBorder;
   final bool showLabelAbove;
   final IconData? prefixIcon;
   final Color? fillColor;
-  final double elevation;
-  final bool showShadow;
+  final bool isSearchable;
 
   const CustomDropdownFormField({
     super.key,
@@ -26,27 +25,61 @@ class CustomDropdownFormField<T> extends StatelessWidget {
     this.hintText,
     this.validator,
     this.itemToString,
-    this.hideBorder = false,
     this.showLabelAbove = true,
     this.prefixIcon,
     this.fillColor,
-    this.elevation = 0,
-    this.showShadow = false,
+    this.isSearchable = false,
   });
 
   @override
+  State<CustomDropdownFormField<T>> createState() => _CustomDropdownFormFieldState<T>();
+}
+
+class _CustomDropdownFormFieldState<T> extends State<CustomDropdownFormField<T>> {
+  T? selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedValue = widget.value;
+  }
+
+  void _openSelectModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: widget.fillColor ?? AppColors.background,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      isScrollControlled: true,
+      builder: (_) => _SelectModal<T>(
+        items: widget.items,
+        itemToString: widget.itemToString,
+        initialValue: selectedValue,
+        isSearchable: widget.isSearchable,
+        onSelect: (val) {
+          setState(() {
+            selectedValue = val;
+          });
+          widget.onChanged(val);
+        },
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(12);
     final theme = Theme.of(context);
+    final borderRadius = BorderRadius.circular(12);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label.isNotEmpty && showLabelAbove) ...[
+        if (widget.label.isNotEmpty && widget.showLabelAbove) ...[
           Padding(
             padding: const EdgeInsets.only(left: 4.0),
             child: Text(
-              label,
+              widget.label,
               style: TextStyle(
                 fontSize: FontSizes.body,
                 fontWeight: FontWeight.w600,
@@ -55,117 +88,140 @@ class CustomDropdownFormField<T> extends StatelessWidget {
           ),
           const SizedBox(height: 4),
         ],
-        Material(
-          elevation: showShadow ? 1 : 0,
-          shadowColor: showShadow ? AppColors.neutral50 : Colors.transparent,
-          borderRadius: borderRadius,
-          child: DropdownButtonFormField<T>(
-            isExpanded: true,
-            value: value,
-            validator: validator,
-            style: TextStyle(
-              fontSize: FontSizes.body,
-              fontWeight: FontWeight.w500,
+        GestureDetector(
+          onTap: () => _openSelectModal(context),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: widget.fillColor ?? AppColors.background,
+              borderRadius: borderRadius,
+              border: Border.all(color: AppColors.neutral30),
             ),
-            dropdownColor: fillColor ?? AppColors.background,
-            borderRadius: BorderRadius.circular(12),
-            icon: Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-            ),
-            decoration: InputDecoration(
-              filled: fillColor != null,
-              fillColor: fillColor,
-              isDense: true,
-              contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              hintText: hintText ?? 'Select an option',
-              hintStyle: TextStyle(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
-                fontSize: FontSizes.body,
-              ),
-              prefixIcon: prefixIcon != null
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 12, right: 8),
-                      child: Icon(
-                        prefixIcon,
-                        size: 20,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                    )
-                  : null,
-              enabledBorder: hideBorder
-                  ? InputBorder.none
-                  : OutlineInputBorder(
-                      borderRadius: borderRadius,
-                      borderSide: BorderSide(
-                        color: AppColors.neutral30,
-                        width: 1,
-                      ),
-                    ),
-              focusedBorder: hideBorder
-                  ? InputBorder.none
-                  : OutlineInputBorder(
-                      borderRadius: borderRadius,
-                      borderSide: BorderSide(
-                        color: theme.colorScheme.primary,
-                        width: 1.5,
-                      ),
-                    ),
-              errorBorder: hideBorder
-                  ? InputBorder.none
-                  : OutlineInputBorder(
-                      borderRadius: borderRadius,
-                      borderSide: BorderSide(
-                        color: theme.colorScheme.error,
-                        width: 1.5,
-                      ),
-                    ),
-              focusedErrorBorder: hideBorder
-                  ? InputBorder.none
-                  : OutlineInputBorder(
-                      borderRadius: borderRadius,
-                      borderSide: BorderSide(
-                        color: theme.colorScheme.error,
-                        width: 1.5,
-                      ),
-                    ),
-              border: hideBorder
-                  ? InputBorder.none
-                  : OutlineInputBorder(borderRadius: borderRadius),
-            ),
-            items: items.map((T value) {
-              return DropdownMenuItem<T>(
-                value: value,
-                child: Text(
-                  itemToString != null ? itemToString!(value) : value.toString(),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: FontSizes.body,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-              );
-            }).toList(),
-            onChanged: onChanged,
-            selectedItemBuilder: (BuildContext context) {
-              return items.map<Widget>((T item) {
-                return Align(
-                  alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                if (widget.prefixIcon != null) ...[
+                  Icon(widget.prefixIcon, size: 20, color: theme.colorScheme.onSurface.withAlpha(150)),
+                  const SizedBox(width: 8),
+                ],
+                Expanded(
                   child: Text(
-                    itemToString != null ? itemToString!(item) : item.toString(),
-                    overflow: TextOverflow.ellipsis,
+                    selectedValue != null
+                        ? (widget.itemToString != null
+                            ? widget.itemToString!(selectedValue as T)
+                            : selectedValue.toString())
+                        : (widget.hintText ?? 'Select an option'),
                     style: TextStyle(
                       fontSize: FontSizes.body,
-                      color: theme.colorScheme.onSurface,
-                      fontWeight: FontWeight.w500,
+                      color: selectedValue != null
+                          ? theme.colorScheme.onSurface
+                          : theme.colorScheme.onSurface.withAlpha(100),
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                );
-              }).toList();
-            },
+                ),
+                const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.neutral70),
+              ],
+            ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class _SelectModal<T> extends StatefulWidget {
+  final List<T> items;
+  final T? initialValue;
+  final String Function(T)? itemToString;
+  final bool isSearchable;
+  final void Function(T?) onSelect;
+
+  const _SelectModal({
+    required this.items,
+    required this.onSelect,
+    this.itemToString,
+    this.initialValue,
+    this.isSearchable = false,
+  });
+
+  @override
+  State<_SelectModal<T>> createState() => _SelectModalState<T>();
+}
+
+class _SelectModalState<T> extends State<_SelectModal<T>> {
+  late List<T> filteredItems;
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    filteredItems = widget.items;
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    setState(() {
+      filteredItems = widget.items
+          .where((item) => (widget.itemToString?.call(item) ?? item.toString())
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase()))
+          .toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (widget.isSearchable)
+            const SizedBox(height: 8),
+            CustomTextField(
+              label: '',
+              hint: 'Search...',
+              controller: _searchController,
+              isDense: true,
+              contentPadding: const EdgeInsets.all(12),
+            ),
+          const SizedBox(height: 8),
+          // Add a Fixed height for the modal body and wrap ListView with a SingleChildScrollView
+          SizedBox(
+            height: 300,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...filteredItems.map((item) {
+                    final label = widget.itemToString?.call(item) ?? item.toString();
+                    return ListTile(
+                      title: Text(
+                        label,
+                        style: TextStyle(
+                          color: theme.colorScheme.onSurface,
+                          fontSize: FontSizes.body,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        widget.onSelect(item);
+                      },
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

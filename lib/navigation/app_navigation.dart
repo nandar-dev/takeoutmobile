@@ -5,7 +5,7 @@ import 'package:takeout/pages/user/home_page.dart';
 import 'package:takeout/pages/merchant/merchant_home_page.dart';
 import 'package:takeout/pages/merchant/merchant_payment.dart';
 import 'package:takeout/pages/profile/profile_page.dart';
-import 'package:takeout/pages/merchant/merchant_shop_list.dart';
+import 'package:takeout/pages/merchant/shop/merchant_shop_list.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/toast_widget.dart';

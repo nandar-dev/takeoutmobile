@@ -8,8 +8,6 @@ import 'package:takeout/data/models/category_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/category_card_2.dart';
-import 'package:takeout/cubit/category/category_cubit.dart';
-import 'package:takeout/cubit/category/category_state.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({super.key});

@@ -5,7 +5,6 @@ import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/product_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
-import 'package:takeout/widgets/cards/product_card.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class RelatedProducts extends StatefulWidget {

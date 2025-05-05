@@ -1,51 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:takeout/models/product_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takeout/cubit/product/product_cubit.dart';
+import 'package:takeout/cubit/product/product_state.dart';
+import 'package:takeout/data/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/cards/product_card.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
-class AvailableProductsCard extends StatefulWidget {
+class AvailableProductsCard extends StatelessWidget {
   const AvailableProductsCard({super.key});
 
-  @override
-  State<AvailableProductsCard> createState() => _AvailableProductsCardState();
-}
-
-class _AvailableProductsCardState extends State<AvailableProductsCard> {
   final String chevronRightIcon = "assets/icons/chevron_right.svg";
-
-  List<Product> products = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    loadProducts();
-  }
-
-  Future<void> loadProducts() async {
-    try {
-      final String jsonString = await rootBundle.loadString(
-        'assets/data/products.json',
-      );
-      final List<dynamic> jsonResponse = json.decode(jsonString);
-      setState(() {
-        products = jsonResponse.map((data) => Product.fromJson(data)).toList();
-        isLoading = false;
-      });
-    } catch (e) {
-      debugPrint("Error loading products: $e");
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +32,6 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title
             TitleText(
               text: title,
               color: AppColors.neutral80,
@@ -72,14 +40,16 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 12),
-
-            // Buttons Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomTextButton(
                   btnLabel: "button.see_all".tr(),
-                  onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.merchantProductList),
+                  onTapCallback:
+                      () => Navigator.pushNamed(
+                        context,
+                        AppRoutes.merchantProductList,
+                      ),
                   textColor: AppColors.primaryDark,
                   iconColor: AppColors.primaryDark,
                   endSvgIcon: chevronRightIcon,
@@ -87,46 +57,53 @@ class _AvailableProductsCardState extends State<AvailableProductsCard> {
                 const SizedBox(width: 12),
                 CustomTextButton(
                   btnLabel: "button.add_new".tr(),
-                  onTapCallback: () {
-                    debugPrint('Add new product clicked');
-                  },
+                  onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.addProduct),
                   textColor: AppColors.primaryDark,
                   iconColor: AppColors.primaryDark,
                   endSvgIcon: chevronRightIcon,
                 ),
               ],
             ),
-
             const SizedBox(height: 12),
+            BlocBuilder<ProductCubit, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-            // Products list
-            if (isLoading)
-              const Center(child: CircularProgressIndicator())
-            else
-              SizedBox(
-                height: 200,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children:
-                        products.map((product) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: SizedBox(
-                              width: 180,
-                              // child:
-                              //  ProductCard(
-                              //   product: product,
-                              // ),
-                            ),
-                          );
-                        }).toList(),
+                final products = _getProducts(state);
+                if (products.isEmpty) {
+                  return Center(child: Text("No products available"));
+                }
+
+                return SizedBox(
+                  height: 200,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: products.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 10),
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return SizedBox(
+                        width: 180,
+                        child: ProductCard(product: product),
+                      );
+                    },
                   ),
-                ),
-              ),
+                );
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+
+  List<ProductModel> _getProducts(ProductState state) {
+    if (state is ProductLoaded || state is ProductLoadingMore) {
+      return state.products;
+    }
+    if (state is ProductError) return [];
+    return ProductLoader().getLoadingProducts(4);
   }
 }

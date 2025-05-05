@@ -9,6 +9,12 @@
     "next": "ต่อไป",
     "skip": "ข้าม"
   },
+  "language": {
+    "en": "อังกฤษ",
+    "my": "พม่า",
+    "zh": "จีน",
+    "th": "ไทย"
+  },
   "profile": {
     "setting": "ตั้งค่า",
     "profile": "โปรไฟล์",
@@ -36,7 +42,13 @@
     "profileSetting": "ตั้งค่าโปรไฟล์",
     "refill": "เติมเงินกระเป๋า",
     "merchant_shop": "พัฒนาธุรกิจของคุณด้วยทุกคำสั่งซื้อ!",
-    "merchant_payment": "การชำระเงิน"
+    "merchant_payment": "การชำระเงิน",
+    "merchant_add_shop": "กรอกข้อมูลธุรกิจของคุณให้สมบูรณ์",
+    "add_driver": "ลงทะเบียนคนขับใหม่",
+    "add_product": "สร้างผลิตภัณฑ์ของคุณ",
+    "product_info": "ข้อมูลสินค้า",
+    "shop_info": "ข้อมูลร้านค้า",
+    "shop_list_des": "กรอกข้อมูลผู้ขายให้ครบถ้วน"
   },
   "button": {
     "see_all": "ดูทั้งหมด",
@@ -62,10 +74,55 @@
     "register_driver": "ลงทะเบียนคนขับใหม่",
     "add_new": "เพิ่มใหม่",
     "confirm": "ยืนยัน",
-    "edit": "แก้ไข"
+    "edit": "แก้ไข",
+    "register_shop": "ลงทะเบียนร้านค้า",
+    "reg_driver": "ลงทะเบียนคนขับ",
+    "create_product": "สร้างสินค้า"
   },
   "input": {
-    "search_product": "ค้นหาสินค้า"
+    "search_product": "ค้นหาสินค้า",
+    "name_label": "ชื่อ-นามสกุล",
+    "name_placeholder": "กรอกชื่อ-นามสกุลคนขับ",
+    "email_label": "อีเมล",
+    "email_placeholder": "กรอกที่อยู่อีเมล",
+    "phone_label": "หมายเลขโทรศัพท์",
+    "phone_placeholder": "กรอกหมายเลขโทรศัพท์",
+    "photo_label": "รูปภาพคนขับ",
+    "photo_description": "อัปโหลดรูปภาพคนขับที่ชัดเจน (เฉพาะ JPG, PNG ขนาดสูงสุด 5MB)",
+    "password_label": "รหัสผ่าน",
+    "c_password_label": "ยืนยันรหัสผ่าน",
+    "password_placeholder": "สร้างรหัสผ่านที่แข็งแกร่ง",
+    "c_password_placeholder": "ยืนยันรหัสผ่านของคุณ",
+    "shop_type": "ประเภทร้านค้า",
+    "select_shop": "เลือกร้านค้า",
+    "name": "ชื่อร้านค้า",
+    "phone": "โทรศัพท์ธุรกิจ",
+    "link": "ลิงก์เว็บไซต์",
+    "logo": "รูปภาพโลโก้",
+    "cover": "รูปภาพปก",
+    "address": "ที่อยู่",
+    "address_placeholder_en": "กรอกที่อยู่เป็นภาษาอังกฤษ",
+    "address_placeholder_my": "กรอกที่อยู่เป็นภาษาพม่า",
+    "address_placeholder_zh": "กรอกที่อยู่เป็นภาษาจีน",
+    "address_placeholder_th": "กรอกที่อยู่เป็นภาษาไทย",
+    "description": "คำอธิบาย",
+    "description_placeholder_en": "กรอกคำอธิบายเป็นภาษาอังกฤษ",
+    "description_placeholder_my": "กรอกคำอธิบายเป็นภาษาพม่า",
+    "description_placeholder_zh": "กรอกคำอธิบายเป็นภาษาจีน",
+    "description_placeholder_th": "กรอกคำอธิบายเป็นภาษาไทย",
+    "o_time": "เวลาเปิด",
+    "s_o_time": "เลือกเวลาเปิด",
+    "c_time": "เวลาปิด",
+    "s_c_time": "เลือกเวลาปิด",
+    "category": "หมวดหมู่",
+    "select_category": "เลือกหมวดหมู่",
+    "shop": "ร้านค้า",
+    "product_name": "ชื่อสินค้า",
+    "price": "ราคา",
+    "stock": "สต็อก",
+    "preview_image": "ภาพตัวอย่าง",
+    "product_images": "รูปภาพสินค้า",
+    "product_description": "รายละเอียดสินค้า"
   },
   "status": {
     "free": "ว่าง",
@@ -73,7 +130,9 @@
     "completed": "เสร็จสิ้น",
     "progress": "อยู่ระหว่างดำเนินการ",
     "active": "เปิดใช้งาน",
-    "inactive": "ปิดใช้งาน"
+    "inactive": "ปิดใช้งาน",
+    "optional": "เลือกได้",
+    "required": "จำเป็น"
   },
   "home": {
     "location_label": "ตำแหน่งของคุณ",
@@ -193,5 +252,9 @@
     "percent_val": "ค่าเปอร์เซ็นต์",
     "s_date": "วันที่เริ่มต้น",
     "e_date": "วันที่สิ้นสุด"
+  },
+  "merchant_shop": {
+    "shop_list_des": "กรอกข้อมูลร้านค้าของคุณให้สมบูรณ์",
+    "shop_info": "ข้อมูลร้านค้า"
   }
 }

@@ -41,7 +41,7 @@ class CategoryModel extends HiveObject {
 
   @HiveField(8)
   @JsonKey(name: 'shop_type_id')
-  final int shopTypeId;
+  final String shopTypeId;
 
   @HiveField(9)
   @JsonKey(name: 'created_at')
@@ -64,7 +64,7 @@ class CategoryModel extends HiveObject {
     String? cnDescription,
     int? isAvailable,
     String? image,
-    int? shopTypeId,
+    String? shopTypeId,
     String? createdAt,
     String? updatedAt,
     int? sortingOrder,
@@ -76,7 +76,7 @@ class CategoryModel extends HiveObject {
        cnDescription = cnDescription ?? '',
        isAvailable = isAvailable ?? 0,
        image = image ?? '',
-       shopTypeId = shopTypeId ?? 0,
+       shopTypeId = shopTypeId ?? '',
        createdAt = createdAt ?? '',
        updatedAt = updatedAt ?? '',
        sortingOrder = sortingOrder ?? 0;
@@ -92,7 +92,7 @@ class CategoryModel extends HiveObject {
         cnDescription: json['cn_description'] as String?,
         isAvailable: json['is_available'] as int?,
         image: json['image'] as String?,
-        shopTypeId: json['shop_type_id'] as int?,
+        shopTypeId: json['shop_type_id'] as String?,
         createdAt: json['created_at'] as String?,
         updatedAt: json['updated_at'] as String?,
         sortingOrder: json['sorting_order'] as int?,

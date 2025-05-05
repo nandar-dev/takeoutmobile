@@ -9,6 +9,12 @@
     "next": "နောက်တစ်ခု",
     "skip": "ကျော်သွားမည်"
   },
+  "language": {
+    "en": "အင်္ဂလိပ်",
+    "my": "မြန်မာ",
+    "zh": "တရုတ်",
+    "th": "ထိုင်း"
+  },
   "profile": {
     "setting": "ဆက်တင်များ",
     "profile": "ပရိုဖိုင်",
@@ -36,7 +42,12 @@
     "profileSetting": "ပရိုဖိုင်းသတ်မှတ်ချက်",
     "refill": "ပိုက်ဆံအိတ်ဖြည့်ရန်",
     "merchant_shop": "အမှာစာတိုင်းနှင့် သင့်လုပ်ငန်းကို ကြီးထွားစေပါ။",
-    "merchant_payment": "ငွေပေးချေမှု"
+    "merchant_payment": "ငွေပေးချေမှု",
+    "merchant_add_shop": "ဆိုင်အချက်အလတ်များဖြည့်ပါ။",
+    "add_product": "သင့်ထုတ်ကုန်ကိုဖန်တီးပါ",
+    "product_info": "ထုတ်ကုန်အချက်အလက်",
+    "shop_info": "ဆိုင်အချက်အလက်",
+    "shop_list_des": "သင့်ကုန်သည်ပရိုဖိုင်ကိုပြီးအောင်လုပ်ပါ"
   },
   "button": {
     "see_all": "အားလုံးကြည့်ရန်",
@@ -62,10 +73,56 @@
     "register_driver": "ယာဉ်မောင်းအသစ်မှတ်ပုံတင်ပါ",
     "add_new": "အသစ်ထည့်မည်",
     "confirm": "အတည်ပြုမည်",
-    "edit": "ပြင်ဆင်မည်"
+    "edit": "ပြင်ဆင်မည်",
+    "register_shop": "ဆိုင်အားမှတ်ပုံတင်မည်",
+    "add_driver": "ယာဥ်သမားအသစ်မှတ်ပုံတင်ရန်",
+    "reg_driver": "ယာဥ်သမားမှတ်ပုံတင်ရန်",
+    "create_product": "ထုတ်ကုန်ဖန်တီးပါ"
   },
   "input": {
-    "search_product": "ထုတ်ကုန်ရှာရန်"
+    "search_product": "ထုတ်ကုန်ရှာရန်",
+    "name_label": "အပြည့်အစုံအမည်",
+    "name_placeholder": "ယာဥ်သမား၏အပြည့်အစုံအမည်ထည့်ပါ",
+    "email_label": "အီးမေးလ်လိပ်စာ",
+    "email_placeholder": "အီးမေးလ်လိပ်စာထည့်ပါ",
+    "phone_label": "ဖုန်းနံပါတ်",
+    "phone_placeholder": "ဖုန်းနံပါတ်ထည့်ပါ",
+    "photo_label": "ယာဥ်သမား၏ဓာတ်ပုံ",
+    "photo_description": "ရှင်းလင်းသောယာဥ်သမားဓာတ်ပုံတင်ပါ (JPG, PNG သာ၊ အများဆုံး ၅MB)",
+    "password_label": "လျှို့ဝှက်နံပါတ်",
+    "c_password_label": "လျှို့ဝှက်နံပါတ်အတည်ပြုရန်",
+    "password_placeholder": "အားကောင်းသောလျှို့ဝှက်နံပါတ်ဖန်တီးပါ",
+    "c_password_placeholder": "လျှို့ဝှက်နံပါတ်အတည်ပြုပါ",
+    "shop_type": "ဆိုင်အမျိုးအစား",
+    "select_shop": "ဆိုင်ရွေးပါ",
+    "name": "ဆိုင်အမည်",
+    "phone": "စီးပွားရေးဖုန်း",
+    "link": "ဝဘ်ဆိုဒ်လင့်",
+    "logo": "လိုဂိုပုံ",
+    "cover": "အဖုံးပုံ",
+    "address": "လိပ်စာ",
+    "address_placeholder_en": "လိပ်စာကိုအင်္ဂလိပ်လိုရေးပါ",
+    "address_placeholder_my": "လိပ်စာကိုမြန်မာလိုရေးပါ",
+    "address_placeholder_zh": "လိပ်စာကိုတရုတ်လိုရေးပါ",
+    "address_placeholder_th": "လိပ်စာကိုထိုင်းလိုရေးပါ",
+    "description": "ဖော်ပြချက်",
+    "description_placeholder_en": "ဖော်ပြချက်ကိုအင်္ဂလိပ်လိုရေးပါ",
+    "description_placeholder_my": "ဖော်ပြချက်ကိုမြန်မာလိုရေးပါ",
+    "description_placeholder_zh": "ဖော်ပြချက်ကိုတရုတ်လိုရေးပါ",
+    "description_placeholder_th": "ဖော်ပြချက်ကိုထိုင်းလိုရေးပါ",
+    "o_time": "ဖွင့်ချိန်",
+    "s_o_time": "ဖွင့်ချိန်ရွေးပါ",
+    "c_time": "ပိတ်ချိန်",
+    "s_c_time": "ပိတ်ချိန်ရွေးပါ",
+    "category": "အမျိုးအစား",
+    "select_category": "အမျိုးအစားရွေးပါ",
+    "shop": "ဆိုင်",
+    "product_name": "ထုတ်ကုန်အမည်",
+    "price": "စျေးနှုန်း",
+    "stock": "စတော့",
+    "preview_image": "အစမ်းကြည့်ပုံ",
+    "product_images": "ထုတ်ကုန်ပုံများ",
+    "product_description": "ထုတ်ကုန်ဖော်ပြချက်"
   },
   "status": {
     "free": "အခမဲ့",
@@ -73,7 +130,9 @@
     "completed": "ပြီးစီး",
     "progress": "လုပ်ဆောင်ဆဲဖြစ်သည်",
     "active": "ဖွင့်ထားသည်",
-    "inactive": "ပိတ်ထားသည်"
+    "inactive": "ပိတ်ထားသည်",
+    "optional": "ရွေးချယ်နိုင်သော",
+    "required": "လိုအပ်သည်"
   },
   "home": {
     "location_label": "သင့်တည်နေရာ",

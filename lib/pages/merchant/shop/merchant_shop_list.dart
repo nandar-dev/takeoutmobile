@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/models/shop_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/shop_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/check_shop_status.dart';
@@ -60,9 +61,7 @@ class _MerchantShopListState extends State<MerchantShopList> {
                         TitleText(text: title, fontSize: FontSizes.heading2),
                         IconButtonTwoWidget(
                           icon: plusIcon,
-                          onTap: () {
-                            // Add shop logic here
-                          },
+                          onTap: ()=> Navigator.pushNamed(context, AppRoutes.addShop),
                           bgColor: AppColors.primary,
                           iconColor: AppColors.textLight,
                           iconSize: 15,

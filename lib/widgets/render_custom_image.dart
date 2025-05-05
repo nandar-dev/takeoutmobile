@@ -23,10 +23,14 @@ class RenderCustomImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(rounded ?? 5);
 
+    final bool isEmpty = imageUrl.trim().isEmpty;
+
     return ClipRRect(
       borderRadius: borderRadius,
       child:
-          isNetworkImage
+          isEmpty
+              ? NoImage(width: width, height: height, rounded: rounded)
+              : isNetworkImage
               ? CachedNetworkImage(
                 imageUrl: imageUrl,
                 width: width ?? double.infinity,

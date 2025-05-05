@@ -1,9 +1,9 @@
-import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:takeout/cubit/product/product_cubit.dart';
+import 'package:takeout/cubit/product/product_state.dart';
 import 'package:takeout/data/models/product_model.dart';
-import 'package:takeout/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/product_card_2.dart';
@@ -17,32 +17,10 @@ class MerchantProductList extends StatefulWidget {
 }
 
 class _MerchantProductListState extends State<MerchantProductList> {
-  List<ProductModel> products = [];
-  bool isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    loadProducts();
-  }
-
-  Future<void> loadProducts() async {
-    try {
-      final String jsonString = await rootBundle.loadString(
-        'assets/data/products.json',
-      );
-      final List<dynamic> jsonResponse = json.decode(jsonString);
-      setState(() {
-        products =
-            jsonResponse.map((data) => ProductModel.fromJson(data)).toList();
-        isLoading = false;
-      });
-    } catch (e) {
-      debugPrint("Error loading products: $e");
-      setState(() {
-        isLoading = false;
-      });
-    }
+    context.read<ProductCubit>().loadProducts(isLoadMore: true, pageSize: 10);
   }
 
   @override
@@ -54,8 +32,17 @@ class _MerchantProductListState extends State<MerchantProductList> {
       appBar: AppBarWidget(title: title),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-        child:
-            isLoading
+        child: BlocBuilder<ProductCubit, ProductState>(
+          builder: (context, state) {
+            final isLoading = state is ProductLoading;
+            final hasError = state is ProductError;
+            final products = _getProducts(state);
+
+            if (hasError) {
+              return Center(child: Text("Failed to load products"));
+            }
+
+            return isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,8 +73,18 @@ class _MerchantProductListState extends State<MerchantProductList> {
                       ),
                     ),
                   ],
-                ),
+                );
+          },
+        ),
       ),
     );
+  }
+
+  List<ProductModel> _getProducts(ProductState state) {
+    if (state is ProductLoaded || state is ProductLoadingMore) {
+      return state.products;
+    }
+    if (state is ProductError) return [];
+    return ProductLoader().getLoadingProducts(10);
   }
 }
