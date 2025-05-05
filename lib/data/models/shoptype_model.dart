@@ -82,7 +82,7 @@ class ShoptypeLoader {
     loadingCategory = ShoptypeModel.loading();
   }
 
-  List<ShoptypeModel> getLoadingCategories(int count) {
+  List<ShoptypeModel> getLoadingShoptypes(int count) {
     return List.generate(count, (_) => ShoptypeModel.loading());
   }
 }

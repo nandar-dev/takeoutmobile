@@ -23,7 +23,7 @@ Future<Widget> initializeApp() async {
   // Initialize Hive
   await Hive.initFlutter();
 
-  // await Hive.deleteBoxFromDisk('productBox');
+  // await Hive.deleteBoxFromDisk('shoptypeBox');
   // await Hive.deleteBoxFromDisk('categoryBox');
   // await Hive.deleteBoxFromDisk('user');
 

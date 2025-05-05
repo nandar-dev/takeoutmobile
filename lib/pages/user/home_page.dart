@@ -11,6 +11,7 @@ import 'package:takeout/widgets/cards/product_card.dart';
 import 'package:takeout/widgets/home/category_section.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
 import 'package:takeout/widgets/home/nearby_shops_section.dart';
+import 'package:takeout/widgets/toast_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -103,9 +104,7 @@ class _HomePageState extends State<HomePage> {
                   BlocConsumer<ProductCubit, ProductState>(
                     listener: (context, state) {
                       if (state is ProductError) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(state.message)));
+                        showToast(message: state.message);
                       }
                     },
                     builder: (context, state) {
@@ -121,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                           Skeletonizer(
                             enabled: isLoading,
                             child: GridView.builder(
+                              padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: products.length,

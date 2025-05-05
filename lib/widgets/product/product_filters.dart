@@ -29,6 +29,7 @@ class ProductFilters extends StatelessWidget {
     return BlocListener<FilterBloc, FilterState>(
       listener: (context, state) {
         if (state is FilterModalOpened) {
+          print('hereeeee');
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showModalBottomSheet(
               context: context,
@@ -46,7 +47,9 @@ class ProductFilters extends StatelessWidget {
         children: [
           SortButton(
             onTap: () {
-              context.read<FilterBloc>().add(OpenFilterModal(FilterType.category));
+              context.read<FilterBloc>().add(
+                OpenFilterModal(FilterType.category),
+              );
             },
             iconHeight: 12,
             iconWeight: 12,

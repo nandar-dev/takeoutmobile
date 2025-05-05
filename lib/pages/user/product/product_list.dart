@@ -29,7 +29,6 @@ class _ProductListState extends State<ProductList> {
     super.initState();
     context.read<ProductCubit>().loadProducts(
       pageSize: _pageSize,
-      // forceRefresh: true,
     );
 
     _scrollController.addListener(() {
@@ -125,7 +124,7 @@ class _ProductListState extends State<ProductList> {
   ) {
     return Expanded(
       child: Skeletonizer(
-        enabled: isLoading,
+        enabled: isLoading || isLoadingMore,
         child:
             hasError
                 ? _buildErrorWidget()

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:takeout/cubit/category/category_cubit.dart';
 import 'package:takeout/cubit/category/category_state.dart';
+import 'package:takeout/cubit/product/product_cubit.dart';
 import 'package:takeout/cubit/shoptype/shoptype_cubit.dart';
 import 'package:takeout/cubit/shoptype/shoptype_state.dart';
 import 'package:takeout/data/models/category_model.dart';
@@ -11,7 +13,7 @@ import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/filters/filter_checks_list.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
-import 'package:takeout/widgets/product/product_filters.dart'; 
+import 'package:takeout/widgets/product/product_filters.dart';
 import 'package:takeout/widgets/toast_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
@@ -29,7 +31,6 @@ class _FilterModalState extends State<FilterModal> {
   List<String> items = [];
   String title = "";
   final Set<int> selectedItemIds = {};
-  bool isLoading = true;
 
   @override
   void initState() {
@@ -38,9 +39,6 @@ class _FilterModalState extends State<FilterModal> {
   }
 
   Future<void> _initData() async {
-    setState(() {
-      isLoading = true;
-    });
     switch (widget.filterType) {
       case FilterType.category:
         title = "Select Category";
@@ -65,12 +63,6 @@ class _FilterModalState extends State<FilterModal> {
         title = "Offer";
         break;
     }
-    if (mounted) {
-      //check the widget is mounted or not
-      setState(() {
-        isLoading = false; // End loading
-      });
-    }
   }
 
   void toggleSelection(int id) {
@@ -80,6 +72,11 @@ class _FilterModalState extends State<FilterModal> {
       } else {
         selectedItemIds.add(id);
       }
+      // context.read<ProductCubit>().loadProductsByCategory(
+      //   pageSize: 10,
+      //   categoryId: "34,35",
+      // );
+      print(selectedItemIds);
     });
   }
 
@@ -123,10 +120,7 @@ class _FilterModalState extends State<FilterModal> {
               fontSize: FontSizes.heading2,
             ),
             const SizedBox(height: 8),
-            //show loading
-            if (isLoading)
-              const Center(child: CircularProgressIndicator())
-            else
+
             // Dynamic checkbox list rendering
             if (widget.filterType == FilterType.category)
               BlocBuilder<CategoryCubit, CategoryState>(
@@ -143,15 +137,16 @@ class _FilterModalState extends State<FilterModal> {
               )
             else if (widget.filterType == FilterType.shop)
               BlocBuilder<ShoptypeCubit, ShoptypeState>(
-                //build based on ShoptypeCubit
                 builder: (context, state) {
                   final shoptypes = _getShoptypes(state);
+                  final isLoading = state is ShoptypeLoading;
                   return FilterChecksList<ShoptypeModel>(
                     data: shoptypes,
                     selectedItemIds: selectedItemIds,
                     idGetter: (shop) => shop.id,
                     labelGetter: (shop) => shop.name,
                     onToggle: toggleSelection,
+                    isLoading: isLoading,
                   );
                 },
               )
@@ -207,9 +202,8 @@ class _FilterModalState extends State<FilterModal> {
   }
 
   List<ShoptypeModel> _getShoptypes(ShoptypeState state) {
-    if (state is ShoptypeLoaded) {
-      return state.shoptypes;
-    }
-    return [];
+    if (state is ShoptypeLoaded) return state.shoptypes;
+    if (state is ShoptypeError) return [];
+    return ShoptypeLoader().getLoadingShoptypes(5);
   }
 }
