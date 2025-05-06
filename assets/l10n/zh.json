@@ -48,7 +48,8 @@
     "add_product": "创建您的产品",
     "product_info": "产品信息",
     "shop_info": "店铺信息",
-    "shop_list_des": "完善您的商家资料"
+    "shop_list_des": "完善您的商家资料",
+    "my_orders": "我的订单"
   },
   "button": {
     "see_all": "查看全部",
@@ -125,14 +126,19 @@
     "product_description": "产品描述"
   },
   "status": {
-    "free": "空闲",
+    "free": "免费",
     "pending": "待处理",
     "completed": "已完成",
     "progress": "进行中",
     "active": "活跃",
     "inactive": "未活跃",
     "optional": "可选",
-    "required": "必需"
+    "required": "必选",
+    "all": "所有订单",
+    "confirmed": "已确认",
+    "shipped": "已发货",
+    "cancelled": "已取消",
+    "rejected": "已拒绝"
   },
   "home": {
     "location_label": "您的位置",
@@ -160,7 +166,14 @@
     "wallet": "钱包支付",
     "cash": "货到付款",
     "wallet_warning": "余额不足警告",
-    "cash_description": "货到付款"
+    "cash_description": "货到付款",
+    "order_detail": "订单详情",
+    "order_items": "订单项目",
+    "all": "所有订单",
+    "confirmed": "已确认",
+    "shipped": "已发货",
+    "cancel": "取消",
+    "rejected": "已拒绝"
   },
   "refill": {
     "title": "钱包充值",
@@ -185,7 +198,9 @@
     "file_error": "选择文件时出错：{error}",
     "tap_to_select": "点击选择图片",
     "error_loading_preview": "加载预览时出错",
-    "logout_warning": "您要退出吗？"
+    "logout_warning": "您要退出吗？",
+    "no_order_title": "无订单记录",
+    "no_order_des": "目前没有可用的订单记录。"
   },
   "login": {
     "title": "登录您的账户",

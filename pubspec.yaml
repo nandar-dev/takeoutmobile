@@ -55,6 +55,8 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   skeletonizer: ^1.4.3
   flutter_intl_phone_field: ^0.0.7
+  geolocator: ^14.0.0
+  geocoding: ^3.0.0
   
   
 dev_dependencies:

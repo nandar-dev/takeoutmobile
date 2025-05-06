@@ -21,8 +21,9 @@ class AppColors {
   static const Color green50 = Color.fromRGBO(240, 253, 244, 1);
   static const Color green200 = Color.fromRGBO(187, 247, 208, 1);
   static const Color yello50 = Color.fromRGBO(254, 252, 232, 1);
-  static const Color yello700 = Color.fromRGBO(161, 98, 7, 1);
   static const Color yello200 = Color.fromRGBO(254, 240, 138, 1);
+  static const Color yello500 = Color.fromRGBO(234, 179, 8, 1);
+  static const Color yello700 = Color.fromRGBO(161, 98, 7, 1);
 
   // Backgrounds and surfaces
   static const Color background = neutral10;

@@ -67,10 +67,10 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   void initState() {
     super.initState();
     user = context.read<UserCubit>().repository.getLoggedInUser()!;
-    _fullNameController.text = user!.name!;
-    _locationController.text = user!.address!;
-    _phoneController.text = user!.phone!;
-    _emailController.text = user!.email!;
+    _fullNameController.text = user?.name ?? "";
+    _locationController.text = user?.address ?? "";
+    _phoneController.text = user?.phone ?? "";
+    _emailController.text = user?.email ?? "";
   }
 
   @override
