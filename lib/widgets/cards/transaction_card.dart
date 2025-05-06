@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:takeout/models/transaction_model.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/buttons/custom_badge.dart';
 
 class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
@@ -11,16 +12,6 @@ class TransactionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusBgColors = transaction.status == "completed"
-        ? AppColors.green50
-        : AppColors.yello50;
-    final statusTextColor = transaction.status == "completed"
-        ? AppColors.success
-        : AppColors.yello700;
-    final statusBorderColor = transaction.status == "completed"
-        ? AppColors.green200
-        : AppColors.yello200;
-
     return Card(
       color: AppColors.neutral10,
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
@@ -113,25 +104,10 @@ class TransactionCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: statusBorderColor, width: 1),
-                    color: statusBgColors,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    "status.${transaction.status}".tr(),
-                    style: TextStyle(
-                      color: statusTextColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                CustomBadge(
+                  label: "status.${transaction.status}".tr(),
+                  variant: BadgeVariant.outlined,
+                  color: transaction.status == "completed" ? AppColors.success : AppColors.primary,
                 ),
               ],
             ),

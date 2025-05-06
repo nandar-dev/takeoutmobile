@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:takeout/cubit/user/user_cubit.dart';
 import 'package:takeout/cubit/user/user_state.dart';
+import 'package:takeout/data/models/test_order_model.dart';
 import 'package:takeout/data/models/user_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
@@ -14,6 +17,8 @@ import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
+import 'package:takeout/widgets/cards/no_data.dart';
+import 'package:takeout/widgets/cards/order_card.dart';
 import 'package:takeout/widgets/render_custom_image.dart';
 import 'package:takeout/widgets/render_svg_icon.dart';
 import 'package:takeout/widgets/toast_widget.dart';
@@ -29,6 +34,27 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   UserModel? user;
   PlatformFile? _pickedFile;
+  List<OrderModel> _orders = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadOrders();
+  }
+
+  Future<void> _loadOrders() async {
+    final orders = await loadOrdersFromJson();
+    setState(() {
+      _orders = orders;
+    });
+  }
+
+  Future<List<OrderModel>> loadOrdersFromJson() async {
+    final String response = await rootBundle.loadString('assets/data/orders.json');
+    final data = json.decode(response) as List;
+    return data.map((e) => OrderModel.fromJson(e)).toList();
+  }
+
 
   Future<void> _pickFile() async {
     try {
@@ -52,6 +78,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final title = "title.profileSetting".tr();
+    final balance = "profile.balance".tr();
+    final available = "profile.available".tr();
+    final orders = "profile.orders".tr();
+    final profile = "profile.profile".tr();
+    final personal = "profile.personal".tr();
+    final setting = "profile.setting".tr();
+    final support = "profile.support".tr();
+    final help = "profile.help".tr();
+    final noDataTitle = "message.no_order_title".tr();
+    final noDataDes = "message.no_order_des".tr();
+
     user = context.read<UserCubit>().repository.getLoggedInUser();
 
     if (user == null) {
@@ -76,16 +114,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
     }
-    final title = "title.profileSetting".tr();
-    final balance = "profile.balance".tr();
-    final available = "profile.available".tr();
-    final orders = "profile.orders".tr();
-    final orderId = "profile.order_id".tr();
-    final profile = "profile.profile".tr();
-    final personal = "profile.personal".tr();
-    final setting = "profile.setting".tr();
-    final support = "profile.support".tr();
-    final help = "profile.help".tr();
 
     return Scaffold(
       appBar: AppBarWidget(title: title, showBackNavigator: false),
@@ -101,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
         },
         child: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             children: [
               const SizedBox(height: 32),
 
@@ -127,205 +155,159 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 24),
 
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: AppColors.neutral10,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.08),
-                      blurRadius: 29,
-                      spreadRadius: 0,
-                      offset: Offset(0, 7),
-                    ),
-                  ],
+              Card(
+                elevation: 0.5,
+                color: AppColors.background,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SubText(
-                            text: balance,
-                            fontWeight: FontWeight.w600,
-                            fontSize: FontSizes.md,
-                            color: AppColors.textPrimary,
-                          ),
-                          SizedBox(height: 4),
-                          TitleText(
-                            text: "\$${user!.walletAmount ?? '0'}",
-                            fontSize: FontSizes.heading2,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          SubText(
-                            text: available,
-                            color: AppColors.neutral70,
-                            fontSize: FontSizes.body,
-                          ),
-                        ],
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SubText(
+                              text: balance,
+                              fontWeight: FontWeight.w600,
+                              fontSize: FontSizes.md,
+                              color: AppColors.textPrimary,
+                            ),
+                            SizedBox(height: 4),
+                            TitleText(
+                              text: "\$${user!.walletAmount ?? '0'}",
+                              fontSize: FontSizes.heading2,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            SubText(
+                              text: available,
+                              color: AppColors.neutral70,
+                              fontSize: FontSizes.body,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    CustomPrimaryButton(
-                      height: 30,
-                      padding: EdgeInsets.only(left: 8, right: 8),
-                      text: "button.refill".tr(),
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.refillwallet);
-                      },
-                      icon: Icons.arrow_circle_up_rounded,
-                    ),
-                  ],
+                      CustomPrimaryButton(
+                        height: 30,
+                        padding: EdgeInsets.only(left: 8, right: 8),
+                        text: "button.refill".tr(),
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.refillwallet);
+                        },
+                        icon: Icons.arrow_circle_up_rounded,
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
               const SizedBox(height: 16),
 
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: AppColors.background,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.08),
-                      blurRadius: 29,
-                      spreadRadius: 0,
-                      offset: Offset(0, 7),
-                    ),
-                  ],
+              Card(
+                elevation: 0.5,
+                color: AppColors.background,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SubText(
-                          text: orders,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                          fontSize: FontSizes.md,
-                        ),
-                        CustomTextButton(
-                          btnLabel: "button.view_all".tr(),
-                          onTapCallback: () {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: SubText(
-                            text: "$orderId 888333777",
-                            color: AppColors.neutral100,
-                            fontSize: FontSizes.sm,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SubText(
+                            text: orders,
                             fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                            fontSize: FontSizes.md,
                           ),
+                          CustomTextButton(
+                            btnLabel: "button.view_all".tr(),
+                            onTapCallback: ()=> Navigator.pushNamed(context, AppRoutes.ordersList),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      // showing latest order
+                      _orders.isEmpty
+                        ? NoData(
+                            noData: noDataTitle,
+                            noDataDes: noDataDes,
+                            icon: "assets/icons/order_icon.svg",
+                          )
+                        : Column(
+                            children: _orders.take(1).map((order) {
+                              return OrderCard(order: order);
+                            }).toList(),
                         ),
-                        Badge(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 8,
-                          ),
-                          label: SubText(
-                            text: "status.progress".tr(),
-                            fontSize: FontSizes.xs,
-                            color: Colors.white,
-                          ),
-                          backgroundColor: AppColors.primary,
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 12),
-                    const Divider(thickness: 2, color: AppColors.neutral30),
-
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: Image.asset('assets/images/order_burger.png'),
-                      title: const SubText(
-                        text: "Burger With Meat",
-                        fontSize: FontSizes.body,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.neutral100,
-                      ),
-                      subtitle: const SubText(
-                        text: "\$ 12,230",
-                        fontSize: FontSizes.body,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
-                      ),
-                      trailing: const SubText(
-                        text: "14 items",
-                        fontSize: FontSizes.sm,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.neutral100,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
               const SizedBox(height: 24),
-              const Divider(thickness: 2, color: AppColors.neutral30),
-              const SizedBox(height: 12),
+              const Divider(color: AppColors.neutral30),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SubText(
+                      text: profile,
+                      color: AppColors.neutral70,
+                      fontSize: FontSizes.sm,
+                    ),
+                    const SizedBox(height: 8),
+                    _buildMenuItem("assets/icons/user.svg", personal, () {
+                      Navigator.pushNamed(context, AppRoutes.personaldata);
+                    }),
+                    const SizedBox(height: 8),
+                    _buildMenuItem("assets/icons/setting.svg", setting, () {
+                      Navigator.pushNamed(context, AppRoutes.settingspage);
+                    }),
 
-              SubText(
-                text: profile,
-                color: AppColors.neutral70,
-                fontSize: FontSizes.sm,
-              ),
-              const SizedBox(height: 8),
-              _buildMenuItem("assets/icons/user.svg", personal, () {
-                Navigator.pushNamed(context, AppRoutes.personaldata);
-              }),
-              const SizedBox(height: 8),
-              _buildMenuItem("assets/icons/setting.svg", setting, () {
-                Navigator.pushNamed(context, AppRoutes.settingspage);
-              }),
+                    const SizedBox(height: 16),
+                    SubText(
+                      text: support,
+                      color: AppColors.neutral70,
+                      fontSize: FontSizes.sm,
+                    ),
+                    const SizedBox(height: 8),
+                    _buildMenuItem("assets/icons/info.svg", help, () {
+                      Navigator.pushNamed(context, AppRoutes.personaldata);
+                    }),
 
-              const SizedBox(height: 16),
-              SubText(
-                text: support,
-                color: AppColors.neutral70,
-                fontSize: FontSizes.sm,
-              ),
-              const SizedBox(height: 8),
-              _buildMenuItem("assets/icons/info.svg", help, () {
-                Navigator.pushNamed(context, AppRoutes.personaldata);
-              }),
-
-              const SizedBox(height: 16),
-              SizedBox(
-                width: 150,
-                child: CustomOutlinedButton(
-                  onPressed: () {
-                    showCustomAlertDialog(
-                      context: context,
-                      title: 'button.signout'.tr(),
-                      message: "message.logout_warning".tr(),
-                      confirmText: "button.signout".tr(),
-                      cancelText: "button.cancel".tr(),
-                      onConfirm: () {
-                        context.read<UserCubit>().logout();
-                      },
-                    );
-                  },
-                  icon: Icons.logout,
-                  text: "button.signout".tr(),
-                  iconColor: AppColors.danger,
-                  textColor: AppColors.danger,
-                  borderColor: AppColors.danger,
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: CustomOutlinedButton(
+                        onPressed: () {
+                          showCustomAlertDialog(
+                            context: context,
+                            title: 'button.signout'.tr(),
+                            message: "message.logout_warning".tr(),
+                            confirmText: "button.signout".tr(),
+                            cancelText: "button.cancel".tr(),
+                            onConfirm: () {
+                              context.read<UserCubit>().logout();
+                            },
+                          );
+                        },
+                        icon: Icons.logout,
+                        text: "button.signout".tr(),
+                        iconColor: AppColors.danger,
+                        textColor: AppColors.danger,
+                        borderColor: AppColors.danger,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 32),
             ],
           ),
         ),

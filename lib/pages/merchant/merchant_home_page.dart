@@ -5,7 +5,7 @@ import 'package:takeout/widgets/cards/available_products_card.dart';
 import 'package:takeout/widgets/cards/deli_management_card.dart';
 import 'package:takeout/widgets/cards/merchant_revenue.dart';
 import 'package:takeout/widgets/cards/merchant_shops_card.dart';
-import 'package:takeout/widgets/cards/order_card.dart';
+import 'package:takeout/widgets/cards/order_information_card.dart';
 import 'package:takeout/widgets/cards/wallet_card.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
 
@@ -39,7 +39,7 @@ class MerchantHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
-                        child: OrderCard(
+                        child: OrderInformationCard(
                           orderCount: "00",
                           label: orderLabelOne,
                           bgColor: AppColors.primaryDark.withAlpha(25),
@@ -48,7 +48,7 @@ class MerchantHomePage extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Flexible(
-                        child: OrderCard(
+                        child: OrderInformationCard(
                           orderCount: "00",
                           label: orderLabelTwo,
                           bgColor: Colors.blueAccent.withAlpha(25),

@@ -18,6 +18,8 @@ class CustomPrimaryButton extends StatelessWidget {
   final double? fontSize;
   final bool disabled;
   final double iconSize;
+  final bool iconAtEnd;
+  final double iconSpacing;
 
   const CustomPrimaryButton({
     super.key,
@@ -35,6 +37,8 @@ class CustomPrimaryButton extends StatelessWidget {
     this.fontSize,
     this.disabled = false,
     this.iconSize = 20,
+    this.iconAtEnd = false,
+    this.iconSpacing = 8.0,
   });
 
   @override
@@ -56,52 +60,40 @@ class CustomPrimaryButton extends StatelessWidget {
       leadingIcon = Icon(icon, color: effectiveIconColor, size: iconSize);
     }
 
-    final btnChild =
-        leadingIcon != null
-            ? Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                leadingIcon,
-                const SizedBox(width: 8),
-                Text(
-                  text,
-                  style:
-                      textStyle ??
-                      TextStyle(
-                        color: effectiveTextColor,
-                        fontSize: effectiveFontSize,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-              ],
-            )
-            : Text(
-              text,
-              style:
-                  textStyle ??
-                  TextStyle(
-                    color: effectiveTextColor,
-                    fontSize: effectiveFontSize,
-                    fontWeight: FontWeight.w600,
-                  ),
-            );
+    final textWidget = Text(
+      text,
+      style: textStyle ??
+          TextStyle(
+            color: effectiveTextColor,
+            fontSize: effectiveFontSize,
+            fontWeight: FontWeight.w600,
+          ),
+    );
+
+    final btnChild = leadingIcon != null
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: iconAtEnd
+                ? [textWidget, SizedBox(width: iconSpacing), leadingIcon]
+                : [leadingIcon, SizedBox(width: iconSpacing), textWidget],
+          )
+        : textWidget;
 
     return SizedBox(
       height: height,
       child: ElevatedButton(
         onPressed: disabled ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              disabled
-                  ? AppColors.neutral10
-                  : backgroundColor ?? AppColors.primary,
+          backgroundColor: disabled
+              ? AppColors.neutral10
+              : backgroundColor ?? AppColors.primary,
           overlayColor: AppColors.neutral70.withValues(alpha: .1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
           padding: padding,
-          elevation: disabled ? 0 : 1,
+          elevation: 0,
         ),
         child: Opacity(opacity: disabled ? 0.8 : 1.0, child: btnChild),
       ),

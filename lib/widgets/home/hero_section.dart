@@ -2,13 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:takeout/cubit/user/user_cubit.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/utils/get_location.dart';
 import 'package:takeout/widgets/buttons/iconbutton_one_widget.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
-class HeroSection extends StatelessWidget {
+class HeroSection extends StatefulWidget {
   const HeroSection({
     super.key,
     this.screenHeight,
@@ -29,6 +31,55 @@ class HeroSection extends StatelessWidget {
   final String? title;
 
   @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection> {
+  String locationName = "Loading...";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocation();
+  }
+
+  Future<void> _loadLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() {
+        locationName = "Location services disabled";
+      });
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      setState(() {
+        locationName = "Location permission denied";
+      });
+      return;
+    }
+
+    final location = await LocationHelper.getCityAndCountry();
+    debugPrint("Location: $location");
+
+    if (location != null) {
+      setState(() {
+        locationName = location;
+      });
+    } else {
+      setState(() {
+        locationName = "Unable to fetch location";
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final chevronDownIcon = 'assets/icons/chevron_down.svg';
     final locationIcon = 'assets/icons/location.svg';
@@ -39,11 +90,12 @@ class HeroSection extends StatelessWidget {
         context.read<UserCubit>().repository.getLoggedInUser() ?? 'user';
     final String locTitle = "home.location_label".tr();
 
-    final Color resolvedTextColor = textColor ?? AppColors.textLight;
-    final Color resolvedIconColor = iconColor ?? AppColors.textLight;
+    final Color resolvedTextColor = widget.textColor ?? AppColors.textLight;
+    final Color resolvedIconColor = widget.iconColor ?? AppColors.textLight;
 
     final double resolvedHeight =
-        sectionHeight ?? (screenHeight != null ? screenHeight! * 0.2 : 80);
+        widget.sectionHeight ??
+        (widget.screenHeight != null ? widget.screenHeight! * 0.2 : 80);
 
     return Stack(
       children: [
@@ -52,11 +104,11 @@ class HeroSection extends StatelessWidget {
           height: resolvedHeight,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: bgColor ?? AppColors.background,
+            color: widget.bgColor ?? AppColors.background,
             image:
-                bgImg != null
+                widget.bgImg != null
                     ? DecorationImage(
-                      image: AssetImage(bgImg!),
+                      image: AssetImage(widget.bgImg!),
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     )
@@ -65,13 +117,13 @@ class HeroSection extends StatelessWidget {
         ),
 
         // Centered Title Text
-        if (title != null)
+        if (widget.title != null)
           Positioned.fill(
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.only(left: 24, right: 24, top: 80),
                 child: Text(
-                  title!,
+                  widget.title!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: FontSizes.heading2,
@@ -98,41 +150,51 @@ class HeroSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Location Info
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SubText(text: locTitle, color: resolvedTextColor),
-                        const SizedBox(width: 10),
-                        SvgPicture.asset(
-                          chevronDownIcon,
-                          height: 8,
-                          width: 8,
-                          colorFilter: ColorFilter.mode(
-                            resolvedIconColor,
-                            BlendMode.srcIn,
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          SubText(text: locTitle, color: resolvedTextColor),
+                          const SizedBox(width: 10),
+                          SvgPicture.asset(
+                            chevronDownIcon,
+                            height: 8,
+                            width: 8,
+                            colorFilter: ColorFilter.mode(
+                              resolvedIconColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 3),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          locationIcon,
-                          height: 18,
-                          width: 18,
-                          colorFilter: ColorFilter.mode(
-                            resolvedIconColor,
-                            BlendMode.srcIn,
+                        ],
+                      ),
+                      const SizedBox(height: 3),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            locationIcon,
+                            height: 18,
+                            width: 18,
+                            colorFilter: ColorFilter.mode(
+                              resolvedIconColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        SubText(text: "Yangon", color: resolvedTextColor),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: SubText(
+                              text: locationName,
+                              color: resolvedTextColor,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
 
                 // Action Icons
@@ -142,7 +204,7 @@ class HeroSection extends StatelessWidget {
                       IconButtonOneWidget(
                         icon: searchIcon,
                         iconColor: resolvedIconColor,
-                        borderColor: bgColor,
+                        borderColor: widget.bgColor,
                         onTap: () {
                           debugPrint("search button clicked");
                         },
@@ -152,7 +214,7 @@ class HeroSection extends StatelessWidget {
                     IconButtonOneWidget(
                       icon: notiIcon,
                       iconColor: resolvedIconColor,
-                      borderColor: bgColor,
+                      borderColor: widget.bgColor,
                       onTap: () {
                         debugPrint("noti button clicked");
                       },

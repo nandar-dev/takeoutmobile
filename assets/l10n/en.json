@@ -47,7 +47,8 @@
         "add_product": "Create your product",
         "product_info": "Product Information",
         "shop_info": "Shop Information",
-        "shop_list_des": "Complete Your Merchant Profile"
+        "shop_list_des": "Complete Your Merchant Profile",
+        "my_orders": "My Orders"
     },
     "button": {
         "see_all": "See all",
@@ -131,7 +132,12 @@
         "active": "Active",
         "inactive": "Inactive",
         "optional": "Optional",
-        "required": "Required"
+        "required": "Required",
+        "all": "All Orders",
+        "confirmed": "Confirmed",
+        "shipped": "Shipped",
+        "cancelled": "Cancelled",
+        "rejected": "Rejected"
     },
     "home": {
         "location_label": "Your Location",
@@ -159,7 +165,9 @@
         "wallet": "Wallet",
         "cash": "Cash on delivery",
         "wallet_warning": "Insufficient balance warning",
-        "cash_description": "Pay when you receive your order"
+        "cash_description": "Pay when you receive your order",
+        "order_detail": "Order Detail",
+        "order_items": "Order Items"
     },
     "refill": {
         "title": "Refill your wallet",
@@ -184,7 +192,9 @@
         "file_error": "Error picking file: {error}",
         "tap_to_select": "Tap to select an image",
         "error_loading_preview": "Error loading preview",
-        "logout_warning": "Do you want to log out?"
+        "logout_warning": "Do you want to log out?",
+        "no_order_title": "No Order Records",
+        "no_order_des": "There are no order records available at the moment."
     },
     "login": {
         "title": "Login to your account.",

@@ -140,7 +140,6 @@ class _AddProductState extends State<AddProduct> {
                   // handle file
                 },
               ),
-              const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: CustomPrimaryButton(
