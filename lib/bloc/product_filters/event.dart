@@ -9,3 +9,12 @@ class OpenFilterModal extends FilterEvent {
 }
 
 class CloseFilterModal extends FilterEvent {}
+
+class FilterSelectionChanged extends FilterEvent {
+  final FilterType filterType;
+  final List<int> selectedIds;
+
+  FilterSelectionChanged({required this.filterType, required this.selectedIds});
+}
+
+class ResetFilters extends FilterEvent {}

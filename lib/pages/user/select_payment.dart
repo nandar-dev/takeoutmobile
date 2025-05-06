@@ -13,6 +13,7 @@ import 'package:takeout/widgets/buttons/iconbutton_two_widget.dart';
 import 'package:takeout/widgets/buttons/outlinebutton_widget.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/cart/payment_summary.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class Selectpayment extends StatefulWidget {
@@ -139,7 +140,7 @@ class _SelectpaymentState extends State<Selectpayment> {
                   if (state is CartLoaded) {
                     return PaymentSummary(items: state.items, showTitle: false);
                   } else if (state is CartLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: LoadingIndicator());
                   } else if (state is CartError) {
                     return Center(child: Text(state.message));
                   }

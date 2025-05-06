@@ -4,6 +4,7 @@ import 'package:takeout/models/product_model.dart';
 import 'package:takeout/services/product_service.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/formfields/customtextfield_widget.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 
 class ProductsByShop extends StatefulWidget {
   final int merchantId;
@@ -70,7 +71,7 @@ class _ProductsByShopState extends State<ProductsByShop> {
       appBar: AppBarWidget(title: title),
       body:
           _isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(child: LoadingIndicator())
               : _error != null
               ? Center(child: Text('Error: $_error'))
               : Column(

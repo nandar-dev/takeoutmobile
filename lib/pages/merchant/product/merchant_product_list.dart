@@ -7,6 +7,7 @@ import 'package:takeout/data/models/product_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/product_card_2.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class MerchantProductList extends StatefulWidget {
@@ -43,7 +44,7 @@ class _MerchantProductListState extends State<MerchantProductList> {
             }
 
             return isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(child: LoadingIndicator())
                 : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

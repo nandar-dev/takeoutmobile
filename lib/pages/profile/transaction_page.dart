@@ -5,6 +5,7 @@ import 'package:takeout/models/transaction_model.dart';
 import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/transaction_card.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 
 class TransactionHistoryPage extends StatefulWidget {
   const TransactionHistoryPage({super.key});
@@ -88,7 +89,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
         ),
         body:
             _transactions.isEmpty && _isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(child: LoadingIndicator())
                 : ListView.builder(
                   controller: _scrollController,
                   itemCount: _transactions.length + (_isLoading ? 1 : 0),
@@ -98,7 +99,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                     } else {
                       return const Padding(
                         padding: EdgeInsets.all(16),
-                        child: Center(child: CircularProgressIndicator()),
+                        child: Center(child: LoadingIndicator()),
                       );
                     }
                   },

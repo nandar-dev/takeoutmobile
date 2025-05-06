@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:takeout/cubit/product/product_cubit.dart';
 import 'package:takeout/cubit/product/product_state.dart';
@@ -9,6 +10,7 @@ import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/widgets/appbar_widget.dart';
 import 'package:takeout/widgets/cards/product_card_2.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/product/product_filters.dart';
 
 class ProductList extends StatefulWidget {
@@ -27,9 +29,7 @@ class _ProductListState extends State<ProductList> {
   @override
   void initState() {
     super.initState();
-    context.read<ProductCubit>().loadProducts(
-      pageSize: _pageSize,
-    );
+    context.read<ProductCubit>().loadProducts(pageSize: _pageSize);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
@@ -63,7 +63,12 @@ class _ProductListState extends State<ProductList> {
       appBar: AppBarWidget(
         title: title,
         borderedBack: false,
-        onBackTap: () => Navigator.pushNamed(context, AppRoutes.appNavigation),
+        onBackTap:
+            () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.appNavigation,
+              (route) => false,
+            ),
       ),
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
@@ -135,7 +140,7 @@ class _ProductListState extends State<ProductList> {
                       (context, index) => const SizedBox(height: 10),
                   itemBuilder: (context, index) {
                     if (index >= products.length) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: LoadingIndicator());
                     }
                     final product = products[index];
                     return Padding(

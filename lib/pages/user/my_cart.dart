@@ -13,6 +13,7 @@ import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
 import 'package:takeout/widgets/cards/order_item_card.dart';
 import 'package:takeout/widgets/cart/empty_cart.dart';
 import 'package:takeout/widgets/cart/payment_summary.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class MyCart extends StatefulWidget {
@@ -58,7 +59,7 @@ class _MyCartState extends State<MyCart> {
         },
         builder: (context, state) {
           if (state is CartLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingIndicator());
           }
 
           if (state is CartLoaded) {

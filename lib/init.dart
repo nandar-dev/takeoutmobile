@@ -24,7 +24,7 @@ Future<Widget> initializeApp() async {
   await Hive.initFlutter();
 
   // await Hive.deleteBoxFromDisk('shoptypeBox');
-  // await Hive.deleteBoxFromDisk('categoryBox');
+  await Hive.deleteBoxFromDisk('categoryBox');
   // await Hive.deleteBoxFromDisk('user');
 
   Hive.registerAdapter(UserModelAdapter());

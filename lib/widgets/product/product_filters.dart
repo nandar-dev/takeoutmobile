@@ -27,14 +27,27 @@ class ProductFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<FilterBloc, FilterState>(
+      listenWhen: (previous, current) => current is FilterModalOpened,
       listener: (context, state) {
         if (state is FilterModalOpened) {
-          print('hereeeee');
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            showModalBottomSheet(
+            showModalBottomSheet<List<int>>(
               context: context,
-              builder: (_) => FilterModal(filterType: state.filterType),
-            ).whenComplete(() {
+              builder:
+                  (_) => FilterModal(
+                    filterType: state.filterType,
+                    initialSelectedIds:
+                        state.activeFilters[state.filterType]?.toList() ?? [],
+                  ),
+            ).then((selectedIds) {
+              if (selectedIds != null) {
+                context.read<FilterBloc>().add(
+                  FilterSelectionChanged(
+                    filterType: state.filterType,
+                    selectedIds: selectedIds,
+                  ),
+                );
+              }
               if (context.mounted) {
                 context.read<FilterBloc>().add(CloseFilterModal());
               }
@@ -42,45 +55,55 @@ class ProductFilters extends StatelessWidget {
           });
         }
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SortButton(
-            onTap: () {
-              context.read<FilterBloc>().add(
-                OpenFilterModal(FilterType.category),
-              );
-            },
-            iconHeight: 12,
-            iconWeight: 12,
-            icon: filterBtnIcon,
-            angleVal: 90 * (3.1416 / 180),
-          ),
-          const SizedBox(width: 5),
-          SortButton(
-            onTap: () {
-              context.read<FilterBloc>().add(OpenFilterModal(FilterType.sort));
-            },
-            label: sortBtnLabel,
-            icon: chevronDownIcon,
-          ),
-          const SizedBox(width: 5),
-          SortButton(
-            onTap: () {
-              context.read<FilterBloc>().add(OpenFilterModal(FilterType.offer));
-            },
-            label: offerBtnLabel,
-            icon: chevronDownIcon,
-          ),
-          const SizedBox(width: 5),
-          SortButton(
-            onTap: () {
-              context.read<FilterBloc>().add(OpenFilterModal(FilterType.shop));
-            },
-            label: shopBtnLabel,
-            icon: chevronDownIcon,
-          ),
-        ],
+      child: BlocBuilder<FilterBloc, FilterState>(
+        builder: (context, state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SortButton(
+                onTap: () {
+                  context.read<FilterBloc>().add(
+                    OpenFilterModal(FilterType.category),
+                  );
+                },
+                iconHeight: 12,
+                iconWeight: 12,
+                icon: filterBtnIcon,
+                angleVal: 90 * (3.1416 / 180),
+              ),
+              const SizedBox(width: 5),
+              SortButton(
+                onTap: () {
+                  context.read<FilterBloc>().add(
+                    OpenFilterModal(FilterType.sort),
+                  );
+                },
+                label: sortBtnLabel,
+                icon: chevronDownIcon,
+              ),
+              const SizedBox(width: 5),
+              SortButton(
+                onTap: () {
+                  context.read<FilterBloc>().add(
+                    OpenFilterModal(FilterType.offer),
+                  );
+                },
+                label: offerBtnLabel,
+                icon: chevronDownIcon,
+              ),
+              const SizedBox(width: 5),
+              SortButton(
+                onTap: () {
+                  context.read<FilterBloc>().add(
+                    OpenFilterModal(FilterType.shop),
+                  );
+                },
+                label: shopBtnLabel,
+                icon: chevronDownIcon,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

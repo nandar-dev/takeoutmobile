@@ -11,6 +11,7 @@ import 'package:takeout/widgets/cards/product_card.dart';
 import 'package:takeout/widgets/home/category_section.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
 import 'package:takeout/widgets/home/nearby_shops_section.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/toast_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -185,12 +186,7 @@ class _HomePageState extends State<HomePage> {
                 ? Column(
                   children: [
                     const SizedBox(height: 8),
-                    Container(
-                      width: 32,
-                      height: 32,
-                      padding: const EdgeInsets.all(6),
-                      child: const CircularProgressIndicator(strokeWidth: 2),
-                    ),
+                    const LoadingIndicator(),
                   ],
                 )
                 : const SizedBox(height: 40),

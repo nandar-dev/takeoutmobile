@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:takeout/bloc/product_filters/bloc.dart';
+import 'package:takeout/bloc/product_filters/event.dart';
 import 'package:takeout/cubit/category/category_cubit.dart';
 import 'package:takeout/cubit/category/category_state.dart';
 import 'package:takeout/cubit/product/product_cubit.dart';
@@ -19,22 +20,28 @@ import 'package:takeout/widgets/typography_widgets.dart';
 
 class FilterModal extends StatefulWidget {
   final FilterType filterType;
+  final List<int> initialSelectedIds;
 
-  const FilterModal({super.key, required this.filterType});
+  const FilterModal({
+    super.key,
+    required this.filterType,
+    required this.initialSelectedIds,
+  });
 
   @override
   State<FilterModal> createState() => _FilterModalState();
 }
 
 class _FilterModalState extends State<FilterModal> {
-  List<ShoptypeModel> shops = []; //changed to shoptypemodel
+  List<ShoptypeModel> shops = [];
   List<String> items = [];
   String title = "";
-  final Set<int> selectedItemIds = {};
+  late Set<int> selectedItemIds;
 
   @override
   void initState() {
     super.initState();
+    selectedItemIds = Set<int>.from(widget.initialSelectedIds);
     _initData();
   }
 
@@ -55,11 +62,11 @@ class _FilterModalState extends State<FilterModal> {
         }
         break;
       case FilterType.sort:
-        items = ['testing1', 'testing2'];
+        items = ['Price: Low to High', 'Price: High to Low', 'Popularity'];
         title = "Sort";
         break;
       case FilterType.offer:
-        items = ['testing1', 'testing2'];
+        items = ['Special Offers', 'Discounts', 'Bundle Deals'];
         title = "Offer";
         break;
     }
@@ -72,12 +79,30 @@ class _FilterModalState extends State<FilterModal> {
       } else {
         selectedItemIds.add(id);
       }
-      // context.read<ProductCubit>().loadProductsByCategory(
-      //   pageSize: 10,
-      //   categoryId: "34,35",
-      // );
-      print(selectedItemIds);
     });
+  }
+
+  void _applyFilters() {
+    context.read<FilterBloc>().add(
+      FilterSelectionChanged(
+        filterType: widget.filterType,
+        selectedIds: selectedItemIds.toList(),
+      ),
+    );
+
+    if (widget.filterType == FilterType.category) {
+      final categoryIds = selectedItemIds.join(',');
+      if (categoryIds.isNotEmpty) {
+        context.read<ProductCubit>().loadProductsByCategory(
+          pageSize: 10,
+          categoryId: categoryIds,
+        );
+      } else {
+        context.read<ProductCubit>().loadProducts(pageSize: 10);
+      }
+    }
+
+    Navigator.pop(context);
   }
 
   @override
@@ -100,15 +125,15 @@ class _FilterModalState extends State<FilterModal> {
         ),
       ],
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
-        ),
         padding: const EdgeInsets.only(
           left: 18,
           right: 18,
           top: 12,
           bottom: 18,
+        ),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -154,7 +179,7 @@ class _FilterModalState extends State<FilterModal> {
               FilterChecksList<String>(
                 data: items,
                 selectedItemIds: selectedItemIds,
-                idGetter: (item) => item.hashCode,
+                idGetter: (item) => items.indexOf(item),
                 labelGetter: (item) => item,
                 onToggle: toggleSelection,
               ),
@@ -169,6 +194,7 @@ class _FilterModalState extends State<FilterModal> {
                       setState(() {
                         selectedItemIds.clear();
                       });
+                      _applyFilters();
                     },
                     borderColor: AppColors.neutral40,
                     borderRadius: 10,
@@ -179,9 +205,7 @@ class _FilterModalState extends State<FilterModal> {
                 Expanded(
                   child: CustomPrimaryButton(
                     text: "Apply",
-                    onPressed: () {
-                      Navigator.pop(context, selectedItemIds.toList());
-                    },
+                    onPressed: _applyFilters,
                     borderRadius: 10,
                     fontSize: FontSizes.md,
                   ),

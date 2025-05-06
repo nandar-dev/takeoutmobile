@@ -33,7 +33,7 @@ class CategoryModel extends HiveObject {
 
   @HiveField(6)
   @JsonKey(name: 'is_available')
-  final int isAvailable;
+  final int? isAvailable;
 
   @HiveField(7)
   @JsonKey(name: 'image')
@@ -41,7 +41,7 @@ class CategoryModel extends HiveObject {
 
   @HiveField(8)
   @JsonKey(name: 'shop_type_id')
-  final String shopTypeId;
+  final int? shopTypeId;
 
   @HiveField(9)
   @JsonKey(name: 'created_at')
@@ -53,7 +53,7 @@ class CategoryModel extends HiveObject {
 
   @HiveField(11)
   @JsonKey(name: 'sorting_order')
-  final int sortingOrder;
+  final int? sortingOrder;
 
   CategoryModel({
     int? id,
@@ -64,7 +64,7 @@ class CategoryModel extends HiveObject {
     String? cnDescription,
     int? isAvailable,
     String? image,
-    String? shopTypeId,
+    int? shopTypeId,
     String? createdAt,
     String? updatedAt,
     int? sortingOrder,
@@ -74,12 +74,12 @@ class CategoryModel extends HiveObject {
        mmDescription = mmDescription ?? '',
        thDescription = thDescription ?? '',
        cnDescription = cnDescription ?? '',
-       isAvailable = isAvailable ?? 0,
+       isAvailable = isAvailable,
        image = image ?? '',
-       shopTypeId = shopTypeId ?? '',
+       shopTypeId = shopTypeId,
        createdAt = createdAt ?? '',
        updatedAt = updatedAt ?? '',
-       sortingOrder = sortingOrder ?? 0;
+       sortingOrder = sortingOrder;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     try {
@@ -92,7 +92,7 @@ class CategoryModel extends HiveObject {
         cnDescription: json['cn_description'] as String?,
         isAvailable: json['is_available'] as int?,
         image: json['image'] as String?,
-        shopTypeId: json['shop_type_id'] as String?,
+        shopTypeId: json['shop_type_id'] as int?,
         createdAt: json['created_at'] as String?,
         updatedAt: json['updated_at'] as String?,
         sortingOrder: json['sorting_order'] as int?,
@@ -112,7 +112,6 @@ class CategoryModel extends HiveObject {
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 
   // Helper methods
-  bool get isActive => isAvailable == 1;
   String get displayDescription =>
       enDescription.isNotEmpty
           ? enDescription

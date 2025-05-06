@@ -18,6 +18,15 @@ class CategoriesList extends StatefulWidget {
 
 class _CategoriesListState extends State<CategoriesList> {
   @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<CategoryCubit>();
+    if (cubit.state is! CategoryLoaded) {
+      cubit.loadCategories();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final title = "title.category".tr();
 

@@ -9,6 +9,7 @@ import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/cards/product_card.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class AvailableProductsCard extends StatelessWidget {
@@ -68,7 +69,7 @@ class AvailableProductsCard extends StatelessWidget {
             BlocBuilder<ProductCubit, ProductState>(
               builder: (context, state) {
                 if (state is ProductLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: LoadingIndicator());
                 }
 
                 final products = _getProducts(state);

@@ -5,6 +5,7 @@ import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/services/product_service.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class RelatedProducts extends StatefulWidget {
@@ -86,7 +87,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
           child: Row(
             children:
                 isLoading
-                    ? [const CircularProgressIndicator()]
+                    ? [const LoadingIndicator()]
                     : relatedProducts.map((product) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),

@@ -8,6 +8,7 @@ import 'package:takeout/utils/check_shop_status.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/custom_text_button.dart';
 import 'package:takeout/widgets/cards/shop_card.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class MerchantShopsCard extends StatefulWidget {
@@ -75,7 +76,7 @@ class _MerchantShopsCardState extends State<MerchantShopsCard> {
 
             // Shops list
             isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(child: LoadingIndicator())
                 : shops.isEmpty
                 ? Padding(
                   padding: const EdgeInsets.all(20),

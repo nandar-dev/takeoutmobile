@@ -9,6 +9,7 @@ import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/iconbutton_two_widget.dart';
 import 'package:takeout/widgets/cards/shop_card.dart';
 import 'package:takeout/widgets/home/hero_section.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class MerchantShopList extends StatefulWidget {
@@ -74,7 +75,7 @@ class _MerchantShopListState extends State<MerchantShopList> {
                       future: _shopsFuture,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(child: LoadingIndicator());
                         } else if (snapshot.hasError) {
                           return Center(child: Text("${'error.loading_shops'.tr()}: ${snapshot.error}"));
                         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

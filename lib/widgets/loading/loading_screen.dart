@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:takeout/theme/app_colors.dart';
+import 'package:takeout/widgets/loading/loading_indicator.dart';
 import 'loading_screen_controller.dart';
 
 class LoadingScreen {
@@ -48,7 +49,7 @@ class LoadingScreen {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(height: 10),
-                    const CircularProgressIndicator(),
+                    const LoadingIndicator(),
                     const SizedBox(height: 10),
                     StreamBuilder(
                       stream: textController.stream,
