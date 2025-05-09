@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:takeout/data/models/test_order_model.dart';
+import 'package:takeout/pages/routing/routes.dart';
 import 'package:takeout/theme/app_colors.dart';
 import 'package:takeout/utils/font_sizes.dart';
 import 'package:takeout/widgets/buttons/custom_badge.dart';
 import 'package:takeout/widgets/buttons/primarybutton_widget.dart';
+import 'package:takeout/widgets/expanded_section.dart';
 import 'package:takeout/widgets/typography_widgets.dart';
 
 class OrderCard extends StatelessWidget {
@@ -28,24 +30,37 @@ class OrderCard extends StatelessWidget {
 
     return Card(
       elevation: 0.5,
-      color: AppColors.background,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      child: Padding(
+      color: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.background,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: AppColors.neutral30,
+            width: 1,
+          ),
+        ),
         padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
+            // Header (with wrapped order number and status badge)
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Flexible column to wrap long text
                 Expanded(
-                  child: SubText(
-                    text: "Order Number ${order.orderNo}",
-                    overflow: TextOverflow.ellipsis,
-                    color: AppColors.neutral80,
-                    fontSize: FontSizes.body,
+                  child: Text(
+                    "Order Number ${order.orderNo}",
+                    softWrap: true,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: AppColors.neutral80,
+                      fontSize: FontSizes.body
+                    ),
                   ),
                 ),
+                const SizedBox(width: 8),
                 CustomBadge(
                   label: "status.${order.status}".tr(),
                   color: _statusColor(order.status),
@@ -118,7 +133,12 @@ class OrderCard extends StatelessWidget {
               child: CustomPrimaryButton(
                 borderRadius: 8,
                 text: btnLabel1,
-                onPressed: () {},
+                onPressed:
+                    () => Navigator.pushNamed(
+                      context,
+                      AppRoutes.orderDetail,
+                      arguments: {'orderId': order.id},
+                    ),
                 backgroundColor: AppColors.neutral20,
                 textColor: AppColors.neutral60,
               ),
@@ -137,7 +157,7 @@ class OrderCard extends StatelessWidget {
   Color _statusColor(String status) {
     switch (status.toLowerCase()) {
       case "confirmed":
-        return AppColors.success;
+        return AppColors.primaryDark;
       case "completed":
         return Colors.blueAccent;
       case "pending":
@@ -279,62 +299,6 @@ class _OrderItemListState extends State<OrderItemList> {
           fontWeight: FontWeight.bold,
         ),
       ],
-    );
-  }
-}
-
-class ExpandedSection extends StatefulWidget {
-  final Widget child;
-  final bool expand;
-
-  const ExpandedSection({super.key, required this.expand, required this.child});
-
-  @override
-  State<ExpandedSection> createState() => _ExpandedSectionState();
-}
-
-class _ExpandedSectionState extends State<ExpandedSection>
-    with SingleTickerProviderStateMixin {
-  late AnimationController expandController;
-  late Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-    expandController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    animation = CurvedAnimation(parent: expandController, curve: Curves.linear);
-    _runExpandCheck();
-  }
-
-  void _runExpandCheck() {
-    if (widget.expand) {
-      expandController.forward();
-    } else {
-      expandController.reverse();
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant ExpandedSection oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _runExpandCheck();
-  }
-
-  @override
-  void dispose() {
-    expandController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizeTransition(
-      axisAlignment: 1.0,
-      sizeFactor: animation,
-      child: widget.child,
     );
   }
 }

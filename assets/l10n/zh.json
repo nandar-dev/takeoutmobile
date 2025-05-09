@@ -52,6 +52,7 @@
     "my_orders": "我的订单"
   },
   "button": {
+    "cancel_order": "取消订单",
     "see_all": "查看全部",
     "add_cart": "加入购物车",
     "change_location": "更改位置",
@@ -138,7 +139,11 @@
     "confirmed": "已确认",
     "shipped": "已发货",
     "cancelled": "已取消",
-    "rejected": "已拒绝"
+    "rejected": "已拒绝",
+    "preparing": "准备中",
+    "deli_prep": "配送准备中",
+    "onway": "运送中",
+    "delivered": "已送达"
   },
   "home": {
     "location_label": "您的位置",
@@ -271,5 +276,38 @@
   "merchant_shop": {
     "shop_list_des": "完善商家资料",
     "shop_info": "店铺信息"
+  },
+  "order": {
+    "pending_des": "您的订单已收到，正在处理中。",
+    "confirmed_des": "您的订单已确认，正在准备中。",
+    "completed_des": "您的订单已成功送达。",
+    "cancelled_des_zh": "您的订单已被取消。",
+    "delivered": "已成功送达",
+    "thank": "谢谢！",
+    "deli_status": "配送状态",
+    "deli_info": "配送信息",
+    "prep_order": "准备订单",
+    "prep_des": "商家正在准备您的订单。",
+    "date": "日期",
+    "time": "时间",
+    "items": "商品",
+    "item": "商品",
+    "voucher": "优惠券",
+    "summary": "订单摘要",
+    "sub_total": "小计",
+    "dis": "折扣",
+    "driver": "司机",
+    "order_items": "订单商品",
+    "timeline": "订单时间线",
+    "no_deli_title": "无配送信息",
+    "no_deli_des": "已取消的订单无配送信息。",
+    "title_1": "订单已下单",
+    "des_1": "您的订单已收到，正在处理中。",
+    "title_2": "订单已确认",
+    "des_2": "您的订单已确认，正在准备中。",
+    "title_3": "订单已发货",
+    "des_3": "您的订单正在运输中。",
+    "title_4": "订单已完成",
+    "des_4": "您的订单已成功送达。"
   }
 }

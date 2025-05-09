@@ -51,6 +51,7 @@
         "my_orders": "My Orders"
     },
     "button": {
+        "cancel_order": "Cancel Order",
         "see_all": "See all",
         "add_cart": "Add to cart",
         "change_location": "Change Location",
@@ -137,7 +138,11 @@
         "confirmed": "Confirmed",
         "shipped": "Shipped",
         "cancelled": "Cancelled",
-        "rejected": "Rejected"
+        "rejected": "Rejected",
+        "preparing": "Preparing",
+        "deli_prep": "Delivery Prep",
+        "onway": "On the Way",
+        "delivered": "Delivered"
     },
     "home": {
         "location_label": "Your Location",
@@ -261,5 +266,38 @@
         "percent_val": "Percentage Value",
         "s_date": "Start Date",
         "e_date": "End Date"
+    },
+    "order": {
+        "pending_des": "Your order has been received and is being processed.",
+        "confirmed_des": "Your order has been confirmed and is being prepared.",
+        "completed_des": "Your order has been delivered successfully.",
+        "delivered": "Delivered successfully",
+        "thank": "Thank you!",
+        "cancelled_des": "Your order has been cancelled.",
+        "deli_status": "Delivery Status",
+        "deli_info": "Delivery Information",
+        "prep_order": "Preparing Order",
+        "prep_des": "Your order is being prepared by the merchant.",
+        "date": "Date",
+        "time": "Time",
+        "items": "Items",
+        "item": "Item",
+        "voucher": "Voucher",
+        "summary": "Order Summary",
+        "sub_total": "Subtotal",
+        "dis": "Discount",
+        "driver": "Driver",
+        "order_items": "Order Items",
+        "timeline": "Order Timeline",
+        "no_deli_title": "No delivery information available",
+        "no_deli_des": "Delivery information is not available for cancelled orders.",
+        "title_1": "Order Placed",
+        "des_1": "Your order has been received and is being processed.",
+        "title_2": "Order Confirmed",
+        "des_2": "Your order has been confirmed and is being prepared.",
+        "title_3": "Order Shipped",
+        "des_3": "Your order is on the way.",
+        "title_4": "Order Completed",
+        "des_4": "Your order has been delivered successfully."
     }
 }

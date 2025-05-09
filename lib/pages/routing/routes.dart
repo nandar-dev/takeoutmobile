@@ -14,7 +14,8 @@ import 'package:takeout/pages/merchant/merchant_withdrawl.dart';
 import 'package:takeout/pages/user/categories_list.dart';
 import 'package:takeout/pages/user/home_page.dart';
 import 'package:takeout/pages/landing/landing_page.dart';
-import 'package:takeout/pages/user/orders_list.dart';
+import 'package:takeout/pages/user/order/order_detail.dart';
+import 'package:takeout/pages/user/order/orders_list.dart';
 import 'package:takeout/pages/user/product/products_by_shop.dart';
 import 'package:takeout/pages/user/select_payment.dart';
 import 'package:takeout/pages/user/product/product_detail.dart';
@@ -39,6 +40,7 @@ class AppRoutes {
   static const String productsListByMerchant = '/products-by-merchant';
   static const String product = '/product';
   static const String ordersList = '/orders-list';
+  static const String orderDetail = '/order-detail';
   static const String appNavigation = '/navigation';
   static const String personaldata = '/personaldata';
   static const String settingspage = '/settings';
@@ -78,6 +80,10 @@ class AppRoutes {
         return _buildRoute(const CategoriesList());
       case ordersList:
         return _buildRoute(const OrdersList());
+      case orderDetail:
+        final args = settings.arguments as Map<String, dynamic>;
+        final orderId = args['orderId'];
+        return _buildRoute(OrderDetail(orderId: orderId));
       case merchantWithdrawlHistory:
         return _buildRoute(const MerchantWithdrawl());
       case addShop:

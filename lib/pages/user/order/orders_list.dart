@@ -107,7 +107,7 @@ class _OrdersListState extends State<OrdersList> {
                 : Expanded(
                   child: ListView.separated(
                     itemCount: _orders.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 12),
+                    separatorBuilder: (_, __) => const SizedBox(height: 14),
                     itemBuilder: (context, index) {
                       return OrderCard(order: _orders[index]);
                     },
